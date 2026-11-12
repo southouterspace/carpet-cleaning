@@ -1,5 +1,16 @@
 ---
 /** What changes a carpet cleaning price, so the quote request has what's needed. */
+import type { SiteConfig } from "@carpet/seo"
+import SitePhoto from "@carpet/ui/SitePhoto.astro"
+import { showPhoto, type PhotoSlot } from "@carpet/ui/photo"
+
+interface Props {
+  site: SiteConfig
+  /** Photo beside the intro on wide screens. */
+  photo?: PhotoSlot
+}
+const { site, photo } = Astro.props
+const hasPhoto = showPhoto(site, photo)
 const factors = [
   { h: "Number of rooms", p: "Most quotes start with a room count. Large open living areas may count as two rooms." },
   { h: "Stairs", p: "Staircases are cleaned by hand, step by step, so they're usually priced on their own." },
@@ -10,8 +21,13 @@ const factors = [
 
 <section class="section" aria-labelledby="price-h">
   <div class="wrap">
-    <h2 id="price-h">What affects the price</h2>
-    <p class="muted">There's no one-size price for carpet cleaning in Conroe. These four things decide it, and the quote form asks about each one so the price you get is the price you pay.</p>
+    <div class:list={{ "pf-intro": hasPhoto }}>
+      <div>
+        <h2 id="price-h">What affects the price</h2>
+        <p class="muted">There's no one-size price for carpet cleaning in Conroe. These four things decide it, and the quote form asks about each one so the price you get is the price you pay.</p>
+      </div>
+      {hasPhoto && <SitePhoto site={site} photo={photo} sizes="(min-width: 52rem) 28rem, 100vw" />}
+    </div>
     <dl class="pf">
       {factors.map((f) => (
         <div>
@@ -27,4 +43,6 @@ const factors = [
   .pf { display: grid; gap: 1rem 2rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); margin: 1.5rem 0 0; }
   .pf dt { font-weight: 700; margin-bottom: .25rem; }
   .pf dd { margin: 0; color: var(--ink-soft); }
+  .pf-intro { display: grid; gap: 1.5rem; align-items: center; }
+  @media (min-width: 52rem) { .pf-intro { grid-template-columns: 1fr 28rem; } }
 </style>

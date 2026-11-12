@@ -19,6 +19,11 @@ export const FLAG_DEFAULTS = {
   phoneCalls: false,
   /** Photo picker on the quote form. Needs the lead Worker's PHOTOS bucket. */
   photoUpload: false,
+  /**
+   * Sized placeholder boxes where planned photos will go. For previews only;
+   * slots with a real image render regardless of this flag.
+   */
+  photoPlaceholders: false,
 } satisfies Record<string, boolean>
 
 export type Flags = { [K in keyof typeof FLAG_DEFAULTS]: boolean }

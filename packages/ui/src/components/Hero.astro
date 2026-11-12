@@ -10,26 +10,30 @@ interface Props {
 }
 const { site, heading, lead, points = [] } = Astro.props
 const phone = callNumber(site)
+const media = Astro.slots.has("media")
 ---
 
 <section class="hero">
-  <div class="wrap">
-    <h1>{heading}</h1>
-    <p class="hero__lead">{lead}</p>
-    {site.priceFrom && (
-      <p class="hero__price">From <strong>${site.priceFrom.amount}</strong> for {site.priceFrom.unit}</p>
-    )}
-    <div class="hero__cta">
-      {site.flags.quoteForm && (
-        <a class={phone ? "btn btn--ghost" : "btn"} href="#quote">Get a free quote</a>
+  <div class:list={["wrap", { hero__in: media }]}>
+    <div>
+      <h1>{heading}</h1>
+      <p class="hero__lead">{lead}</p>
+      {site.priceFrom && (
+        <p class="hero__price">From <strong>${site.priceFrom.amount}</strong> for {site.priceFrom.unit}</p>
       )}
-      {phone && <a class="btn" href={`tel:${phone}`}>Call {formatPhone(phone)}</a>}
+      <div class="hero__cta">
+        {site.flags.quoteForm && (
+          <a class={phone ? "btn btn--ghost" : "btn"} href="#quote">Get a free quote</a>
+        )}
+        {phone && <a class="btn" href={`tel:${phone}`}>Call {formatPhone(phone)}</a>}
+      </div>
+      {points.length > 0 && (
+        <ul class="hero__points">
+          {points.map((p) => <li>{p}</li>)}
+        </ul>
+      )}
     </div>
-    {points.length > 0 && (
-      <ul class="hero__points">
-        {points.map((p) => <li>{p}</li>)}
-      </ul>
-    )}
+    {media && <div class="hero__media"><slot name="media" /></div>}
   </div>
 </section>
 
@@ -40,4 +44,6 @@ const phone = callNumber(site)
   .hero__cta { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1.25rem 0; }
   .hero__points { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; }
   .hero__points li::before { content: "✓ "; color: var(--accent-dark); font-weight: 700; }
+  .hero__in { display: grid; gap: 2rem; align-items: center; }
+  @media (min-width: 52rem) { .hero__in { grid-template-columns: 1.1fr 1fr; } }
 </style>

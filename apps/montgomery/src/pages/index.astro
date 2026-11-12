@@ -7,7 +7,9 @@ import Page from "../components/Page.astro"
 import Hero from "../components/Hero.astro"
 import LakeHomes from "../components/LakeHomes.astro"
 import Areas from "../components/Areas.astro"
+import SitePhoto from "@carpet/ui/SitePhoto.astro"
 import { site } from "../site.config"
+import { photos } from "../photos"
 
 const title = `Carpet Cleaning Montgomery TX | ${site.name}`
 const description = `Carpet cleaning in Montgomery, TX for homes, Lake Conroe weekend houses and rentals. Carpet, couch, pet odor, rug and tile. Request a free quote.`
@@ -25,10 +27,17 @@ const jsonld = graph(
     heading="Carpet cleaning in Montgomery, TX"
     lead="For homes in town and on the west side of Lake Conroe, including weekend houses and rentals. Send a few details and get a price before anyone comes out."
     points={["Free quotes", "Rental turnovers", "Pet odor treatment"]}
+    photo={photos.hero}
   />
   <QuoteForm site={site} />
-  <Services site={site} heading="Services in Montgomery" />
-  <LakeHomes />
-  <Areas site={site} />
+  <Services site={site} heading="Services in Montgomery">
+    <SitePhoto site={site} photo={photos.services} class="svc-grit" sizes="(min-width: 48rem) 16rem, 60vw" />
+  </Services>
+  <LakeHomes site={site} photo={photos.lake} />
+  <Areas site={site} photo={photos.areas} />
   <Faq faqs={site.faqs} heading="Common questions" />
 </Page>
+
+<style>
+  :global(.svc-grit) { max-width: 16rem; margin: 0 0 1.5rem; }
+</style>

@@ -8,7 +8,10 @@ import Faq from "@carpet/ui/Faq.astro"
 import QuoteForm from "@carpet/ui/QuoteForm.astro"
 import LocalHomes from "../components/LocalHomes.astro"
 import PriceFactors from "../components/PriceFactors.astro"
+import SitePhoto from "@carpet/ui/SitePhoto.astro"
+import { showPhoto } from "@carpet/ui/photo"
 import { site } from "../site.config"
+import { photos } from "../photos"
 
 const title = `Carpet Cleaning Conroe TX | ${site.name}`
 const description = `Carpet cleaning in Conroe, TX for new builds, older homes and Lake Conroe houses: carpet, pet odor, couch, rug and tile. Get a free, exact quote.`
@@ -26,10 +29,14 @@ const jsonld = graph(
     heading="Carpet cleaning in Conroe, TX"
     lead="Carpet, upholstery, rug and tile cleaning for Conroe homes and rentals. Tell us about the job and get a price before any work starts."
     points={["Free quotes", "Pet odor treatment", "Move-out cleaning"]}
-  />
+  >
+    {showPhoto(site, photos.hero) && (
+      <SitePhoto slot="media" site={site} photo={photos.hero} priority sizes="(min-width: 52rem) 31rem, 100vw" />
+    )}
+  </Hero>
   <Services site={site} heading="Cleaning services in Conroe" />
-  <LocalHomes />
-  <PriceFactors />
+  <LocalHomes site={site} photos={[photos.newBuilds, photos.established, photos.lake]} />
+  <PriceFactors site={site} photo={photos.price} />
   <QuoteForm site={site} />
   <Areas site={site} />
   <Faq faqs={site.faqs} />
