@@ -1,0 +1,31 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  // Shared lead intake for every city site. Sites reach it through a service
+  // binding (no public route), so it has no URL of its own.
+  "name": "carpet-cleaning-leads",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-11-01",
+  "workers_dev": false,
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "carpet-cleaning-leads",
+      "database_id": "ed1d8047-dc7f-48ef-8de2-cda7a8b31276",
+      "migrations_dir": "migrations"
+    }
+  ],
+  // Customer photos from the quote form (photoUpload flag). A lifecycle rule
+  // deletes them after 180 days.
+  "r2_buckets": [{ "binding": "PHOTOS", "bucket_name": "carpet-cleaning-lead-photos" }],
+  // Cloudflare Email Service. The from domain must be onboarded:
+  // wrangler email sending enable <domain>
+  "send_email": [{ "name": "EMAIL" }],
+  "vars": {
+    // Mailbox name. Mail goes out as quotes@<site domain>, so each site's
+    // domain must be onboarded to Email Sending. Empty turns email off.
+    "NOTIFY_FROM": "quotes"
+  },
+  // Secrets: wrangler secret put TURNSTILE_SECRET, wrangler secret put
+  // OWNER_EMAIL (your own copy of every lead, kept out of the repo).
+  "observability": { "enabled": true }
+}

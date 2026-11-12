@@ -1,0 +1,43 @@
+---
+import { callNumber, formatPhone, type SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+  heading: string
+  lead: string
+  /** Short facts shown as a checklist under the buttons. Keep them true. */
+  points?: string[]
+}
+const { site, heading, lead, points = [] } = Astro.props
+const phone = callNumber(site)
+---
+
+<section class="hero">
+  <div class="wrap">
+    <h1>{heading}</h1>
+    <p class="hero__lead">{lead}</p>
+    {site.priceFrom && (
+      <p class="hero__price">From <strong>${site.priceFrom.amount}</strong> for {site.priceFrom.unit}</p>
+    )}
+    <div class="hero__cta">
+      {site.flags.quoteForm && (
+        <a class={phone ? "btn btn--ghost" : "btn"} href="#quote">Get a free quote</a>
+      )}
+      {phone && <a class="btn" href={`tel:${phone}`}>Call {formatPhone(phone)}</a>}
+    </div>
+    {points.length > 0 && (
+      <ul class="hero__points">
+        {points.map((p) => <li>{p}</li>)}
+      </ul>
+    )}
+  </div>
+</section>
+
+<style>
+  .hero { padding: 3rem 0 2.5rem; background: linear-gradient(180deg, var(--bg-soft), #fff); }
+  .hero__lead { font-size: 1.15rem; color: var(--ink-soft); max-width: 40rem; }
+  .hero__price { font-size: 1.1rem; }
+  .hero__cta { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1.25rem 0; }
+  .hero__points { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; }
+  .hero__points li::before { content: "✓ "; color: var(--accent-dark); font-weight: 700; }
+</style>
