@@ -49,10 +49,14 @@ const clean = (v: FormDataEntryValue | null, max: number): string | null => {
   return s.length ? s : null
 }
 
-/** Normalizes a US phone number to E.164, or returns null when it isn't 10 digits. */
+/**
+ * Normalizes a US phone number to E.164, or returns null when it isn't a real
+ * 10-digit North American number (area code and exchange can't start with 0 or 1).
+ */
 export function normalizePhone(raw: string): string | null {
+  if (/[a-z]/i.test(raw)) return null
   const digits = raw.replace(/\D/g, "").replace(/^1(?=\d{10}$)/, "")
-  return digits.length === 10 ? `+1${digits}` : null
+  return /^[2-9]\d{2}[2-9]\d{6}$/.test(digits) ? `+1${digits}` : null
 }
 
 export function parseLead(form: FormData): ParseResult {
