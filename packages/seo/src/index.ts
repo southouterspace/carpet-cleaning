@@ -8,6 +8,7 @@ export {
   website,
 } from "./jsonld"
 export { buildLlmsTxt, buildRobotsTxt } from "./llms"
+export { FLAG_DEFAULTS, flagEnvName, resolveFlags, type FlagName, type Flags } from "./flags"
 
 /** Formats "+19365550100" as "(936) 555-0100" for display. */
 export function formatPhone(e164: string): string {

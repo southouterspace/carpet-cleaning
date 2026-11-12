@@ -12,6 +12,7 @@
       "name": "@carpet/conroe",
       "dependencies": {
         "@astrojs/sitemap": "^3.7.4",
+        "@carpet/leads": "workspace:*",
         "@carpet/seo": "workspace:*",
         "@carpet/ui": "workspace:*",
         "astro": "^7.4.11",

@@ -20,7 +20,7 @@ const { site, heading, lead, points = [] } = Astro.props
     )}
     <div class="hero__cta">
       <a class="btn" href={`tel:${site.phone}`}>Call {formatPhone(site.phone)}</a>
-      <a class="btn btn--ghost" href="#quote">Get a free quote</a>
+      {site.flags.quoteForm && <a class="btn btn--ghost" href="#quote">Get a free quote</a>}
     </div>
     {points.length > 0 && (
       <ul class="hero__points">

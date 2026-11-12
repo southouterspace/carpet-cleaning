@@ -8,3 +8,4 @@ Monorepo of rank-and-rent carpet cleaning city sites. Read README.md first.
 - Site content lives in `apps/<site>/src/site.config.ts`. Shared markup goes in `packages/ui`, structured data and llms.txt logic in `packages/seo`.
 - Never invent reviews, ratings, addresses, licenses or prices on a site. Those come from a signed renter.
 - Sites must not look or read like copies of each other; vary copy, theme and layout per site.
+- Trunk-based development: keep branches under a day, merge to `main` when CI is green, and put unfinished work behind a flag that is off by default (docs/flags.md). Remove flags once they are on everywhere.

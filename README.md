@@ -52,6 +52,10 @@ These keep every page at 100 in Lighthouse and pass Core Web Vitals:
 - No third-party tags (analytics, chat widgets, pixels) without measuring them first. Use Cloudflare Web Analytics if needed.
 - CI runs Lighthouse CI against the built site on every PR.
 
+## How we work
+
+Trunk-based: small branches merge to `main` fast, `main` deploys, and unfinished work ships dark behind feature flags. See [docs/flags.md](docs/flags.md).
+
 ## Adding a site
 
 See [docs/new-site.md](docs/new-site.md).
@@ -62,4 +66,6 @@ See [docs/new-site.md](docs/new-site.md).
 2. `cd apps/leads && bun run db:migrate`
 3. Onboard a sending domain: `bunx wrangler email sending enable <domain>`, then set `NOTIFY_FROM` and `OWNER_EMAIL` in `apps/leads/wrangler.jsonc`.
 4. Create a Turnstile widget for the site's domain. Put the site key in `site.config.ts` and run `bunx wrangler secret put TURNSTILE_SECRET` in `apps/leads`.
-5. `cd apps/leads && bun run deploy`, then `cd apps/conroe && bun run deploy`. The site attaches to its domain as a Workers custom domain, so the domain must be a zone in the same Cloudflare account.
+5. `bun run deploy` deploys the lead Worker, then every site. The site attaches to its domain as a Workers custom domain, so the domain must be a zone in the same Cloudflare account.
+
+After the first manual deploy works, set the repository variable `DEPLOY_ENABLED=true` and the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets so every push to `main` deploys.

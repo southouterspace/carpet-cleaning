@@ -1,9 +1,15 @@
 name: CI
 
+# Trunk-based: short-lived branches merge to main fast, and main deploys.
+# Unfinished work ships dark behind a flag (see docs/flags.md).
 on:
   pull_request:
   push:
     branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
   check:
@@ -19,3 +25,22 @@ jobs:
       - run: bun run build
       # Every site must keep 100 in Performance, Accessibility, Best Practices and SEO.
       - run: bun run lighthouse
+
+  deploy:
+    # Turn on by setting the repository variable DEPLOY_ENABLED=true and the
+    # CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID secrets.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.DEPLOY_ENABLED == 'true'
+    needs: check
+    runs-on: ubuntu-latest
+    concurrency: deploy-production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.4
+      - run: bun install --frozen-lockfile
+      # Turbo deploys the lead Worker before the sites that bind to it.
+      - run: bun run deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

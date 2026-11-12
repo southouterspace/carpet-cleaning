@@ -57,6 +57,6 @@ const themeCss = `:root{--accent:${site.theme.accent};--accent-dark:${site.theme
       <slot />
     </main>
     <Footer site={site} />
-    <CallBar site={site} />
+    {site.flags.mobileCallBar && <CallBar site={site} />}
   </body>
 </html>

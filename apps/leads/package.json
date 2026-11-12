@@ -6,7 +6,7 @@
     "dev": "wrangler dev",
     "check": "tsc --noEmit",
     "test": "bun test",
-    "deploy": "wrangler deploy",
+    "deploy": "wrangler d1 migrations apply carpet-leads --remote && wrangler deploy",
     "db:migrate": "wrangler d1 migrations apply carpet-leads --remote"
   },
   "devDependencies": {

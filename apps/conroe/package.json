@@ -7,14 +7,15 @@
     "build": "astro build",
     "check": "astro check && tsc --noEmit -p tsconfig.worker.json",
     "preview": "wrangler dev",
-    "deploy": "astro build && wrangler deploy",
+    "deploy": "wrangler deploy",
     "lighthouse": "lhci autorun"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
     "astro": "^7.4.11",
     "@carpet/seo": "workspace:*",
-    "@carpet/ui": "workspace:*"
+    "@carpet/ui": "workspace:*",
+    "@carpet/leads": "workspace:*"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",

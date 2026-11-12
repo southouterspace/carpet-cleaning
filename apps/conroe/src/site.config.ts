@@ -1,4 +1,4 @@
-import type { SiteConfig } from "@carpet/seo"
+import { resolveFlags, type SiteConfig } from "@carpet/seo"
 
 /**
  * Conroe city site. Everything on the site comes from this file.
@@ -27,6 +27,8 @@ export const site: SiteConfig = {
   hours: [],
   leadEndpoint: "/api/lead",
   turnstileSiteKey: "",
+  // Per-site flag overrides go in the first argument; FLAG_* env vars win at build time.
+  flags: resolveFlags({}, process.env),
   theme: { accent: "#0a6672", accentDark: "#064a53" },
   services: [
     {

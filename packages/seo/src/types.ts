@@ -1,3 +1,5 @@
+import type { Flags } from "./flags"
+
 /**
  * Everything a city site knows about itself. Each app has one `site.config.ts`
  * that exports a `SiteConfig`; pages, components, JSON-LD and llms.txt all
@@ -43,6 +45,8 @@ export interface SiteConfig {
     /** The renter's own Google Business Profile URL, for sameAs. */
     profiles?: string[]
   }
+  /** Resolved feature flags. Build with `resolveFlags()` in site.config.ts. */
+  flags: Flags
   theme: {
     /** CSS color for buttons and accents. Must pass 4.5:1 contrast on white. */
     accent: string
