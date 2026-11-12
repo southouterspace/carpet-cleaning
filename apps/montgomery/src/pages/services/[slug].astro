@@ -6,7 +6,9 @@ import Hero from "../../components/Hero.astro"
 import Services from "@carpet/ui/Services.astro"
 import Faq from "@carpet/ui/Faq.astro"
 import QuoteForm from "@carpet/ui/QuoteForm.astro"
+import SitePhoto from "@carpet/ui/SitePhoto.astro"
 import { site } from "../../site.config"
+import { servicePhotos } from "../../photos"
 
 export const getStaticPaths = (() =>
   site.services.map((s) => ({ params: { slug: s.slug }, props: { s } }))) satisfies GetStaticPaths
@@ -30,6 +32,7 @@ const jsonld = graph(
   <section class="section">
     <div class="wrap prose">
       <h2>About {s.name.toLowerCase()}</h2>
+      <SitePhoto site={site} photo={servicePhotos[s.slug]} class="svc-photo" sizes="(min-width: 46rem) 44rem, 100vw" />
       {s.body.map((p) => <p>{p}</p>)}
     </div>
   </section>
@@ -40,5 +43,6 @@ const jsonld = graph(
 
 <style>
   .crumbs { padding-top: 1rem; font-size: .9rem; color: var(--ink-soft); }
+  .prose :global(.svc-photo) { margin-bottom: 1.5rem; }
   .prose { max-width: 44rem; font-size: 1.05rem; }
 </style>

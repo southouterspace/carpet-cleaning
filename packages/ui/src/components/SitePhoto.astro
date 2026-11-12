@@ -1,0 +1,62 @@
+---
+/**
+ * A planned site photo. With an image it renders an optimized <picture>
+ * (AVIF + WebP, srcset, explicit size). Without one it renders a sized
+ * placeholder when the photoPlaceholders flag is on, and nothing otherwise.
+ * Only pass `priority` for the hero image (the LCP element).
+ */
+import { Picture } from "astro:assets"
+import type { SiteConfig } from "@carpet/seo"
+import { showPhoto, type PhotoSlot } from "../photo"
+
+interface Props {
+  site: SiteConfig
+  photo?: PhotoSlot
+  /** Above-the-fold hero: load eagerly at high priority. */
+  priority?: boolean
+  /** Rendered width hint for srcset, e.g. "(min-width: 52rem) 40vw, 100vw". */
+  sizes?: string
+  class?: string
+}
+const { site, photo, priority = false, sizes = "(min-width: 68rem) 1088px, 100vw", class: cls } = Astro.props
+const shown = showPhoto(site, photo)
+const ratio = photo ? `aspect-ratio: ${photo.width} / ${photo.height}` : ""
+const widths = photo?.image
+  ? [...new Set([480, 800, 1200, 1600].filter((w) => w < photo.image!.width).concat(photo.image.width))]
+  : []
+---
+
+{shown && photo.image && (
+  <Picture
+    src={photo.image}
+    alt={photo.alt}
+    formats={["avif", "webp"]}
+    widths={widths}
+    sizes={sizes}
+    width={photo.width}
+    height={photo.height}
+    loading={priority ? "eager" : "lazy"}
+    fetchpriority={priority ? "high" : "auto"}
+    decoding="async"
+    class:list={["sp", cls]}
+    style={ratio}
+  />
+)}
+{shown && !photo.image && (
+  <div class:list={["sp sp--ph", cls]} style={ratio} data-photo={photo.id} aria-hidden="true">
+    <span class="sp__id">Photo {photo.id}</span>
+    <span class="sp__label">{photo.label}</span>
+    <span class="sp__size">{photo.width} × {photo.height}</span>
+  </div>
+)}
+
+<style>
+  .sp { width: 100%; height: auto; border-radius: var(--radius); object-fit: cover; }
+  .sp--ph {
+    display: grid; place-content: center; gap: .15rem; padding: 1rem; text-align: center;
+    background: var(--bg-soft);
+    border: 2px dashed var(--accent); color: var(--ink-soft); font-size: .9rem; line-height: 1.35;
+  }
+  .sp__id { font-weight: 800; color: var(--accent-dark); text-transform: uppercase; letter-spacing: .06em; font-size: .8rem; }
+  .sp__label { font-weight: 650; color: var(--ink); }
+</style>

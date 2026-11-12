@@ -35,6 +35,7 @@ Current flags:
 | `mobileCallBar` | on | The sticky button bar on phones. |
 | `phoneCalls` | off | Shows the site's `phone` in the header, hero, call bar, footer, JSON-LD and llms.txt. Turn it on per site once a renter's forwarding number is live; until then the sites are form-only, so nobody calls a number that can't quote. |
 | `photoUpload` | off | Lets customers add up to 5 photos to a quote request. The browser shrinks them before upload, the lead Worker stores them in R2 (`carpet-cleaning-lead-photos`, deleted after 180 days) and links them in the lead email. |
+| `photoPlaceholders` | off | Shows a labeled, correctly sized box in every planned photo slot that has no image yet (slots are listed in each site's `src/photos.ts`). Use it on preview builds to review placement. A slot with a real image renders whether this is on or off. |
 
 Turbo passes `FLAG_*` variables through to builds (`turbo.json`), so they work through `bun run build` too.
 

@@ -4,7 +4,8 @@
   "type": "module",
   "exports": {
     "./*.astro": "./src/components/*.astro",
-    "./styles/*": "./src/styles/*"
+    "./styles/*": "./src/styles/*",
+    "./photo": "./src/photo.ts"
   },
   "peerDependencies": {
     "astro": "^7.4.11"

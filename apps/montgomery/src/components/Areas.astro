@@ -1,16 +1,21 @@
 ---
 /** Service area in two columns: lake communities and nearby towns. */
 import type { SiteConfig } from "@carpet/seo"
+import SitePhoto from "@carpet/ui/SitePhoto.astro"
+import type { PhotoSlot } from "@carpet/ui/photo"
 
 interface Props {
   site: SiteConfig
+  /** Wide lake photo above the heading. */
+  photo?: PhotoSlot
 }
-const { site } = Astro.props
+const { site, photo } = Astro.props
 const { towns, zips, neighborhoods } = site.serviceArea
 ---
 
 <section class="section section--soft" id="areas" aria-labelledby="areas-h">
   <div class="wrap">
+    <SitePhoto site={site} photo={photo} class="ar-photo" sizes="(min-width: 62rem) 960px, 100vw" />
     <h2 id="areas-h">Where we clean</h2>
     <div class="ar">
       <div>
@@ -30,4 +35,5 @@ const { towns, zips, neighborhoods } = site.serviceArea
   .ar { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); margin-top: 1rem; }
   .ar ul { margin: 0 0 1rem; padding-left: 1.2rem; columns: 2 10rem; }
   .ar li { padding: .15rem 0; }
+  :global(.ar-photo) { margin-bottom: 2rem; }
 </style>

@@ -1,17 +1,22 @@
 ---
 /** Service area as a grid of Woodlands villages, then nearby towns and ZIPs. */
 import type { SiteConfig } from "@carpet/seo"
+import SitePhoto from "@carpet/ui/SitePhoto.astro"
+import type { PhotoSlot } from "@carpet/ui/photo"
 
 interface Props {
   site: SiteConfig
+  /** Wide street photo above the heading. */
+  photo?: PhotoSlot
 }
-const { site } = Astro.props
+const { site, photo } = Astro.props
 const { towns, zips, neighborhoods } = site.serviceArea
 const nearby = towns.filter((t) => t !== site.city)
 ---
 
 <section class="section" id="areas" aria-labelledby="areas-h">
   <div class="wrap">
+    <SitePhoto site={site} photo={photo} class="vg-photo" sizes="(min-width: 68rem) 1056px, 100vw" />
     <h2 id="areas-h">Every village in The Woodlands</h2>
     <p class="muted">From the older streets near Lake Woodlands to new builds in Creekside Park, we cover the whole township.</p>
     <ul class="vg">
@@ -24,4 +29,5 @@ const nearby = towns.filter((t) => t !== site.city)
 <style>
   .vg { list-style: none; padding: 0; margin: 1.5rem 0; display: grid; gap: .75rem; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); }
   .vg li { background: var(--bg-soft); border-radius: var(--radius); padding: .9rem 1rem; font-weight: 600; }
+  :global(.vg-photo) { margin-bottom: 2rem; }
 </style>

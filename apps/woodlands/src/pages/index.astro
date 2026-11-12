@@ -7,7 +7,9 @@ import Page from "../components/Page.astro"
 import Hero from "../components/Hero.astro"
 import Villages from "../components/Villages.astro"
 import Steps from "../components/Steps.astro"
+import SitePhoto from "@carpet/ui/SitePhoto.astro"
 import { site } from "../site.config"
+import { photos } from "../photos"
 
 const title = `Carpet Cleaning The Woodlands, TX | ${site.name}`
 const description = `Carpet cleaning in The Woodlands, TX, including stairs, pet stains, sofas, rugs and tile. Tell us about your home and get a free, exact quote.`
@@ -26,10 +28,17 @@ const jsonld = graph(
     heading="Carpet cleaning in The Woodlands, TX"
     lead="Deep cleaning for the carpet, stairs and furniture in your home, from Grogan's Mill to Creekside Park. Tell us about the job and get a real price up front."
     card
+    photo={photos.hero}
   />
   <Services site={site} heading="What we clean" />
-  <Steps />
-  <Villages site={site} />
+  <Steps site={site} photo={photos.steps} />
+  <Villages site={site} photo={photos.villages} />
   <QuoteForm site={site} />
-  <Faq faqs={site.faqs} heading="Questions from Woodlands homeowners" />
+  <Faq faqs={site.faqs} heading="Questions from Woodlands homeowners">
+    <SitePhoto site={site} photo={photos.faq} class="faq-photo" sizes="(min-width: 52rem) 32rem, 100vw" />
+  </Faq>
 </Page>
+
+<style>
+  :global(.faq-photo) { max-width: 32rem; margin: .5rem 0 1.5rem; }
+</style>
