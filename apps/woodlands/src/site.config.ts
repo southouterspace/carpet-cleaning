@@ -37,7 +37,7 @@ export const site: SiteConfig = {
   leadEndpoint: "/api/lead",
   turnstileSiteKey: "0x4AAAAAAF9mIQ55cQuaXFQr",
   // Per-site flag overrides go in the first argument; FLAG_* env vars win at build time.
-  flags: resolveFlags({}, process.env),
+  flags: resolveFlags({ photoUpload: true }, process.env),
   theme: { accent: "#2b6a3d", accentDark: "#1c4a29" },
   services: [
     {
