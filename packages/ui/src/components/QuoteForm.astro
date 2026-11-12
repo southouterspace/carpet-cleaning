@@ -32,7 +32,7 @@ const phone = callNumber(site)
       data-turnstile={site.turnstileSiteKey}
     >
       <input type="hidden" name="site" value={site.id} />
-      <input type="hidden" name="page" value={Astro.url.pathname.replace(/\.html$/, "")} />
+      <input type="hidden" name="page" value={Astro.url.pathname.replace(/(index)?\.html$/, "")} />
       <div class="qf__hp" aria-hidden="true">
         <label>Company <input name="company" tabindex="-1" autocomplete="off" /></label>
       </div>
