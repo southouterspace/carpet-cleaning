@@ -17,6 +17,8 @@ export const FLAG_DEFAULTS = {
    * live, so the site never shows a number nobody answers.
    */
   phoneCalls: false,
+  /** Photo picker on the quote form. Needs the lead Worker's PHOTOS bucket. */
+  photoUpload: false,
 } satisfies Record<string, boolean>
 
 export type Flags = { [K in keyof typeof FLAG_DEFAULTS]: boolean }

@@ -8,6 +8,7 @@ import { site } from "../site.config"
     <div class="wrap" style="max-width:44rem">
       <h1>Privacy</h1>
       <p>The quote form asks for your name, phone number, ZIP code and a few details about the job. We use them to send you a price and schedule the cleaning, and we pass them only to the local cleaning company that will do the work.</p>
+      {site.flags.photoUpload && <p>If you add photos, they're stored privately, seen only by the cleaner quoting your job, and deleted after 180 days.</p>}
       <p>Your details are never sold or used for ads.</p>
       <p>Want your details removed? Say so in a quote request and we'll delete them.</p>
     </div>

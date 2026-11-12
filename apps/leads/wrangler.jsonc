@@ -14,6 +14,9 @@
       "migrations_dir": "migrations"
     }
   ],
+  // Customer photos from the quote form (photoUpload flag). A lifecycle rule
+  // deletes them after 180 days.
+  "r2_buckets": [{ "binding": "PHOTOS", "bucket_name": "carpet-cleaning-lead-photos" }],
   // Cloudflare Email Service. The from domain must be onboarded:
   // wrangler email sending enable <domain>
   "send_email": [{ "name": "EMAIL" }],

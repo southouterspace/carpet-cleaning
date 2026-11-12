@@ -107,8 +107,31 @@ export function parseLead(form: FormData): ParseResult {
 const esc = (s: string) =>
   s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`)
 
+export const PHOTO_LIMITS = { count: 5, bytes: 10 * 1024 * 1024 }
+/** Raster types only; SVG could carry script when served back. */
+const PHOTO_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif", "image/heic", "image/heif"]
+
+export type PhotoResult = { ok: true; photos: File[] } | { ok: false; error: string }
+
+/** Photos attached to a quote request. Empty file inputs send a zero-byte part, which is skipped. */
+export function pickPhotos(form: FormData): PhotoResult {
+  const photos = form
+    .getAll("photos")
+    .filter((f): f is File => typeof f !== "string" && f.size > 0)
+  if (photos.length > PHOTO_LIMITS.count) {
+    return { ok: false, error: `Please attach up to ${PHOTO_LIMITS.count} photos.` }
+  }
+  if (photos.some((f) => !PHOTO_TYPES.includes(f.type))) {
+    return { ok: false, error: "Photos must be JPEG, PNG, WebP or HEIC images." }
+  }
+  if (photos.some((f) => f.size > PHOTO_LIMITS.bytes)) {
+    return { ok: false, error: "Each photo must be under 10 MB." }
+  }
+  return { ok: true, photos }
+}
+
 /** Email to the renter (and owner) for a new lead. */
-export function leadEmail(lead: Lead, siteName: string) {
+export function leadEmail(lead: Lead, siteName: string, photoUrls: string[] = []) {
   const rows: [string, string | null][] = [
     ["Name", lead.name],
     ["Phone", lead.phone],
@@ -124,9 +147,16 @@ export function leadEmail(lead: Lead, siteName: string) {
     ["Page", lead.page],
   ]
   const shown = rows.filter((r): r is [string, string] => Boolean(r[1]))
+  const photoText = photoUrls.length ? `\n\nPhotos:\n${photoUrls.join("\n")}` : ""
+  const photoHtml = photoUrls.length
+    ? `<p><strong>Photos:</strong> ${photoUrls.map((u, i) => `<a href="${esc(u)}">Photo ${i + 1}</a>`).join(" · ")}</p>`
+    : ""
   return {
     subject: `New quote request: ${lead.name} (${siteName})`,
-    text: shown.map(([k, v]) => `${k}: ${v}`).join("\n") + "\n\nCall them back soon; fast replies win the job.",
+    text:
+      shown.map(([k, v]) => `${k}: ${v}`).join("\n") +
+      photoText +
+      "\n\nCall them back soon; fast replies win the job.",
     html:
       `<p>New quote request from <strong>${esc(siteName)}</strong>.</p><table>` +
       shown
@@ -138,7 +168,7 @@ export function leadEmail(lead: Lead, siteName: string) {
             : `<tr><th align="left">${k}</th><td>${esc(v)}</td></tr>`
         )
         .join("") +
-      `</table><p>Call them back soon; fast replies win the job.</p>`,
+      `</table>${photoHtml}<p>Call them back soon; fast replies win the job.</p>`,
   }
 }
 

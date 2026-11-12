@@ -14,6 +14,7 @@ interface Props {
 }
 const { site, service } = Astro.props
 const phone = callNumber(site)
+const photos = site.flags.photoUpload
 ---
 
 {site.flags.quoteForm && (
@@ -30,6 +31,7 @@ const phone = callNumber(site)
       method="post"
       action={site.leadEndpoint}
       data-turnstile={site.turnstileSiteKey}
+      enctype={photos ? "multipart/form-data" : undefined}
     >
       <input type="hidden" name="site" value={site.id} />
       <input type="hidden" name="page" value={Astro.url.pathname.replace(/(index)?\.html$/, "")} />
@@ -83,6 +85,12 @@ const phone = callNumber(site)
       <label class="qf__wide">Anything else <span class="muted">(stains, furniture, gate code)</span>
         <textarea name="message" rows="3" maxlength="1000"></textarea>
       </label>
+      {photos && (
+        <label class="qf__wide">Photos <span class="muted">(optional, up to 5: stains, rooms, rugs)</span>
+          <input class="qf__photos" name="photos" type="file" accept="image/*" multiple />
+          <span class="muted qf__photo-note" aria-live="polite"></span>
+        </label>
+      )}
       <div class="qf__wide qf__ts"></div>
       <p class="qf__wide qf__error" role="alert"></p>
       <button class="btn qf__wide" type="submit">Request my quote</button>
@@ -155,10 +163,12 @@ const phone = callNumber(site)
         try {
           status.textContent = key && !token ? "Running a quick spam check…" : "Sending…"
           await getToken()
+          // The photo script (photoUpload flag) swaps in shrunk photos.
+          const body = window.qfPhotoBody ? await window.qfPhotoBody(form, status) : new FormData(form)
           status.textContent = "Sending…"
           const res = await fetch(form.action, {
             method: "POST",
-            body: new FormData(form),
+            body,
             headers: { Accept: "application/json" },
           })
           const data = await res.json().catch(() => ({}))
@@ -183,6 +193,46 @@ const phone = callNumber(site)
       })
     })()
   </script>
+  {photos && (
+    <script is:inline>
+      (() => {
+        // Shrink photos on the phone before upload, so a 4 MB camera shot sends as ~300 KB.
+        const form = document.querySelector("form.qf")
+        const input = form?.querySelector(".qf__photos")
+        if (!input) return
+        const note = form.querySelector(".qf__photo-note")
+        const MAX = 5
+        input.addEventListener("change", () => {
+          const n = input.files.length
+          note.textContent = n > MAX
+            ? `Only the first ${MAX} photos will be sent.`
+            : n ? `${n} photo${n > 1 ? "s" : ""} added.` : ""
+        })
+        const shrink = async (file) => {
+          try {
+            const img = await createImageBitmap(file)
+            const scale = Math.min(1, 1600 / Math.max(img.width, img.height))
+            const c = document.createElement("canvas")
+            c.width = Math.round(img.width * scale)
+            c.height = Math.round(img.height * scale)
+            c.getContext("2d").drawImage(img, 0, 0, c.width, c.height)
+            const blob = await new Promise((r) => c.toBlob(r, "image/jpeg", 0.8))
+            return blob ? new File([blob], "photo.jpg", { type: "image/jpeg" }) : file
+          } catch {
+            return file // e.g. HEIC the browser can't decode; the server accepts it as-is
+          }
+        }
+        window.qfPhotoBody = async (f, status) => {
+          const body = new FormData(f)
+          body.delete("photos")
+          const files = [...input.files].slice(0, MAX)
+          if (files.length) status.textContent = "Preparing photos…"
+          for (const p of await Promise.all(files.map(shrink))) body.append("photos", p)
+          return body
+        }
+      })()
+    </script>
+  )}
 </section>
 )}
 
@@ -206,5 +256,8 @@ const phone = callNumber(site)
   .qf-done h3 { margin: .25rem 0 .5rem; font-size: 1.5rem; }
   .qf-done__icon { width: 3rem; height: 3rem; margin: 0 auto; border-radius: 50%; background: var(--accent); color: #fff; font-size: 1.6rem; line-height: 3rem; font-weight: 800; }
   .qf__fine { font-size: .85rem; margin: 0; }
+  .qf .qf__photos { padding: .5rem; background: var(--bg-soft); }
+  .qf__photo-note { font-weight: 400; font-size: .9rem; }
+  .qf__photo-note:empty { display: none; }
 </style>
 
