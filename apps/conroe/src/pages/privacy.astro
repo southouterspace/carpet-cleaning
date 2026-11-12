@@ -8,6 +8,7 @@ import { site } from "../site.config"
     <div class="wrap" style="max-width:44rem">
       <h1>Privacy</h1>
       <p>When you request a quote, we collect your name, phone number, ZIP code and the details you type. We use them only to reply to your request and to schedule the work, and we share them only with the cleaning company that does the job.</p>
+      {site.flags.photoUpload && <p>Photos you attach are kept privately for up to 180 days and shown only to the cleaner pricing your job.</p>}
       <p>We don't sell your details or use them for advertising. Calls to the number on this site may be recorded for quality and to make sure your request is answered.</p>
       <p>To have your details deleted, call us or mention it in your request.</p>
     </div>

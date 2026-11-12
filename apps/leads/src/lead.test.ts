@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import { confirmationEmail, leadEmail, normalizePhone, parseLead } from "./lead"
+import { confirmationEmail, leadEmail, normalizePhone, parseLead, pickPhotos } from "./lead"
 
 const form = (fields: Record<string, string>) => {
   const f = new FormData()
@@ -110,4 +110,38 @@ test("confirmation names the service and how they'll be reached, without HTML", 
   expect(mail.text).toContain("pet odor removal")
   expect(mail.text).toContain("text you at +19365550100")
   expect(mail.html).not.toContain("<i>")
+})
+
+describe("pickPhotos", () => {
+  const withFiles = (...files: File[]) => {
+    const f = new FormData()
+    for (const file of files) f.append("photos", file)
+    return f
+  }
+  const jpg = (bytes = 10) => new File([new Uint8Array(bytes)], "a.jpg", { type: "image/jpeg" })
+
+  test("skips the empty part an untouched file input sends", () => {
+    const r = pickPhotos(withFiles(new File([], "", { type: "application/octet-stream" })))
+    expect(r).toEqual({ ok: true, photos: [] })
+  })
+  test("accepts up to five images", () => {
+    const r = pickPhotos(withFiles(jpg(), jpg(), jpg(), jpg(), jpg()))
+    expect(r.ok && r.photos.length).toBe(5)
+    expect(pickPhotos(withFiles(jpg(), jpg(), jpg(), jpg(), jpg(), jpg())).ok).toBe(false)
+  })
+  test("rejects SVG and oversized files", () => {
+    expect(pickPhotos(withFiles(new File(["<svg/>"], "x.svg", { type: "image/svg+xml" }))).ok).toBe(false)
+    expect(pickPhotos(withFiles(jpg(10 * 1024 * 1024 + 1))).ok).toBe(false)
+  })
+})
+
+test("lead email links each photo", () => {
+  const mail = leadEmail(
+    { site: "conroe", name: "Pat", phone: "+19365550100", zip: null, service: null, message: null, page: null,
+      rooms: null, stairs: null, pets: false, timing: null, contact: null, email: null, turnstileToken: null },
+    "Conroe TX Carpet Cleaners",
+    ["https://x.test/api/photo/a/1", "https://x.test/api/photo/a/2"]
+  )
+  expect(mail.text).toContain("https://x.test/api/photo/a/2")
+  expect(mail.html).toContain('<a href="https://x.test/api/photo/a/1">Photo 1</a>')
 })
