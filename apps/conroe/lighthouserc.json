@@ -3,9 +3,10 @@
     "collect": {
       "staticDistDir": "./dist",
       "url": ["/index.html", "/services/carpet-cleaning.html"],
-      "numberOfRuns": 1
+      "numberOfRuns": 3
     },
     "assert": {
+      "aggregationMethod": "median-run",
       "assertions": {
         "categories:performance": ["error", { "minScore": 1 }],
         "categories:accessibility": ["error", { "minScore": 1 }],
