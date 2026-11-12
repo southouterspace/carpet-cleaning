@@ -53,11 +53,15 @@ describe("graph", () => {
   })
 })
 
-test("llms.txt lists services and phone", () => {
+test("llms.txt lists services, and the phone only when calls are on", () => {
   const txt = buildLlmsTxt(site)
   expect(txt.startsWith("# Test Carpet Co\n")).toBe(true)
   expect(txt).toContain("https://example.com/services/pet")
-  expect(txt).toContain("+19365550100")
+  expect(txt).not.toContain("+19365550100")
+  const calls = { ...site, flags: resolveFlags({ phoneCalls: true }) }
+  expect(buildLlmsTxt(calls)).toContain("+19365550100")
+  expect(localBusiness(site).telephone).toBeUndefined()
+  expect(localBusiness(calls).telephone).toBe("+19365550100")
 })
 
 test("formatPhone", () => {

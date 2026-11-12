@@ -27,6 +27,16 @@ export const FLAG_DEFAULTS = {
 
 Then gate the code with `site.flags.neighborhoodPages`.
 
+Current flags:
+
+| Flag | Default | What it does |
+| --- | --- | --- |
+| `quoteForm` | on | The quote form and every "free quote" button. |
+| `mobileCallBar` | on | The sticky button bar on phones. |
+| `phoneCalls` | off | Shows the site's `phone` in the header, hero, call bar, footer, JSON-LD and llms.txt. Turn it on per site once a renter's forwarding number is live; until then the sites are form-only, so nobody calls a number that can't quote. |
+
+Turbo passes `FLAG_*` variables through to builds (`turbo.json`), so they work through `bun run build` too.
+
 Turning a flag on, in order of scope:
 
 - **One build:** set an environment variable, e.g. `FLAG_NEIGHBORHOOD_PAGES=true bun run build`. Use this for preview deploys.

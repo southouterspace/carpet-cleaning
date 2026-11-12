@@ -39,6 +39,24 @@ describe("parseLead", () => {
     expect(parseLead(form({ ...good, phone: "12" }))).toMatchObject({ ok: false })
   })
 
+  test("keeps known quote details and drops unknown values", () => {
+    const r = parseLead(
+      form({ ...good, rooms: "3", stairs: "1", pets: "yes", timing: "week", contact: "call" })
+    )
+    expect(r).toMatchObject({
+      ok: true,
+      lead: { rooms: "3", stairs: "1", pets: true, timing: "week", contact: "call" },
+    })
+    const odd = parseLead(form({ ...good, rooms: "99", timing: "<script>" }))
+    expect(odd).toMatchObject({ ok: true, lead: { rooms: null, timing: null, pets: false } })
+  })
+
+  test("checks email and needs one when email is the contact choice", () => {
+    expect(parseLead(form({ ...good, email: "nope" })).ok).toBe(false)
+    expect(parseLead(form({ ...good, contact: "email" })).ok).toBe(false)
+    expect(parseLead(form({ ...good, contact: "email", email: "pat@example.com" })).ok).toBe(true)
+  })
+
   test("rejects a bad ZIP and odd site ids", () => {
     expect(parseLead(form({ ...good, zip: "7730" })).ok).toBe(false)
     expect(parseLead(form({ ...good, site: "../x" })).ok).toBe(false)
@@ -55,6 +73,12 @@ test("lead email escapes HTML", () => {
       service: null,
       message: null,
       page: null,
+      rooms: null,
+      stairs: null,
+      pets: false,
+      timing: null,
+      contact: null,
+      email: null,
       turnstileToken: null,
     },
     "Conroe TX Carpet Cleaners"

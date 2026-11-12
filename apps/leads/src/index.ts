@@ -69,16 +69,23 @@ export default {
 
     const id = crypto.randomUUID()
     await env.DB.prepare(
-      `INSERT INTO leads (id, site_id, name, phone, zip, service, message, page, user_agent, country)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+      `INSERT INTO leads (id, site_id, name, phone, email, contact, zip, service,
+         rooms, stairs, pets, timing, message, page, user_agent, country)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     )
       .bind(
         id,
         site.id,
         lead.name,
         lead.phone,
+        lead.email,
+        lead.contact,
         lead.zip,
         lead.service,
+        lead.rooms,
+        lead.stairs,
+        lead.pets ? 1 : 0,
+        lead.timing,
         lead.message,
         lead.page,
         request.headers.get("User-Agent")?.slice(0, 300) ?? null,

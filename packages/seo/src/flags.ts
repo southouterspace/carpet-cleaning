@@ -12,6 +12,11 @@ export const FLAG_DEFAULTS = {
   quoteForm: true,
   /** Sticky call and quote bar on phones. */
   mobileCallBar: true,
+  /**
+   * Phone number and call buttons. Off until a renter's forwarding number is
+   * live, so the site never shows a number nobody answers.
+   */
+  phoneCalls: false,
 } satisfies Record<string, boolean>
 
 export type Flags = { [K in keyof typeof FLAG_DEFAULTS]: boolean }

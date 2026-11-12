@@ -1,11 +1,12 @@
 ---
-import { formatPhone, type SiteConfig } from "@carpet/seo"
+import { callNumber, formatPhone, type SiteConfig } from "@carpet/seo"
 
 interface Props {
   site: SiteConfig
 }
 const { site } = Astro.props
 const year = new Date().getFullYear()
+const phone = callNumber(site)
 ---
 
 <footer class="ftr">
@@ -13,7 +14,7 @@ const year = new Date().getFullYear()
     <div>
       <p class="ftr__name">{site.name}</p>
       <p class="muted">{site.tagline}</p>
-      <p><a href={`tel:${site.phone}`}>{formatPhone(site.phone)}</a></p>
+      {phone && <p><a href={`tel:${phone}`}>{formatPhone(phone)}</a></p>}
     </div>
     <nav aria-label="Services">
       <p class="ftr__head">Services</p>

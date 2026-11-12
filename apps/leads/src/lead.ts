@@ -8,8 +8,36 @@ export interface Lead {
   service: string | null
   message: string | null
   page: string | null
+  /** Quoting details, so the cleaner can price the job before calling back. */
+  rooms: string | null
+  stairs: string | null
+  pets: boolean
+  timing: string | null
+  contact: string | null
+  email: string | null
   turnstileToken: string | null
 }
+
+/** Allowed values for the quote form's selects, with the label used in emails. */
+export const CHOICES = {
+  rooms: { "1": "1", "2": "2", "3": "3", "4": "4", "5": "5", "6+": "6 or more" },
+  stairs: { none: "No stairs", "1": "1 staircase", "2+": "2 or more staircases" },
+  timing: {
+    asap: "As soon as possible",
+    week: "Within a week",
+    month: "Within a month",
+    pricing: "Just comparing prices",
+  },
+  contact: { text: "Text", call: "Call", email: "Email" },
+} as const
+
+const pick = <K extends keyof typeof CHOICES>(form: FormData, key: K): string | null => {
+  const v = clean(form.get(key), 20)
+  return v && v in CHOICES[key] ? v : null
+}
+
+const label = <K extends keyof typeof CHOICES>(key: K, v: string | null) =>
+  v ? ((CHOICES[key] as Record<string, string>)[v] ?? v) : null
 
 export type ParseResult =
   | { ok: true; lead: Lead }
@@ -41,6 +69,14 @@ export function parseLead(form: FormData): ParseResult {
   if (!phone) return { ok: false, error: "Please add a 10-digit phone number." }
   const zip = clean(form.get("zip"), 5)
   if (zip && !/^\d{5}$/.test(zip)) return { ok: false, error: "Please check the ZIP code." }
+  const email = clean(form.get("email"), 120)
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return { ok: false, error: "Please check the email address." }
+  }
+  const contact = pick(form, "contact")
+  if (contact === "email" && !email) {
+    return { ok: false, error: "Please add an email so we can reply that way." }
+  }
   // The message keeps line breaks, so it isn't run through clean().
   const rawMessage = form.get("message")
   const message =
@@ -57,6 +93,12 @@ export function parseLead(form: FormData): ParseResult {
       service: clean(form.get("service"), 60),
       message,
       page: clean(form.get("page"), 200),
+      rooms: pick(form, "rooms"),
+      stairs: pick(form, "stairs"),
+      pets: form.get("pets") === "yes",
+      timing: pick(form, "timing"),
+      contact,
+      email,
       turnstileToken: clean(form.get("cf-turnstile-response"), 2048),
     },
   }
@@ -71,7 +113,13 @@ export function leadEmail(lead: Lead, siteName: string) {
     ["Name", lead.name],
     ["Phone", lead.phone],
     ["ZIP", lead.zip],
+    ["Email", lead.email],
+    ["Reach by", label("contact", lead.contact)],
     ["Service", lead.service],
+    ["Rooms", label("rooms", lead.rooms)],
+    ["Stairs", label("stairs", lead.stairs)],
+    ["Pet stains/odor", lead.pets ? "Yes" : null],
+    ["When", label("timing", lead.timing)],
     ["Details", lead.message],
     ["Page", lead.page],
   ]
@@ -85,6 +133,8 @@ export function leadEmail(lead: Lead, siteName: string) {
         .map(([k, v]) =>
           k === "Phone"
             ? `<tr><th align="left">${k}</th><td><a href="tel:${esc(v)}">${esc(v)}</a></td></tr>`
+            : k === "Email"
+            ? `<tr><th align="left">${k}</th><td><a href="mailto:${esc(v)}">${esc(v)}</a></td></tr>`
             : `<tr><th align="left">${k}</th><td>${esc(v)}</td></tr>`
         )
         .join("") +

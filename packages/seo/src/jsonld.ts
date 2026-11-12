@@ -1,5 +1,8 @@
 import type { Faq, Service, SiteConfig } from "./types"
 
+const phoneOf = (site: SiteConfig) =>
+  site.flags.phoneCalls && site.phone ? site.phone : undefined
+
 type JsonLd = Record<string, unknown>
 
 const businessId = (site: SiteConfig) => `${site.url}/#business`
@@ -16,7 +19,7 @@ export function localBusiness(site: SiteConfig): JsonLd {
     name: site.operator?.legalName ?? site.name,
     alternateName: site.operator ? site.name : undefined,
     url: site.url,
-    telephone: site.phone,
+    telephone: phoneOf(site),
     email: site.email,
     description: site.tagline,
     openingHours: site.hours.length ? site.hours : undefined,

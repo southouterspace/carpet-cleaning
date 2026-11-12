@@ -1,3 +1,5 @@
+import type { SiteConfig } from "./types"
+
 export type { Faq, Service, SiteConfig } from "./types"
 export {
   breadcrumbs,
@@ -9,6 +11,11 @@ export {
 } from "./jsonld"
 export { buildLlmsTxt, buildRobotsTxt } from "./llms"
 export { FLAG_DEFAULTS, flagEnvName, resolveFlags, type FlagName, type Flags } from "./flags"
+
+/** The number to show and call, or undefined when calls are off or no number is set. */
+export function callNumber(site: SiteConfig): string | undefined {
+  return site.flags.phoneCalls && site.phone ? site.phone : undefined
+}
 
 /** Formats "+19365550100" as "(936) 555-0100" for display. */
 export function formatPhone(e164: string): string {

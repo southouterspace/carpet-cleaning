@@ -5,7 +5,7 @@
  * loaded only after the visitor first touches the form, so it never costs
  * page-load performance.
  */
-import { formatPhone, type SiteConfig } from "@carpet/seo"
+import { callNumber, formatPhone, type SiteConfig } from "@carpet/seo"
 
 interface Props {
   site: SiteConfig
@@ -13,6 +13,7 @@ interface Props {
   service?: string
 }
 const { site, service } = Astro.props
+const phone = callNumber(site)
 ---
 
 {site.flags.quoteForm && (
@@ -20,7 +21,9 @@ const { site, service } = Astro.props
   <div class="wrap quote">
     <div>
       <h2 id="quote-h">Get a free quote</h2>
-      <p>Tell us what needs cleaning and we'll call or text you back with a price. Prefer to talk now? Call <a href={`tel:${site.phone}`}>{formatPhone(site.phone)}</a>.</p>
+      <p>Tell us about the job and a local carpet cleaner will call or text you with a price before any work starts.</p>
+      <p class="muted">The more detail you give (rooms, stairs, pets), the more accurate the quote.</p>
+      {phone && <p>Prefer to talk now? Call <a href={`tel:${phone}`}>{formatPhone(phone)}</a>.</p>}
     </div>
     <form
       class="qf"
@@ -44,7 +47,40 @@ const { site, service } = Astro.props
           <option value="other">Something else</option>
         </select>
       </label>
-      <label class="qf__wide">Details <span class="muted">(rooms, stains, pets)</span>
+      <label>Rooms
+        <select name="rooms">
+          <option value="">Not sure</option>
+          <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          <option value="6+">6 or more</option>
+        </select>
+      </label>
+      <label>Stairs
+        <select name="stairs">
+          <option value="none">No stairs</option>
+          <option value="1">1 staircase</option>
+          <option value="2+">2 or more</option>
+        </select>
+      </label>
+      <label>When
+        <select name="timing">
+          <option value="asap">As soon as possible</option>
+          <option value="week">Within a week</option>
+          <option value="month">Within a month</option>
+          <option value="pricing">Just comparing prices</option>
+        </select>
+      </label>
+      <label>Best way to reach you
+        <select name="contact">
+          <option value="text">Text</option>
+          <option value="call">Call</option>
+          <option value="email">Email</option>
+        </select>
+      </label>
+      <label class="qf__wide">Email <span class="muted">(optional)</span>
+        <input name="email" type="email" autocomplete="email" maxlength="120" />
+      </label>
+      <label class="qf__check qf__wide"><input type="checkbox" name="pets" value="yes" /> Pet stains or odor</label>
+      <label class="qf__wide">Anything else <span class="muted">(stains, furniture, gate code)</span>
         <textarea name="message" rows="3" maxlength="1000"></textarea>
       </label>
       <div class="qf__wide qf__ts"></div>
@@ -85,10 +121,10 @@ const { site, service } = Astro.props
           const data = await res.json().catch(() => ({}))
           if (!res.ok) throw new Error(data.error || "Something went wrong.")
           form.reset()
-          status.textContent = "Thanks! We got your request and will reach out shortly."
+          status.textContent = "Thanks! A local cleaner will reach out shortly with a price."
           window.turnstile?.reset()
         } catch (err) {
-          status.textContent = `${err.message} You can also call us.`
+          status.textContent = err.message
           window.turnstile?.reset()
         } finally {
           btn.disabled = false
@@ -108,6 +144,8 @@ const { site, service } = Astro.props
   .qf .qf__wide { grid-column: 1 / -1; }
   .qf input, .qf select, .qf textarea { font: inherit; padding: .65rem .75rem; border: 1px solid #b9bec8; border-radius: 8px; min-height: 48px; width: 100%; }
   .qf__hp { position: absolute; left: -9999px; }
+  .qf .qf__check { display: flex; align-items: center; gap: .6rem; min-height: 48px; }
+  .qf .qf__check input { width: 1.4rem; min-height: 0; height: 1.4rem; accent-color: var(--accent); }
   .qf__status:empty, .qf__ts:empty { display: none; }
   .qf__fine { font-size: .85rem; margin: 0; }
 </style>

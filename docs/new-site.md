@@ -4,7 +4,7 @@
 2. In `apps/<town>/package.json`, rename the package to `@carpet/<town>`.
 3. In `wrangler.jsonc`, set `name` to `carpet-<town>` and the custom domain route to the new domain.
 4. In `astro.config.mjs`, set `site` to the new origin.
-5. Rewrite `src/site.config.ts` for the town: id, name, url, phone (tracked number), service area, neighborhoods, theme colors, and service and FAQ copy written for that town. Don't reuse Conroe's wording; near-duplicate pages across sites hurt all of them.
+5. Rewrite `src/site.config.ts` for the town: id, name, url, phone (only shown once the `phoneCalls` flag is on for that site), service area, neighborhoods, theme colors, and service and FAQ copy written for that town. Don't reuse Conroe's wording; near-duplicate pages across sites hurt all of them.
 6. Change the look so it reads as its own business: theme colors, `public/favicon.svg`, hero copy and section order.
 7. Add the site to D1 with a new migration in `apps/leads/migrations`:
    `INSERT INTO sites (id, domain, name) VALUES ('<town>', '<domain>', '<name>');`

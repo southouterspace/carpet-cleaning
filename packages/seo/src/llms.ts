@@ -11,9 +11,9 @@ export function buildLlmsTxt(site: SiteConfig): string {
     "",
     `> ${site.tagline}`,
     "",
-    `- Phone: ${site.phone}`,
     `- Serves: ${site.serviceArea.towns.join(", ")}, ${site.region}`,
   ]
+  if (site.flags.phoneCalls && site.phone) lines.push(`- Phone: ${site.phone}`)
   if (site.serviceArea.zips.length) {
     lines.push(`- ZIP codes: ${site.serviceArea.zips.join(", ")}`)
   }

@@ -1,5 +1,5 @@
 ---
-import { formatPhone, type SiteConfig } from "@carpet/seo"
+import { callNumber, formatPhone, type SiteConfig } from "@carpet/seo"
 
 interface Props {
   site: SiteConfig
@@ -9,6 +9,7 @@ interface Props {
   points?: string[]
 }
 const { site, heading, lead, points = [] } = Astro.props
+const phone = callNumber(site)
 ---
 
 <section class="hero">
@@ -19,8 +20,10 @@ const { site, heading, lead, points = [] } = Astro.props
       <p class="hero__price">From <strong>${site.priceFrom.amount}</strong> for {site.priceFrom.unit}</p>
     )}
     <div class="hero__cta">
-      <a class="btn" href={`tel:${site.phone}`}>Call {formatPhone(site.phone)}</a>
-      {site.flags.quoteForm && <a class="btn btn--ghost" href="#quote">Get a free quote</a>}
+      {site.flags.quoteForm && (
+        <a class={phone ? "btn btn--ghost" : "btn"} href="#quote">Get a free quote</a>
+      )}
+      {phone && <a class="btn" href={`tel:${phone}`}>Call {formatPhone(phone)}</a>}
     </div>
     {points.length > 0 && (
       <ul class="hero__points">

@@ -1,10 +1,11 @@
 ---
-import { formatPhone, type SiteConfig } from "@carpet/seo"
+import { callNumber, formatPhone, type SiteConfig } from "@carpet/seo"
 
 interface Props {
   site: SiteConfig
 }
 const { site } = Astro.props
+const phone = callNumber(site)
 ---
 
 <header class="hdr">
@@ -15,7 +16,11 @@ const { site } = Astro.props
       <a href="/#areas">Areas</a>
       <a href="/#faq">FAQ</a>
     </nav>
-    <a class="btn hdr__call" href={`tel:${site.phone}`}>Call {formatPhone(site.phone)}</a>
+    {phone ? (
+      <a class="btn hdr__call" href={`tel:${phone}`}>Call {formatPhone(phone)}</a>
+    ) : site.flags.quoteForm ? (
+      <a class="btn hdr__call" href="/#quote">Free quote</a>
+    ) : null}
   </div>
 </header>
 

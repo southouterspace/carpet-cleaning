@@ -19,7 +19,7 @@ Each site's content lives in one file, `apps/<site>/src/site.config.ts`. Pages, 
 
 ## How a lead flows
 
-1. A visitor taps the phone number (tracked number per site) or submits the quote form.
+1. A visitor submits the quote form: contact details plus rooms, stairs, pets and timing, so a cleaner can price the job before calling back. Sites are form-only for now; the phone number shows only when a site turns on the `phoneCalls` flag (docs/flags.md), for when a renter's forwarding number rings them directly.
 2. The form posts same-origin to `/api/lead`. The site's tiny edge Worker (`apps/<site>/worker.ts`) hands `/api/*` to the `carpet-leads` Worker through a service binding; every other request is served straight from static assets.
 3. `carpet-leads` checks the honeypot and Turnstile, saves the lead in D1, and emails the renter and you through Cloudflare Email Service.
 4. Without JavaScript the form still works: the Worker redirects to `/thanks`.

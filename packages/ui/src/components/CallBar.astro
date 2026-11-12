@@ -1,17 +1,22 @@
 ---
-/** Sticky call and quote buttons on phones, where most carpet leads start. */
-import type { SiteConfig } from "@carpet/seo"
+/** Sticky quote (and call, when phoneCalls is on) buttons on phones, where most leads start. */
+import { callNumber, type SiteConfig } from "@carpet/seo"
 
 interface Props {
   site: SiteConfig
 }
 const { site } = Astro.props
+const phone = callNumber(site)
 ---
 
-<div class="callbar" role="region" aria-label="Contact">
-  <a class="btn" href={`tel:${site.phone}`}>Call now</a>
-  {site.flags.quoteForm && <a class="btn btn--ghost" href="/#quote">Free quote</a>}
-</div>
+{(phone || site.flags.quoteForm) && (
+  <div class="callbar" role="region" aria-label="Contact">
+    {phone && <a class="btn" href={`tel:${phone}`}>Call now</a>}
+    {site.flags.quoteForm && (
+      <a class={phone ? "btn btn--ghost" : "btn"} href="/#quote">Get a free quote</a>
+    )}
+  </div>
+)}
 
 <style>
   .callbar {

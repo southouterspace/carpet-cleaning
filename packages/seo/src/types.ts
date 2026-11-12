@@ -14,8 +14,11 @@ export interface SiteConfig {
   url: string
   /** One-line description used for meta description and llms.txt. */
   tagline: string
-  /** E.164 phone number, e.g. "+19365550100". Shown as click-to-call. */
-  phone: string
+  /**
+   * E.164 forwarding number that rings the renter, e.g. "+19365550100".
+   * Shown only when the `phoneCalls` flag is on; use `callNumber(site)`.
+   */
+  phone?: string
   /** Optional email shown on the contact section. */
   email?: string
   /** Primary town the site targets. */
