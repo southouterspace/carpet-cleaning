@@ -6,10 +6,12 @@ import Services from "@carpet/ui/Services.astro"
 import Areas from "@carpet/ui/Areas.astro"
 import Faq from "@carpet/ui/Faq.astro"
 import QuoteForm from "@carpet/ui/QuoteForm.astro"
+import LocalHomes from "../components/LocalHomes.astro"
+import PriceFactors from "../components/PriceFactors.astro"
 import { site } from "../site.config"
 
-const title = `Carpet Cleaning Conroe, TX | ${site.name}`
-const description = `Carpet cleaning in Conroe, TX: carpet, pet odor, upholstery, rug and tile cleaning. Call or request a free quote.`
+const title = `Carpet Cleaning Conroe TX | ${site.name}`
+const description = `Carpet cleaning in Conroe, TX for new builds, older homes and Lake Conroe houses: carpet, pet odor, couch, rug and tile. Get a free, exact quote.`
 const jsonld = graph(
   localBusiness(site),
   website(site),
@@ -26,6 +28,8 @@ const jsonld = graph(
     points={["Free quotes", "Pet odor treatment", "Move-out cleaning"]}
   />
   <Services site={site} heading="Cleaning services in Conroe" />
+  <LocalHomes />
+  <PriceFactors />
   <QuoteForm site={site} />
   <Areas site={site} />
   <Faq faqs={site.faqs} />
