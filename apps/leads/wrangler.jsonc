@@ -1,0 +1,29 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  // Shared lead intake for every city site. Sites reach it through a service
+  // binding (no public route), so it has no URL of its own.
+  "name": "carpet-leads",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-11-01",
+  "workers_dev": false,
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "carpet-leads",
+      // Fill in after: wrangler d1 create carpet-leads
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations"
+    }
+  ],
+  // Cloudflare Email Service. The from domain must be onboarded:
+  // wrangler email sending enable <domain>
+  "send_email": [{ "name": "EMAIL" }],
+  "vars": {
+    // Sender on a domain onboarded to Email Service. Empty skips email.
+    "NOTIFY_FROM": "",
+    // Your own copy of every lead, so you can count them for renters.
+    "OWNER_EMAIL": ""
+  },
+  // Secret: wrangler secret put TURNSTILE_SECRET
+  "observability": { "enabled": true }
+}

@@ -1,0 +1,62 @@
+---
+/**
+ * Page shell for every city site: head tags, inlined base CSS, JSON-LD,
+ * header, footer and the mobile click-to-call bar. Ships zero JavaScript
+ * unless a page includes the quote form.
+ */
+import type { SiteConfig } from "@carpet/seo"
+import "../styles/base.css"
+import Header from "./Header.astro"
+import Footer from "./Footer.astro"
+import CallBar from "./CallBar.astro"
+
+interface Props {
+  site: SiteConfig
+  title: string
+  description: string
+  /** Path of this page, starting with "/". Used for the canonical URL. */
+  path: string
+  /** Output of `graph(...)` from @carpet/seo. */
+  jsonld?: string
+  noindex?: boolean
+}
+
+const { site, title, description, path, jsonld, noindex = false } = Astro.props
+const canonical = `${site.url}${path === "/" ? "/" : path}`
+const themeCss = `:root{--accent:${site.theme.accent};--accent-dark:${site.theme.accentDark}}`
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content={site.theme.accentDark} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="en_US" />
+    <meta name="geo.region" content={`US-${site.region}`} />
+    <meta name="geo.placename" content={site.city} />
+    <style set:html={themeCss}></style>
+    {jsonld && <script type="application/ld+json" set:html={jsonld} />}
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <Header site={site} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer site={site} />
+    <CallBar site={site} />
+  </body>
+</html>

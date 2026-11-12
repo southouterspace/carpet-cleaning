@@ -1,0 +1,26 @@
+---
+import type { SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+  heading?: string
+  /** Slug to leave out, e.g. the current service page. */
+  exclude?: string
+}
+const { site, heading = "Services", exclude } = Astro.props
+const services = site.services.filter((s) => s.slug !== exclude)
+---
+
+<section class="section" id="services" aria-labelledby="services-h">
+  <div class="wrap">
+    <h2 id="services-h">{heading}</h2>
+    <div class="grid">
+      {services.map((s) => (
+        <article class="card">
+          <h3><a href={`/services/${s.slug}`}>{s.name}</a></h3>
+          <p class="muted">{s.summary}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

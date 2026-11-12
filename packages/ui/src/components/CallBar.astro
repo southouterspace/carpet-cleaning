@@ -1,0 +1,28 @@
+---
+/** Sticky call and quote buttons on phones, where most carpet leads start. */
+import type { SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+}
+const { site } = Astro.props
+---
+
+<div class="callbar" role="region" aria-label="Contact">
+  <a class="btn" href={`tel:${site.phone}`}>Call now</a>
+  <a class="btn btn--ghost" href="/#quote">Free quote</a>
+</div>
+
+<style>
+  .callbar {
+    position: fixed; inset: auto 0 0 0; z-index: 5; display: grid; grid-template-columns: 1fr 1fr;
+    gap: .5rem; padding: .5rem .75rem calc(.5rem + env(safe-area-inset-bottom));
+    background: #fff; border-top: 1px solid var(--line);
+  }
+  .callbar .btn--ghost { background: #fff; }
+  :global(body) { padding-bottom: 4.5rem; }
+  @media (min-width: 48rem) {
+    .callbar { display: none; }
+    :global(body) { padding-bottom: 0; }
+  }
+</style>

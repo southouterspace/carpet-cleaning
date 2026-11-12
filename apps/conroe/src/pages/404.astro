@@ -1,0 +1,13 @@
+---
+import Layout from "@carpet/ui/Layout.astro"
+import { site } from "../site.config"
+---
+
+<Layout site={site} title={`Page not found | ${site.name}`} description="That page doesn't exist." path="/404" noindex>
+  <section class="section">
+    <div class="wrap">
+      <h1>Page not found</h1>
+      <p>That page doesn't exist. Try the <a href="/">home page</a> or <a href="/#quote">request a quote</a>.</p>
+    </div>
+  </section>
+</Layout>

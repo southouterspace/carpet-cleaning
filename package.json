@@ -1,0 +1,17 @@
+{
+  "name": "carpet-cleaning",
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@1.4.4",
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "check": "turbo run check",
+    "test": "turbo run test",
+    "lighthouse": "turbo run lighthouse"
+  },
+  "devDependencies": {
+    "turbo": "2.11.11"
+  }
+}

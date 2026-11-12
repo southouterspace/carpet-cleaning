@@ -1,0 +1,19 @@
+---
+import type { SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+}
+const { site } = Astro.props
+const { towns, zips, neighborhoods } = site.serviceArea
+---
+
+<section class="section section--soft" id="areas" aria-labelledby="areas-h">
+  <div class="wrap">
+    <h2 id="areas-h">Areas we serve around {site.city}</h2>
+    <p>{towns.join(", ")}, {site.region}{zips.length > 0 && <>, including ZIP codes {zips.join(", ")}</>}.</p>
+    {neighborhoods.length > 0 && (
+      <p class="muted">Neighborhoods include {neighborhoods.join(", ")}.</p>
+    )}
+  </div>
+</section>
