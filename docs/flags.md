@@ -47,4 +47,4 @@ Environment variables win over site overrides, which win over defaults. Accepted
 
 ## Lead Worker flags (runtime)
 
-The lead Worker reads plain `vars` from `apps/leads/wrangler.jsonc`, which change on the next deploy without a rebuild of any site. Leaving `NOTIFY_FROM` empty, for example, turns lead emails off while still saving leads.
+The lead Worker reads plain `vars` from `apps/leads/wrangler.jsonc`, which change on the next deploy without a rebuild of any site. Leaving `NOTIFY_FROM` empty, for example, turns lead and confirmation emails off while still saving leads.

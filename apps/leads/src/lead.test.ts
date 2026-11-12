@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import { leadEmail, normalizePhone, parseLead } from "./lead"
+import { confirmationEmail, leadEmail, normalizePhone, parseLead } from "./lead"
 
 const form = (fields: Record<string, string>) => {
   const f = new FormData()
@@ -85,4 +85,29 @@ test("lead email escapes HTML", () => {
   )
   expect(mail.html).not.toContain("<b>x</b>")
   expect(mail.text).toContain("Phone: +19365550100")
+})
+
+test("confirmation names the service and how they'll be reached, without HTML", () => {
+  const mail = confirmationEmail(
+    {
+      site: "conroe",
+      name: "<i>Pat</i> Lee",
+      phone: "+19365550100",
+      zip: "77301",
+      service: "pet-odor-removal",
+      message: null,
+      page: "/",
+      rooms: "3",
+      stairs: "none",
+      pets: true,
+      timing: "asap",
+      contact: "text",
+      email: "pat@example.com",
+      turnstileToken: null,
+    },
+    "Conroe TX Carpet Cleaners"
+  )
+  expect(mail.text).toContain("pet odor removal")
+  expect(mail.text).toContain("text you at +19365550100")
+  expect(mail.html).not.toContain("<i>")
 })
