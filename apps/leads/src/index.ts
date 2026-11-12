@@ -1,11 +1,13 @@
-import { leadEmail, parseLead, type Lead } from "./lead"
+import { confirmationEmail, leadEmail, parseLead, type Lead } from "./lead"
 
 export interface Env {
   DB: D1Database
   EMAIL: SendEmail
   TURNSTILE_SECRET?: string
+  /** Mailbox name; mail goes out as <NOTIFY_FROM>@<site domain>. Empty turns email off. */
   NOTIFY_FROM: string
-  OWNER_EMAIL: string
+  /** Secret: your own copy of every lead. */
+  OWNER_EMAIL?: string
 }
 
 interface SiteRow {
@@ -116,19 +118,26 @@ async function verifyTurnstile(secret: string, token: string | null, ip: string 
 }
 
 async function notify(env: Env, site: SiteRow, lead: Lead, id: string) {
+  if (!env.NOTIFY_FROM) return
+  // Each site sends from its own domain, so leads and confirmations match the site.
+  const from = { email: `${env.NOTIFY_FROM}@${site.domain}`, name: site.name }
   const to = [site.renter_email, env.OWNER_EMAIL].filter((e): e is string => Boolean(e))
-  if (!env.NOTIFY_FROM || to.length === 0) return
-  const mail = leadEmail(lead, site.name)
-  try {
-    await env.EMAIL.send({
-      to,
-      from: { email: env.NOTIFY_FROM, name: site.name },
-      subject: mail.subject,
-      text: mail.text,
-      html: mail.html,
-    })
-    await env.DB.prepare("UPDATE leads SET notified = 1 WHERE id = ?").bind(id).run()
-  } catch (err) {
-    console.error("lead email failed", { id, err: String(err) })
+  if (to.length) {
+    const mail = leadEmail(lead, site.name)
+    try {
+      await env.EMAIL.send({ to, from, subject: mail.subject, text: mail.text, html: mail.html })
+      await env.DB.prepare("UPDATE leads SET notified = 1 WHERE id = ?").bind(id).run()
+    } catch (err) {
+      console.error("lead email failed", { id, err: String(err) })
+    }
+  }
+  // Tell the customer we got it, so they aren't left wondering.
+  if (lead.email) {
+    const mail = confirmationEmail(lead, site.name)
+    try {
+      await env.EMAIL.send({ to: lead.email, from, subject: mail.subject, text: mail.text, html: mail.html })
+    } catch (err) {
+      console.error("confirmation email failed", { id, err: String(err) })
+    }
   }
 }

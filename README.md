@@ -67,7 +67,7 @@ See [docs/new-site.md](docs/new-site.md).
 The D1 database (`carpet-cleaning-leads`) and a Turnstile widget already exist in the admin Cloudflare account.
 
 1. `cd apps/leads && bun run db:migrate`
-2. Onboard a sending domain: `bunx wrangler email sending enable <domain>`, then set `NOTIFY_FROM` and `OWNER_EMAIL` in `apps/leads/wrangler.jsonc`.
+2. Onboard each site's domain to Email Sending (`bunx wrangler email sending enable <domain>`). Leads and customer confirmations go out as `quotes@<site domain>`. Set your inbox with `bunx wrangler secret put OWNER_EMAIL` in `apps/leads`.
 3. Add the site's hostname to the `carpet-cleaning` Turnstile widget. Put the site key in `site.config.ts` and run `bunx wrangler secret put TURNSTILE_SECRET` in `apps/leads`.
 4. `bun run deploy` deploys the lead Worker, then every site.
 

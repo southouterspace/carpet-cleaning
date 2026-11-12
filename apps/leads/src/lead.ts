@@ -141,3 +141,22 @@ export function leadEmail(lead: Lead, siteName: string) {
       `</table><p>Call them back soon; fast replies win the job.</p>`,
   }
 }
+
+const how = { text: "text", call: "call", email: "email" } as Record<string, string>
+
+/** Short receipt to the customer. It promises no price or time, since a cleaner sets those. */
+export function confirmationEmail(lead: Lead, siteName: string) {
+  const first = lead.name.split(" ")[0]
+  const service = lead.service && lead.service !== "other" ? lead.service.replace(/-/g, " ") : "cleaning"
+  const reach = how[lead.contact ?? ""] ?? "contact"
+  const lines = [
+    `Thanks, ${first}. We got your ${service} quote request.`,
+    `A local carpet cleaner will ${reach} you at ${lead.contact === "email" ? lead.email : lead.phone} with a price. Nothing is booked until you say yes.`,
+    "If you didn't send this request, you can ignore this email.",
+  ]
+  return {
+    subject: `We got your quote request (${siteName})`,
+    text: lines.join("\n\n") + `\n\n${siteName}`,
+    html: lines.map((l) => `<p>${esc(l)}</p>`).join("") + `<p>${esc(siteName)}</p>`,
+  }
+}

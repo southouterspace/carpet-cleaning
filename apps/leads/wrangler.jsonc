@@ -18,11 +18,11 @@
   // wrangler email sending enable <domain>
   "send_email": [{ "name": "EMAIL" }],
   "vars": {
-    // Sender on a domain onboarded to Email Service. Empty skips email.
-    "NOTIFY_FROM": "",
-    // Your own copy of every lead, so you can count them for renters.
-    "OWNER_EMAIL": ""
+    // Mailbox name. Mail goes out as quotes@<site domain>, so each site's
+    // domain must be onboarded to Email Sending. Empty turns email off.
+    "NOTIFY_FROM": "quotes"
   },
-  // Secret: wrangler secret put TURNSTILE_SECRET
+  // Secrets: wrangler secret put TURNSTILE_SECRET, wrangler secret put
+  // OWNER_EMAIL (your own copy of every lead, kept out of the repo).
   "observability": { "enabled": true }
 }
