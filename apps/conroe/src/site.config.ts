@@ -130,7 +130,7 @@ export const site: SiteConfig = {
   faqs: [
     {
       q: "How much does carpet cleaning cost in Conroe?",
-      a: "Price depends on the number of rooms, stairs and any stain or odor treatment. Call or send a quote request with your room count for an exact price before any work starts.",
+      a: "Price depends on the number of rooms, stairs and any stain or odor treatment. Send a quote request with your room count for an exact price before any work starts.",
     },
     {
       q: "What areas do you serve?",
