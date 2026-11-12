@@ -1,0 +1,15 @@
+---
+import Page from "../components/Page.astro"
+import { site } from "../site.config"
+---
+
+<Page site={site} title={`Privacy | ${site.name}`} description={`How ${site.name} uses the details you send.`} path="/privacy">
+  <section class="section">
+    <div class="wrap" style="max-width:44rem">
+      <h1>Privacy</h1>
+      <p>If you send a quote request, we keep your name, phone number, ZIP code and the job details you enter. They're used to give you a price and set up the cleaning, and they're shared only with the cleaning company that takes the job.</p>
+      <p>We never sell your information, and it isn't used for advertising.</p>
+      <p>You can ask for your information to be deleted at any time by mentioning it in a request.</p>
+    </div>
+  </section>
+</Page>

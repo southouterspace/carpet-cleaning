@@ -1,0 +1,21 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "carpet-cleaning-woodlands",
+  "main": "worker.ts",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "html_handling": "drop-trailing-slash",
+    "not_found_handling": "404-page",
+    // Only /api/* reaches the Worker; every page is served straight from the edge cache.
+    "run_worker_first": ["/api/*"]
+  },
+  // Quote form posts go to the shared lead Worker through a service binding.
+  "services": [{ "binding": "LEADS", "service": "carpet-cleaning-leads" }],
+  // Served on its own domain. www redirects to the apex with a zone redirect rule.
+  "routes": [{ "pattern": "woodlandscarpetcleaning.com", "custom_domain": true }],
+  "workers_dev": false,
+  "preview_urls": false,
+  "observability": { "enabled": true }
+}

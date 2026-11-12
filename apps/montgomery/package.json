@@ -1,0 +1,27 @@
+{
+  "name": "@carpet/montgomery",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "check": "astro check && tsc --noEmit -p tsconfig.worker.json",
+    "preview": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "lighthouse": "lhci autorun"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.4.11",
+    "@carpet/seo": "workspace:*",
+    "@carpet/ui": "workspace:*",
+    "@carpet/leads": "workspace:*"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@cloudflare/workers-types": "^5.20261112.1",
+    "@lhci/cli": "0.16.1",
+    "typescript": "5",
+    "wrangler": "^4.160.1"
+  }
+}

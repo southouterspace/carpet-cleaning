@@ -1,0 +1,10 @@
+---
+/** Shared Layout plus this site's own look (site.css). Every page uses this. */
+import Layout from "@carpet/ui/Layout.astro"
+import "../styles/site.css"
+
+type Props = Parameters<typeof Layout>[0]
+const props = Astro.props
+---
+
+<Layout {...props}><slot /></Layout>
