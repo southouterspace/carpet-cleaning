@@ -8,7 +8,7 @@ Everything runs on Cloudflare: each site is a static Astro build served by Worke
 
 ```
 apps/
-  conroe/        Astro site for conroetxcarpetcleaners.com (the reference site)
+  conroe/        Conroe site (the reference site), live at carpet-cleaning-conroe.southouterspace.workers.dev
   leads/         Shared lead Worker: validates, stores in D1, emails the renter
 packages/
   seo/           SiteConfig type, JSON-LD builders, llms.txt and robots.txt
@@ -20,8 +20,8 @@ Each site's content lives in one file, `apps/<site>/src/site.config.ts`. Pages, 
 ## How a lead flows
 
 1. A visitor submits the quote form: contact details plus rooms, stairs, pets and timing, so a cleaner can price the job before calling back. Sites are form-only for now; the phone number shows only when a site turns on the `phoneCalls` flag (docs/flags.md), for when a renter's forwarding number rings them directly.
-2. The form posts same-origin to `/api/lead`. The site's tiny edge Worker (`apps/<site>/worker.ts`) hands `/api/*` to the `carpet-leads` Worker through a service binding; every other request is served straight from static assets.
-3. `carpet-leads` checks the honeypot and Turnstile, saves the lead in D1, and emails the renter and you through Cloudflare Email Service.
+2. The form posts same-origin to `/api/lead`. The site's tiny edge Worker (`apps/<site>/worker.ts`) hands `/api/*` to the `carpet-cleaning-leads` Worker through a service binding; every other request is served straight from static assets.
+3. `carpet-cleaning-leads` checks the honeypot and Turnstile, saves the lead in D1, and emails the renter and you through Cloudflare Email Service.
 4. Without JavaScript the form still works: the Worker redirects to `/thanks`.
 
 ## Commands
@@ -38,7 +38,7 @@ bun run lighthouse   # Lighthouse CI, fails below 100 in any category
 Run one site and the lead Worker together, with a local D1:
 
 ```bash
-cd apps/leads && bunx wrangler d1 migrations apply carpet-leads --local
+cd apps/leads && bunx wrangler d1 migrations apply carpet-cleaning-leads --local
 cd ../conroe && bun run build && bunx wrangler dev -c wrangler.jsonc -c ../leads/wrangler.jsonc --persist-to ../leads/.wrangler/state
 ```
 
@@ -62,10 +62,13 @@ See [docs/new-site.md](docs/new-site.md).
 
 ## First deploy
 
-1. `bunx wrangler d1 create carpet-leads`, then paste the id into `apps/leads/wrangler.jsonc`.
-2. `cd apps/leads && bun run db:migrate`
-3. Onboard a sending domain: `bunx wrangler email sending enable <domain>`, then set `NOTIFY_FROM` and `OWNER_EMAIL` in `apps/leads/wrangler.jsonc`.
-4. Create a Turnstile widget for the site's domain. Put the site key in `site.config.ts` and run `bunx wrangler secret put TURNSTILE_SECRET` in `apps/leads`.
-5. `bun run deploy` deploys the lead Worker, then every site. The site attaches to its domain as a Workers custom domain, so the domain must be a zone in the same Cloudflare account.
+The D1 database (`carpet-cleaning-leads`) and a Turnstile widget already exist in the admin Cloudflare account.
+
+1. `cd apps/leads && bun run db:migrate`
+2. Onboard a sending domain: `bunx wrangler email sending enable <domain>`, then set `NOTIFY_FROM` and `OWNER_EMAIL` in `apps/leads/wrangler.jsonc`.
+3. Add the site's hostname to the `carpet-cleaning` Turnstile widget. Put the site key in `site.config.ts` and run `bunx wrangler secret put TURNSTILE_SECRET` in `apps/leads`.
+4. `bun run deploy` deploys the lead Worker, then every site.
+
+Sites live on workers.dev for now (`carpet-cleaning-<city>.southouterspace.workers.dev`). To move one to its own domain later, add the domain as a zone in the account, add a custom-domain route in its `wrangler.jsonc`, update `site` and `url`, and update the `sites.domain` row in D1.
 
 After the first manual deploy works, set the repository variable `DEPLOY_ENABLED=true` and the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets so every push to `main` deploys.

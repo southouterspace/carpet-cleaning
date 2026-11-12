@@ -4,16 +4,16 @@ import { resolveFlags, type SiteConfig } from "@carpet/seo"
  * Conroe city site. Everything on the site comes from this file.
  *
  * Before launch:
- * - Replace `phone` with the tracked number for this site (555-01xx is a
- *   reserved fictional number used as a placeholder).
- * - Set `turnstileSiteKey` from the Turnstile widget for this domain.
+ * - `phone` is a placeholder (555-01xx is reserved fictional) and stays
+ *   hidden while the phoneCalls flag is off. Set the renter's forwarding
+ *   number before turning that flag on.
  * - Add `hours`, `priceFrom` and `operator` once a renter confirms them.
  *   Never add an address, reviews or prices the renter can't back up.
  */
 export const site: SiteConfig = {
   id: "conroe",
   name: "Conroe TX Carpet Cleaners",
-  url: "https://conroetxcarpetcleaners.com",
+  url: "https://carpet-cleaning-conroe.southouterspace.workers.dev",
   tagline:
     "Carpet, upholstery, rug and tile cleaning for homes and rentals in Conroe, TX and nearby towns.",
   phone: "+19365550100",
@@ -26,7 +26,7 @@ export const site: SiteConfig = {
   },
   hours: [],
   leadEndpoint: "/api/lead",
-  turnstileSiteKey: "",
+  turnstileSiteKey: "0x4AAAAAAF9mIQ55cQuaXFQr",
   // Per-site flag overrides go in the first argument; FLAG_* env vars win at build time.
   flags: resolveFlags({}, process.env),
   theme: { accent: "#0a6672", accentDark: "#064a53" },

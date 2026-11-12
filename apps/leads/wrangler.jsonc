@@ -2,16 +2,15 @@
   "$schema": "../../node_modules/wrangler/config-schema.json",
   // Shared lead intake for every city site. Sites reach it through a service
   // binding (no public route), so it has no URL of its own.
-  "name": "carpet-leads",
+  "name": "carpet-cleaning-leads",
   "main": "src/index.ts",
   "compatibility_date": "2026-11-01",
   "workers_dev": false,
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "carpet-leads",
-      // Fill in after: wrangler d1 create carpet-leads
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_name": "carpet-cleaning-leads",
+      "database_id": "ed1d8047-dc7f-48ef-8de2-cda7a8b31276",
       "migrations_dir": "migrations"
     }
   ],

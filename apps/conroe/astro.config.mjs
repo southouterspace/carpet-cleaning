@@ -3,7 +3,7 @@ import { defineConfig } from "astro/config"
 import sitemap from "@astrojs/sitemap"
 
 export default defineConfig({
-  site: "https://conroetxcarpetcleaners.com",
+  site: "https://carpet-cleaning-conroe.southouterspace.workers.dev",
   trailingSlash: "never",
   build: {
     format: "file",

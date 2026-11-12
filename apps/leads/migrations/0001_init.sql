@@ -34,4 +34,4 @@ CREATE TABLE leads (
 CREATE INDEX leads_site_created ON leads (site_id, created_at);
 
 INSERT INTO sites (id, domain, name) VALUES
-  ('conroe', 'conroetxcarpetcleaners.com', 'Conroe TX Carpet Cleaners');
+  ('conroe', 'carpet-cleaning-conroe.southouterspace.workers.dev', 'Conroe TX Carpet Cleaners');

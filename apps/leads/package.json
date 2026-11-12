@@ -6,8 +6,8 @@
     "dev": "wrangler dev",
     "check": "tsc --noEmit",
     "test": "bun test",
-    "deploy": "wrangler d1 migrations apply carpet-leads --remote && wrangler deploy",
-    "db:migrate": "wrangler d1 migrations apply carpet-leads --remote"
+    "deploy": "wrangler d1 migrations apply carpet-cleaning-leads --remote && wrangler deploy",
+    "db:migrate": "wrangler d1 migrations apply carpet-cleaning-leads --remote"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^5.20261112.1",

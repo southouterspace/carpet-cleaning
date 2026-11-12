@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/wrangler/config-schema.json",
-  "name": "carpet-conroe",
+  "name": "carpet-cleaning-conroe",
   "main": "worker.ts",
   "compatibility_date": "2026-11-01",
   "assets": {
@@ -12,7 +12,10 @@
     "run_worker_first": ["/api/*"]
   },
   // Quote form posts go to the shared lead Worker through a service binding.
-  "services": [{ "binding": "LEADS", "service": "carpet-leads" }],
-  "routes": [{ "pattern": "conroetxcarpetcleaners.com", "custom_domain": true }],
+  "services": [{ "binding": "LEADS", "service": "carpet-cleaning-leads" }],
+  // Served on workers.dev until the site gets its own domain:
+  // https://carpet-cleaning-conroe.southouterspace.workers.dev
+  "workers_dev": true,
+  "preview_urls": false,
   "observability": { "enabled": true }
 }
