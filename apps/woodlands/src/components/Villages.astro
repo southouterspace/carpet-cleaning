@@ -1,0 +1,27 @@
+---
+/** Service area as a grid of Woodlands villages, then nearby towns and ZIPs. */
+import type { SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+}
+const { site } = Astro.props
+const { towns, zips, neighborhoods } = site.serviceArea
+const nearby = towns.filter((t) => t !== site.city)
+---
+
+<section class="section" id="areas" aria-labelledby="areas-h">
+  <div class="wrap">
+    <h2 id="areas-h">Every village in The Woodlands</h2>
+    <p class="muted">From the older streets near Lake Woodlands to new builds in Creekside Park, we cover the whole township.</p>
+    <ul class="vg">
+      {neighborhoods.map((n) => <li>{n}</li>)}
+    </ul>
+    <p>Also serving {nearby.join(", ")}. ZIP codes {zips.join(", ")}.</p>
+  </div>
+</section>
+
+<style>
+  .vg { list-style: none; padding: 0; margin: 1.5rem 0; display: grid; gap: .75rem; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); }
+  .vg li { background: var(--bg-soft); border-radius: var(--radius); padding: .9rem 1rem; font-weight: 600; }
+</style>

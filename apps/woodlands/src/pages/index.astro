@@ -1,0 +1,35 @@
+---
+import { breadcrumbs, faqPage, graph, localBusiness, website } from "@carpet/seo"
+import Services from "@carpet/ui/Services.astro"
+import Faq from "@carpet/ui/Faq.astro"
+import QuoteForm from "@carpet/ui/QuoteForm.astro"
+import Page from "../components/Page.astro"
+import Hero from "../components/Hero.astro"
+import Villages from "../components/Villages.astro"
+import Steps from "../components/Steps.astro"
+import { site } from "../site.config"
+
+const title = `Carpet Cleaning The Woodlands, TX | ${site.name}`
+const description = `Carpet cleaning in The Woodlands, TX, including stairs, pet stains, sofas, rugs and tile. Tell us about your home and get a free, exact quote.`
+const jsonld = graph(
+  localBusiness(site),
+  website(site),
+  faqPage(site.faqs),
+  breadcrumbs(site, [{ name: "Home", path: "/" }])
+)
+---
+
+<Page site={site} title={title} description={description} path="/" jsonld={jsonld}>
+  <Hero
+    site={site}
+    kicker="Serving all eight villages"
+    heading="Carpet cleaning in The Woodlands, TX"
+    lead="Deep cleaning for the carpet, stairs and furniture in your home, from Grogan's Mill to Creekside Park. Tell us about the job and get a real price up front."
+    card
+  />
+  <Services site={site} heading="What we clean" />
+  <Steps />
+  <Villages site={site} />
+  <QuoteForm site={site} />
+  <Faq faqs={site.faqs} heading="Questions from Woodlands homeowners" />
+</Page>

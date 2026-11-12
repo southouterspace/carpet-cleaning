@@ -1,0 +1,30 @@
+---
+/** What changes a carpet cleaning price, so the quote request has what's needed. */
+const factors = [
+  { h: "Number of rooms", p: "Most quotes start with a room count. Large open living areas may count as two rooms." },
+  { h: "Stairs", p: "Staircases are cleaned by hand, step by step, so they're usually priced on their own." },
+  { h: "Pet spots and stains", p: "Urine treatment and heavy stain work add time and product. Tell us roughly how many spots." },
+  { h: "Furniture", p: "Moving heavy pieces adds time. Clearing small items yourself keeps the price down." },
+]
+---
+
+<section class="section" aria-labelledby="price-h">
+  <div class="wrap">
+    <h2 id="price-h">What affects the price</h2>
+    <p class="muted">There's no one-size price for carpet cleaning in Conroe. These four things decide it, and the quote form asks about each one so the price you get is the price you pay.</p>
+    <dl class="pf">
+      {factors.map((f) => (
+        <div>
+          <dt>{f.h}</dt>
+          <dd>{f.p}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>
+
+<style>
+  .pf { display: grid; gap: 1rem 2rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); margin: 1.5rem 0 0; }
+  .pf dt { font-weight: 700; margin-bottom: .25rem; }
+  .pf dd { margin: 0; color: var(--ink-soft); }
+</style>

@@ -1,0 +1,14 @@
+/*
+ * The Woodlands look: forest green, soft rounded cards, serif headings.
+ * Selectors start with :root so they beat the shared base styles.
+ */
+:root {
+  --bg-soft: #f1f5ef;
+  --line: #dde5d9;
+  --radius: 16px;
+  --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+}
+:root h1, :root h2, :root h3 { font-family: var(--serif); letter-spacing: 0; }
+:root h2 { color: var(--accent-dark); }
+:root .card { border-color: var(--line); box-shadow: 0 1px 2px rgb(28 74 41 / 6%); }
+:root .btn { border-radius: 999px; }

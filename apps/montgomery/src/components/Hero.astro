@@ -1,0 +1,52 @@
+---
+/**
+ * Montgomery hero: a centered, full-width brick band. Phone buttons appear
+ * only when the phoneCalls flag is on.
+ */
+import { callNumber, formatPhone, type SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+  heading: string
+  lead: string
+  /** Short true facts under the buttons. */
+  points?: string[]
+}
+const { site, heading, lead, points = [] } = Astro.props
+const phone = callNumber(site)
+---
+
+<section class="mh">
+  <div class="wrap mh__in">
+    <h1>{heading}</h1>
+    <p class="mh__lead">{lead}</p>
+    <div class="mh__cta">
+      {site.flags.quoteForm && <a class="mh__btn" href="#quote">Request a quote</a>}
+      {phone && <a class="mh__btn mh__btn--line" href={`tel:${phone}`}>Call {formatPhone(phone)}</a>}
+    </div>
+    {points.length > 0 && (
+      <ul class="mh__pts">
+        {points.map((p) => <li>{p}</li>)}
+      </ul>
+    )}
+  </div>
+</section>
+
+<style>
+  .mh { background: var(--accent-dark); color: #fff; padding: 3.5rem 0; text-align: center; }
+  .mh h1 { color: #fff; max-width: 40rem; margin-inline: auto; }
+  .mh__lead { font-size: 1.15rem; max-width: 38rem; margin: 0 auto; color: #fbefe8; }
+  .mh__cta { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; margin: 1.75rem 0 1.25rem; }
+  .mh__btn {
+    display: inline-flex; align-items: center; min-height: 48px; padding: .7rem 1.5rem;
+    border-radius: var(--radius); border: 2px solid #fff; background: #fff; color: var(--accent-dark);
+    font-weight: 750; font-size: 1.05rem; text-decoration: none;
+  }
+  .mh__btn:hover, .mh__btn:focus-visible { background: var(--bg-soft); }
+  .mh__btn--line { background: transparent; color: #fff; }
+  .mh__btn--line:hover, .mh__btn--line:focus-visible { background: rgb(255 255 255 / 12%); }
+  .mh :focus-visible { outline-color: #fff; }
+  .mh__pts { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem 1.5rem; font-weight: 600; }
+  .mh__pts li::before { content: "• "; }
+  @media (min-width: 48rem) { .mh { padding: 5rem 0; } }
+</style>

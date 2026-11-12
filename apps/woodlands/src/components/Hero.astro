@@ -1,0 +1,62 @@
+---
+/**
+ * Woodlands hero: copy on the left, a "what to send us" card on the right on
+ * wide screens. Phone buttons appear only when the phoneCalls flag is on.
+ */
+import { callNumber, formatPhone, type SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+  heading: string
+  lead: string
+  /** Eyebrow line above the heading. */
+  kicker?: string
+  /** Show the side card listing what to include in a quote request. */
+  card?: boolean
+}
+const { site, heading, lead, kicker, card = false } = Astro.props
+const phone = callNumber(site)
+---
+
+<section class="wh">
+  <div class={card ? "wrap wh__in wh__in--card" : "wrap wh__in"}>
+    <div>
+      {kicker && <p class="wh__kicker">{kicker}</p>}
+      <h1>{heading}</h1>
+      <p class="wh__lead">{lead}</p>
+      <div class="wh__cta">
+        {site.flags.quoteForm && <a class="btn" href="#quote">Get my free quote</a>}
+        {phone && <a class="btn btn--ghost" href={`tel:${phone}`}>Call {formatPhone(phone)}</a>}
+      </div>
+    </div>
+    {card && site.flags.quoteForm && (
+      <aside class="wh__card" aria-label="What to include in your quote request">
+        <p class="wh__card-h">For an exact price, tell us</p>
+        <ol>
+          <li>How many rooms, and whether the upstairs is carpeted</li>
+          <li>How many staircases</li>
+          <li>Any pet spots or stains to treat</li>
+          <li>When you'd like it done</li>
+        </ol>
+        <p class="wh__note">You'll get a price by text, call or email. Nothing is booked until you say yes.</p>
+      </aside>
+    )}
+  </div>
+</section>
+
+<style>
+  .wh { padding: 3rem 0; background: var(--bg-soft); border-bottom: 1px solid var(--line); }
+  .wh__in { display: grid; gap: 2rem; align-items: center; }
+  .wh__kicker { font-weight: 700; color: var(--accent-dark); margin-bottom: .5rem; }
+  .wh__lead { font-size: 1.15rem; color: var(--ink-soft); max-width: 38rem; }
+  .wh__cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+  .wh__card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; }
+  .wh__card-h { font-weight: 700; margin-bottom: .5rem; }
+  .wh__card ol { margin: 0 0 1rem; padding-left: 1.25rem; }
+  .wh__card li { padding: .2rem 0; }
+  .wh__note { color: var(--ink-soft); font-size: .95rem; margin: 0; }
+  @media (min-width: 52rem) {
+    .wh { padding: 4.5rem 0; }
+    .wh__in--card { grid-template-columns: 1.4fr 1fr; }
+  }
+</style>

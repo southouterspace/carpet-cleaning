@@ -1,0 +1,13 @@
+---
+import Page from "../components/Page.astro"
+import { site } from "../site.config"
+---
+
+<Page site={site} title={`Page not found | ${site.name}`} description="That page doesn't exist." path="/404" noindex>
+  <section class="section">
+    <div class="wrap">
+      <h1>Page not found</h1>
+      <p>That page doesn't exist. Try the <a href="/">home page</a>, or {site.flags.quoteForm ? <a href="/#quote">ask for a free quote</a> : "browse our services"}.</p>
+    </div>
+  </section>
+</Page>
