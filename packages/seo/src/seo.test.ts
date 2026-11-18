@@ -1,6 +1,11 @@
 import { describe, expect, test } from "bun:test"
 import {
+  allFaqs,
+  areaService,
+  article,
+  buildLlmsFullTxt,
   buildLlmsTxt,
+  visibleSections,
   faqPage,
   formatPhone,
   resolveFlags,
@@ -79,5 +84,64 @@ describe("flags", () => {
   })
   test("ignores unrecognized values", () => {
     expect(resolveFlags({}, { FLAG_QUOTE_FORM: "yes" }).quoteForm).toBe(true)
+  })
+})
+
+describe("content pages", () => {
+  const withContent: SiteConfig = {
+    ...site,
+    services: [
+      { ...site.services[0]!, faqs: [{ q: "Pet q?", a: "Pet a." }], sections: [{ heading: "How", paragraphs: ["Steps."] }] },
+    ],
+    areas: [
+      { slug: "old-town", name: "Old Town", kind: "neighborhood", summary: "Old Town homes.", intro: ["Intro."], faqs: [{ q: "Area q?", a: "Area a." }] },
+      { slug: "nextville", name: "Nextville", kind: "town", summary: "Next town.", intro: ["Town intro."] },
+    ],
+    guides: [
+      {
+        slug: "cost",
+        title: "What it costs",
+        summary: "Prices.",
+        updated: "2026-11-18",
+        intro: ["It depends."],
+        sections: [
+          { heading: "Factors", paragraphs: ["Rooms."] },
+          { heading: "Survey", paragraphs: ["$88 to $225."], requires: "priceRanges" },
+        ],
+      },
+    ],
+  }
+
+  test("a neighborhood sits inside the city; a town is its own City", () => {
+    const n = areaService(withContent, withContent.areas![0]!) as any
+    expect(n.areaServed["@type"]).toBe("Place")
+    expect(n.areaServed.containedInPlace.name).toBe("Testville, TX")
+    const t = areaService(withContent, withContent.areas![1]!) as any
+    expect(t.areaServed).toEqual({ "@type": "City", name: "Nextville, TX" })
+  })
+
+  test("article is published by the business", () => {
+    const a = article(withContent, withContent.guides![0]!) as any
+    expect(a.publisher["@id"]).toBe("https://example.com/#business")
+    expect(a.dateModified).toBe("2026-11-18")
+  })
+
+  test("flagged sections stay hidden until the flag is on", () => {
+    const g = withContent.guides![0]!
+    expect(visibleSections(withContent, g.sections).map((s) => s.heading)).toEqual(["Factors"])
+    expect(buildLlmsFullTxt(withContent)).not.toContain("$88")
+    const on = { ...withContent, flags: resolveFlags({ priceRanges: true }) }
+    expect(buildLlmsFullTxt(on)).toContain("$88")
+  })
+
+  test("allFaqs groups general, service and area questions", () => {
+    expect(allFaqs(withContent).map((g) => g.heading)).toEqual(["General questions", "Pet odor removal", "Old Town"])
+  })
+
+  test("llms.txt links areas, guides and the full text", () => {
+    const txt = buildLlmsTxt(withContent)
+    expect(txt).toContain("[Old Town](https://example.com/areas/old-town)")
+    expect(txt).toContain("[What it costs](https://example.com/guides/cost)")
+    expect(txt).toContain("https://example.com/llms-full.txt")
   })
 })

@@ -1,0 +1,48 @@
+---
+import { allFaqs, breadcrumbs, faqPage, graph } from "@carpet/seo"
+import Faq from "@carpet/ui/Faq.astro"
+import Page from "../components/Page.astro"
+import Hero from "../components/Hero.astro"
+import { site } from "../site.config"
+
+const groups = allFaqs(site)
+const path = "/faq"
+const jsonld = graph(
+  faqPage(groups.flatMap((g) => g.faqs)),
+  breadcrumbs(site, [
+    { name: "Home", path: "/" },
+    { name: "Questions", path },
+  ])
+)
+---
+
+<Page
+  site={site}
+  title={`Carpet Cleaning FAQ, The Woodlands TX | ${site.name}`}
+  description="Answers for Woodlands homeowners about carpet, stair, sofa, rug and tile cleaning: drying, pollen season, pets, pricing and scheduling."
+  path={path}
+  jsonld={jsonld}
+>
+  <Hero
+    site={site}
+    kicker="Questions and answers"
+    heading="What Woodlands homeowners ask before a carpet cleaning"
+    lead="Every question we answer across the site, in one place. If yours isn't here, add it to your quote request."
+  />
+  <nav class="wrap toc" aria-label="Topics">
+    {groups.map((g, i) => <a href={`#g${i}`}>{g.heading}</a>)}
+  </nav>
+  {groups.map((g, i) => (
+    <>
+      <Faq faqs={g.faqs} heading={g.heading} id={`g${i}`} />
+      {g.path && <p class="wrap more"><a href={g.path}>Go to the {g.heading} page</a></p>}
+    </>
+  ))}
+</Page>
+
+<style>
+  .toc { display: flex; flex-wrap: wrap; gap: .5rem; padding-top: 1.5rem; }
+  .toc a { display: inline-block; background: var(--bg-soft); border-radius: 999px; padding: .5rem 1rem; text-decoration: none; font-weight: 600; }
+  .more { margin-top: -1.5rem; }
+  .more a { display: inline-block; padding: .4rem 0; }
+</style>

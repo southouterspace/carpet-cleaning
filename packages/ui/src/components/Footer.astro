@@ -24,10 +24,31 @@ const phone = callNumber(site)
         ))}
       </ul>
     </nav>
-    <div>
-      <p class="ftr__head">Serving</p>
-      <p class="muted">{site.serviceArea.towns.join(", ")}, {site.region}</p>
-    </div>
+    {site.areas && site.areas.length > 0 ? (
+      <nav aria-label="Areas">
+        <p class="ftr__head">Areas</p>
+        <ul>
+          {site.areas.map((a) => (
+            <li><a href={`/areas/${a.slug}`}>{a.name}</a></li>
+          ))}
+        </ul>
+      </nav>
+    ) : (
+      <div>
+        <p class="ftr__head">Serving</p>
+        <p class="muted">{site.serviceArea.towns.join(", ")}, {site.region}</p>
+      </div>
+    )}
+    <nav aria-label="Help">
+      <p class="ftr__head">Help</p>
+      <ul>
+        {site.guides?.map((g) => (
+          <li><a href={`/guides/${g.slug}`}>{g.title}</a></li>
+        ))}
+        <li><a href="/faq">Questions and answers</a></li>
+        {site.flags.quoteForm && <li><a href="/#quote">Free quote</a></li>}
+      </ul>
+    </nav>
   </div>
   <div class="wrap ftr__legal muted">
     <span>© {year} {site.operator?.legalName ?? site.name}</span>
@@ -37,7 +58,7 @@ const phone = callNumber(site)
 
 <style>
   .ftr { background: var(--bg-soft); border-top: 1px solid var(--line); padding: 2.5rem 0 1.5rem; margin-top: 2rem; }
-  .ftr__in { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
+  .ftr__in { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); }
   .ftr__name { font-weight: 800; }
   .ftr__head { font-weight: 700; margin-bottom: .25rem; }
   .ftr ul { list-style: none; padding: 0; margin: 0; }

@@ -1,4 +1,4 @@
-import type { Flags } from "./flags"
+import type { FlagName, Flags } from "./flags"
 
 /**
  * Everything a city site knows about itself. Each app has one `site.config.ts`
@@ -33,6 +33,10 @@ export interface SiteConfig {
   priceFrom?: { amount: number; unit: string }
   services: Service[]
   faqs: Faq[]
+  /** Neighborhood and town pages at /areas/<slug>. */
+  areas?: Area[]
+  /** Long-form help pages at /guides/<slug>. */
+  guides?: Guide[]
   /** Where the quote form posts. The shared lead Worker. */
   leadEndpoint: string
   /** Cloudflare Turnstile site key (public). Empty disables the widget in dev. */
@@ -65,6 +69,46 @@ export interface Service {
   summary: string
   /** Body paragraphs for the service page. */
   body: string[]
+  /** Extra sections under the body, each with its own heading. */
+  sections?: Section[]
+  faqs?: Faq[]
+}
+
+/** A headed block of copy. `requires` hides it unless that flag is on. */
+export interface Section {
+  heading: string
+  paragraphs: string[]
+  /** Optional bullet list shown after the paragraphs. */
+  list?: string[]
+  requires?: FlagName
+}
+
+/** A neighborhood or nearby town with its own page. */
+export interface Area {
+  slug: string
+  /** "Grand Central Park". */
+  name: string
+  /** A neighborhood inside `site.city`, or a separate town nearby. */
+  kind: "neighborhood" | "town"
+  /** Meta description and card text, under 160 characters. */
+  summary: string
+  intro: string[]
+  sections?: Section[]
+  /** Service slugs to feature first on the page. */
+  highlight?: string[]
+  faqs?: Faq[]
+}
+
+/** A help article, e.g. what carpet cleaning costs locally. */
+export interface Guide {
+  slug: string
+  title: string
+  /** Meta description, under 160 characters. */
+  summary: string
+  /** ISO date the content was last reviewed, e.g. "2026-11-18". */
+  updated: string
+  intro: string[]
+  sections: Section[]
   faqs?: Faq[]
 }
 

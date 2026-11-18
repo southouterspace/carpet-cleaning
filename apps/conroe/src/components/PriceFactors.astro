@@ -1,5 +1,10 @@
 ---
 /** What changes a carpet cleaning price, so the quote request has what's needed. */
+interface Props {
+  /** Link to the cost guide. Off on the guide itself. */
+  guideLink?: boolean
+}
+const { guideLink = true } = Astro.props
 const factors = [
   { h: "Number of rooms", p: "Most quotes start with a room count. Large open living areas may count as two rooms." },
   { h: "Stairs", p: "Staircases are cleaned by hand, step by step, so they're usually priced on their own." },
@@ -20,6 +25,7 @@ const factors = [
         </div>
       ))}
     </dl>
+    {guideLink && <p><a href="/guides/carpet-cleaning-cost-conroe">Read the full guide to carpet cleaning costs in Conroe</a></p>}
   </div>
 </section>
 

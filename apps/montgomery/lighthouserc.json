@@ -2,20 +2,59 @@
   "ci": {
     "collect": {
       "staticDistDir": "./dist",
-      "url": ["/index.html", "/services/carpet-cleaning.html"],
+      "url": [
+        "/index.html",
+        "/services/carpet-cleaning.html",
+        "/areas/walden-on-lake-conroe.html",
+        "/guides/carpet-cleaning-cost-montgomery.html",
+        "/faq.html"
+      ],
       "numberOfRuns": 3
     },
     "assert": {
       "aggregationMethod": "median-run",
       "assertions": {
-        "categories:performance": ["error", { "minScore": 1 }],
-        "categories:accessibility": ["error", { "minScore": 1 }],
-        "categories:best-practices": ["error", { "minScore": 1 }],
-        "categories:seo": ["error", { "minScore": 1 }],
-        "cumulative-layout-shift": ["error", { "maxNumericValue": 0 }],
-        "total-blocking-time": ["error", { "maxNumericValue": 200 }]
+        "categories:performance": [
+          "error",
+          {
+            "minScore": 1
+          }
+        ],
+        "categories:accessibility": [
+          "error",
+          {
+            "minScore": 1
+          }
+        ],
+        "categories:best-practices": [
+          "error",
+          {
+            "minScore": 1
+          }
+        ],
+        "categories:seo": [
+          "error",
+          {
+            "minScore": 1
+          }
+        ],
+        "cumulative-layout-shift": [
+          "error",
+          {
+            "maxNumericValue": 0
+          }
+        ],
+        "total-blocking-time": [
+          "error",
+          {
+            "maxNumericValue": 200
+          }
+        ]
       }
     },
-    "upload": { "target": "filesystem", "outputDir": ".lighthouseci" }
+    "upload": {
+      "target": "filesystem",
+      "outputDir": ".lighthouseci"
+    }
   }
 }

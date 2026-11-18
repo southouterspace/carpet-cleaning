@@ -1,4 +1,5 @@
 import { resolveFlags, type SiteConfig } from "@carpet/seo"
+import { areas, guides, withMoreContent } from "./content"
 
 /**
  * Montgomery city site. Everything on the site comes from this file.
@@ -38,7 +39,8 @@ export const site: SiteConfig = {
   // Per-site flag overrides go in the first argument; FLAG_* env vars win at build time.
   flags: resolveFlags({ photoUpload: true }, process.env),
   theme: { accent: "#9a3a1b", accentDark: "#6b2610" },
-  services: [
+  // Longer sections and the extra services live in content.ts.
+  services: withMoreContent([
     {
       slug: "carpet-cleaning",
       name: "Carpet cleaning",
@@ -111,7 +113,9 @@ export const site: SiteConfig = {
         "Rugs vary more than wall-to-wall carpet. Wool and natural fibers need care so they don't shrink, brown or bleed. Tell us the size and material, or send a photo of the label, when you ask for a quote.",
       ],
     },
-  ],
+  ]),
+  areas,
+  guides,
   faqs: [
     {
       q: "How much does carpet cleaning cost in Montgomery, TX?",
@@ -128,6 +132,14 @@ export const site: SiteConfig = {
     {
       q: "How long until I can walk on the carpet?",
       a: "Most carpet is dry in 4 to 8 hours. Running the AC and ceiling fans helps. Socks are fine sooner; wait on shoes and furniture until it's dry.",
+    },
+    {
+      q: "Do you clean in Woodforest and downtown Montgomery too?",
+      a: "Yes. The service area covers Montgomery's neighborhoods away from the lake as well, including Woodforest and the historic downtown.",
+    },
+    {
+      q: "Can I send photos instead of having someone come look?",
+      a: "Yes. The quote form takes up to five photos. Photos of stains, rugs and furniture tags help us give a firm price without a visit first.",
     },
     {
       q: "What should I do before the cleaners arrive?",

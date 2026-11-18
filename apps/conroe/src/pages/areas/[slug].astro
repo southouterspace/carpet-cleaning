@@ -1,0 +1,68 @@
+---
+import type { GetStaticPaths } from "astro"
+import { areaService, breadcrumbs, faqPage, graph } from "@carpet/seo"
+import Layout from "@carpet/ui/Layout.astro"
+import Hero from "@carpet/ui/Hero.astro"
+import Prose from "@carpet/ui/Prose.astro"
+import Faq from "@carpet/ui/Faq.astro"
+import QuoteForm from "@carpet/ui/QuoteForm.astro"
+import { site } from "../../site.config"
+
+export const getStaticPaths = (() =>
+  (site.areas ?? []).map((a) => ({ params: { slug: a.slug }, props: { a } }))) satisfies GetStaticPaths
+
+const { a } = Astro.props
+const path = `/areas/${a.slug}`
+const where = a.kind === "town" ? `${a.name}, ${site.region}` : `${a.name}, ${site.city}`
+const title = `Carpet Cleaning ${where} | ${site.name}`
+const jsonld = graph(
+  areaService(site, a),
+  faqPage(a.faqs ?? []),
+  breadcrumbs(site, [
+    { name: "Home", path: "/" },
+    { name: "Areas", path: "/#areas" },
+    { name: a.name, path },
+  ])
+)
+const first = new Set(a.highlight ?? [])
+const services = [
+  ...site.services.filter((s) => first.has(s.slug)),
+  ...site.services.filter((s) => !first.has(s.slug)),
+]
+const others = (site.areas ?? []).filter((o) => o.slug !== a.slug)
+---
+
+<Layout site={site} title={title} description={a.summary} path={path} jsonld={jsonld}>
+  <nav class="wrap crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/#areas">Areas</a> / <span>{a.name}</span></nav>
+  <Hero site={site} heading={`Carpet cleaning in ${where}`} lead={a.summary} />
+  <section class="section">
+    <div class="wrap">
+      <Prose site={site} paragraphs={a.intro} sections={a.sections} />
+    </div>
+  </section>
+  <section class="section section--soft" aria-labelledby="svc-h">
+    <div class="wrap">
+      <h2 id="svc-h">Services in {a.name}</h2>
+      <ul class="svc">
+        {services.map((s) => (
+          <li><a href={`/services/${s.slug}`}>{s.name}</a><span class="muted"> {s.summary}</span></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+  <QuoteForm site={site} />
+  <Faq faqs={a.faqs ?? []} heading={`${a.name} questions`} />
+  <section class="section" aria-labelledby="near-h">
+    <div class="wrap">
+      <h2 id="near-h">Nearby areas</h2>
+      <p class="near">{others.map((o, i) => <>{i > 0 && " · "}<a href={`/areas/${o.slug}`}>{o.name}</a></>)}</p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .crumbs { padding-top: 1rem; font-size: .9rem; color: var(--ink-soft); }
+  .svc { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; gap: .75rem; }
+  .svc a { font-weight: 650; display: inline-block; padding: .2rem 0; }
+  .near a { display: inline-block; padding: .4rem 0; }
+</style>

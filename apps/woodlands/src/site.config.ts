@@ -1,4 +1,5 @@
 import { resolveFlags, type SiteConfig } from "@carpet/seo"
+import { areas, guides, withMoreContent } from "./content"
 
 /**
  * The Woodlands city site. Everything on the site comes from this file.
@@ -39,7 +40,8 @@ export const site: SiteConfig = {
   // Per-site flag overrides go in the first argument; FLAG_* env vars win at build time.
   flags: resolveFlags({ photoUpload: true }, process.env),
   theme: { accent: "#2b6a3d", accentDark: "#1c4a29" },
-  services: [
+  // Longer sections and the extra services live in content.ts.
+  services: withMoreContent([
     {
       slug: "carpet-cleaning",
       name: "Whole-home carpet cleaning",
@@ -113,7 +115,9 @@ export const site: SiteConfig = {
         "Mopping pushes dirty water into grout, so it gets darker every year. A pressurized hot rinse clears out what a mop can't, and an optional sealer slows down how fast it soils again.",
       ],
     },
-  ],
+  ]),
+  areas,
+  guides,
   faqs: [
     {
       q: "How much does carpet cleaning cost in The Woodlands?",
@@ -130,6 +134,14 @@ export const site: SiteConfig = {
     {
       q: "Is the cleaning safe for kids and pets?",
       a: "Yes. Hot water extraction mostly uses heat and water. Ask about specific products if anyone in the home has sensitivities, and keep pets off the carpet until it's dry.",
+    },
+    {
+      q: "How often should carpet be cleaned in a home with kids and pets?",
+      a: "Every 6 to 12 months keeps traffic lanes and odors from setting in. Homes without pets can usually go 12 to 18 months between deep cleanings.",
+    },
+    {
+      q: "Can you clean the sofa and rugs on the same visit?",
+      a: "Yes. Add them to the same quote request and it's all priced and done together, so you only clear the house once.",
     },
     {
       q: "How soon can someone come out?",

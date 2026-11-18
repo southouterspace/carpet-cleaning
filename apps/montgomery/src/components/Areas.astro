@@ -7,6 +7,7 @@ interface Props {
 }
 const { site } = Astro.props
 const { towns, zips, neighborhoods } = site.serviceArea
+const pageFor = (name: string) => site.areas?.find((a) => a.name === name)
 ---
 
 <section class="section section--soft" id="areas" aria-labelledby="areas-h">
@@ -15,7 +16,10 @@ const { towns, zips, neighborhoods } = site.serviceArea
     <div class="ar">
       <div>
         <h3>Montgomery and the lake</h3>
-        <ul>{neighborhoods.map((n) => <li>{n}</li>)}</ul>
+        <ul>{neighborhoods.map((n) => {
+          const a = pageFor(n)
+          return <li>{a ? <a href={`/areas/${a.slug}`}>{n}</a> : n}</li>
+        })}</ul>
       </div>
       <div>
         <h3>Nearby towns</h3>
@@ -30,4 +34,5 @@ const { towns, zips, neighborhoods } = site.serviceArea
   .ar { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); margin-top: 1rem; }
   .ar ul { margin: 0 0 1rem; padding-left: 1.2rem; columns: 2 10rem; }
   .ar li { padding: .15rem 0; }
+  .ar li a { display: inline-block; padding: .2rem 0; }
 </style>

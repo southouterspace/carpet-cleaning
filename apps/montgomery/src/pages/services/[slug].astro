@@ -6,6 +6,7 @@ import Hero from "../../components/Hero.astro"
 import Services from "@carpet/ui/Services.astro"
 import Faq from "@carpet/ui/Faq.astro"
 import QuoteForm from "@carpet/ui/QuoteForm.astro"
+import Prose from "@carpet/ui/Prose.astro"
 import { site } from "../../site.config"
 
 export const getStaticPaths = (() =>
@@ -28,9 +29,9 @@ const jsonld = graph(
   <Hero site={site} heading={`${s.name} in ${site.city}, ${site.region}`} lead={s.summary} />
   <nav class="wrap crumbs" aria-label="Breadcrumb"><a href="/">Home</a> › <span>{s.name}</span></nav>
   <section class="section">
-    <div class="wrap prose">
+    <div class="wrap">
       <h2>About {s.name.toLowerCase()}</h2>
-      {s.body.map((p) => <p>{p}</p>)}
+      <Prose site={site} paragraphs={s.body} sections={s.sections} level={3} />
     </div>
   </section>
   <QuoteForm site={site} service={s.slug} />
@@ -40,5 +41,4 @@ const jsonld = graph(
 
 <style>
   .crumbs { padding-top: 1rem; font-size: .9rem; color: var(--ink-soft); }
-  .prose { max-width: 44rem; font-size: 1.05rem; }
 </style>

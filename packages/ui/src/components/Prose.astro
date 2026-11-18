@@ -1,0 +1,35 @@
+---
+/**
+ * Long-form copy: lead paragraphs, then headed sections (with optional
+ * bullet lists). Sections whose `requires` flag is off are left out.
+ */
+import { visibleSections, type Section, type SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+  paragraphs?: string[]
+  sections?: Section[]
+  /** Heading level for section titles. */
+  level?: 2 | 3
+}
+const { site, paragraphs = [], sections = [], level = 2 } = Astro.props
+const H = level === 2 ? "h2" : "h3"
+---
+
+<div class="prose">
+  {paragraphs.map((p) => <p>{p}</p>)}
+  {visibleSections(site, sections).map((sec) => (
+    <>
+      <H>{sec.heading}</H>
+      {sec.paragraphs.map((p) => <p>{p}</p>)}
+      {sec.list && sec.list.length > 0 && <ul>{sec.list.map((l) => <li>{l}</li>)}</ul>}
+    </>
+  ))}
+</div>
+
+<style>
+  .prose { max-width: 44rem; font-size: 1.05rem; }
+  .prose :is(h2, h3) { margin-top: 1.75em; }
+  .prose ul { padding-left: 1.25rem; margin: 0 0 1em; }
+  .prose li { margin: .25em 0; }
+</style>
