@@ -128,8 +128,9 @@ describe("content pages", () => {
 
   test("flagged sections stay hidden until the flag is on", () => {
     const g = withContent.guides![0]!
-    expect(visibleSections(withContent, g.sections).map((s) => s.heading)).toEqual(["Factors"])
-    expect(buildLlmsFullTxt(withContent)).not.toContain("$88")
+    const off = { ...withContent, flags: resolveFlags({ priceRanges: false }) }
+    expect(visibleSections(off, g.sections).map((s) => s.heading)).toEqual(["Factors"])
+    expect(buildLlmsFullTxt(off)).not.toContain("$88")
     const on = { ...withContent, flags: resolveFlags({ priceRanges: true }) }
     expect(buildLlmsFullTxt(on)).toContain("$88")
   })

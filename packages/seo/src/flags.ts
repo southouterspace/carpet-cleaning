@@ -21,9 +21,9 @@ export const FLAG_DEFAULTS = {
   photoUpload: false,
   /**
    * Typical local price ranges from public competitor sites (a market survey,
-   * never a quote). Off until Justin decides to show them.
+   * never a quote). On since Justin approved showing them (2026-11-19).
    */
-  priceRanges: false,
+  priceRanges: true,
 } satisfies Record<string, boolean>
 
 export type Flags = { [K in keyof typeof FLAG_DEFAULTS]: boolean }

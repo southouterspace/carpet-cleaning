@@ -35,7 +35,7 @@ Current flags:
 | `mobileCallBar` | on | The sticky button bar on phones. |
 | `phoneCalls` | off | Shows the site's `phone` in the header, hero, call bar, footer, JSON-LD and llms.txt. Turn it on per site once a renter's forwarding number is live; until then the sites are form-only, so nobody calls a number that can't quote. |
 | `photoUpload` | off | Lets customers add up to 5 photos to a quote request. The browser shrinks them before upload, the lead Worker stores them in R2 (`carpet-cleaning-lead-photos`, deleted after 180 days) and links them in the lead email. |
-| `priceRanges` | off | Shows the "advertised prices nearby" section on each site's cost guide (and in llms-full.txt): the November 2026 survey of 54 local cleaners' websites. It's market data, not a quote; turn it on only once Justin is happy showing it. |
+| `priceRanges` | on | Shows the "advertised prices nearby" section on each site's cost guide (and in llms-full.txt): the November 2026 survey of 54 local cleaners' websites. It's market data, not a quote, labeled as other companies' advertised prices. Justin approved showing it on 2026-11-19. Refresh the numbers (and the guides' `updated` date) when the survey is redone. |
 
 Turbo passes `FLAG_*` variables through to builds (`turbo.json`), so they work through `bun run build` too.
 
