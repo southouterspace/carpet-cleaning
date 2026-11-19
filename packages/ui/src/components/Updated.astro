@@ -1,0 +1,16 @@
+---
+/** "Updated <date>" line for a page, from its own date or the site's. */
+import { formatDate } from "@carpet/seo"
+
+interface Props {
+  date?: string
+  label?: string
+}
+const { date, label = "Updated" } = Astro.props
+---
+
+{date && <p class="muted upd">{label} <time datetime={date}>{formatDate(date)}</time></p>}
+
+<style>
+  .upd { font-size: .95rem; }
+</style>

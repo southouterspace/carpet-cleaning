@@ -1,12 +1,16 @@
 ---
-import { allFaqs, breadcrumbs, faqPage, graph } from "@carpet/seo"
+import { allFaqs, breadcrumbs, faqPage, pageGraph } from "@carpet/seo"
 import Layout from "@carpet/ui/Layout.astro"
 import Faq from "@carpet/ui/Faq.astro"
 import { site } from "../site.config"
 
 const groups = allFaqs(site)
 const path = "/faq"
-const jsonld = graph(
+const title = `Carpet Cleaning Questions, Conroe TX | ${site.name}`
+const description = `Answers about carpet, pet odor, couch, rug and tile cleaning in Conroe, TX: drying time, prices, prep, move-outs and more.`
+const jsonld = pageGraph(
+  site,
+  { path, title, description },
   faqPage(groups.flatMap((g) => g.faqs)),
   breadcrumbs(site, [
     { name: "Home", path: "/" },
@@ -17,8 +21,8 @@ const jsonld = graph(
 
 <Layout
   site={site}
-  title={`Carpet Cleaning Questions, Conroe TX | ${site.name}`}
-  description={`Answers about carpet, pet odor, couch, rug and tile cleaning in Conroe, TX: drying time, prices, prep, move-outs and more.`}
+  title={title}
+  description={description}
   path={path}
   jsonld={jsonld}
 >

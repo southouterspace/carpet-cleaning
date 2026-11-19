@@ -1,0 +1,44 @@
+---
+/**
+ * "At a glance": short, specific facts about the service in one block, so a
+ * visitor (or an AI answer tool) can lift them without reading the page.
+ * Towns and ZIPs come from the service area; the rest from `site.facts`.
+ */
+import { formatDate, visibleFacts, type SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+  heading?: string
+}
+const { site, heading = `Carpet cleaning in ${site.city} at a glance` } = Astro.props
+const rows = [
+  { label: "Areas served", value: `${site.serviceArea.towns.join(", ")}, ${site.region}` },
+  ...(site.serviceArea.zips.length ? [{ label: "ZIP codes", value: site.serviceArea.zips.join(", ") }] : []),
+  ...visibleFacts(site),
+]
+---
+
+<section class="section facts" aria-labelledby="facts-h">
+  <div class="wrap">
+    <h2 id="facts-h">{heading}</h2>
+    <dl class="facts__list">
+      {rows.map((r) => (
+        <div>
+          <dt>{r.label}</dt>
+          <dd>{r.value}</dd>
+        </div>
+      ))}
+    </dl>
+    {site.updated && (
+      <p class="muted facts__upd">Updated <time datetime={site.updated}>{formatDate(site.updated)}</time></p>
+    )}
+  </div>
+</section>
+
+<style>
+  .facts__list { display: grid; gap: .75rem 2rem; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); margin: 1.25rem 0 0; }
+  .facts__list div { border-left: 3px solid var(--accent); padding-left: .85rem; }
+  .facts__list dt { font-weight: 700; }
+  .facts__list dd { margin: 0; color: var(--ink-soft); }
+  .facts__upd { margin: 1.25rem 0 0; font-size: .95rem; }
+</style>

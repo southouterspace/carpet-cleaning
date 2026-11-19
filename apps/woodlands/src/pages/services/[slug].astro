@@ -1,6 +1,7 @@
 ---
 import type { GetStaticPaths } from "astro"
-import { breadcrumbs, faqPage, graph, service } from "@carpet/seo"
+import { answerOf, breadcrumbs, faqPage, howTos, pageGraph, service, updatedOf } from "@carpet/seo"
+import Updated from "@carpet/ui/Updated.astro"
 import Page from "../../components/Page.astro"
 import Hero from "../../components/Hero.astro"
 import Steps from "../../components/Steps.astro"
@@ -16,7 +17,12 @@ export const getStaticPaths = (() =>
 const { s } = Astro.props
 const path = `/services/${s.slug}`
 const title = `${s.name} in ${site.city}, ${site.region} | ${site.name}`
-const jsonld = graph(
+const answer = answerOf(site, s)
+const updated = updatedOf(site, s)
+const jsonld = pageGraph(
+  site,
+  { path, title: title, description: s.summary, updated, answer },
+  howTos(site, path, s.sections),
   service(site, s),
   faqPage(s.faqs ?? []),
   breadcrumbs(site, [
@@ -28,9 +34,10 @@ const jsonld = graph(
 
 <Page site={site} title={title} description={s.summary} path={path} jsonld={jsonld}>
   <nav class="wrap crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>{s.name}</span></nav>
-  <Hero site={site} kicker={site.name} heading={`${s.name} in ${site.city}, ${site.region}`} lead={s.summary} />
+  <Hero site={site} kicker={site.name} heading={`${s.name} in ${site.city}, ${site.region}`} lead={answer ?? s.summary} />
   <section class="section">
     <div class="wrap">
+      <Updated date={updated} />
       <Prose site={site} paragraphs={s.body} sections={s.sections} />
     </div>
   </section>

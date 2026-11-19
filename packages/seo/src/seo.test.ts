@@ -12,6 +12,12 @@ import {
   flagEnvName,
   graph,
   localBusiness,
+  AI_CRAWLERS,
+  answerOf,
+  buildRobotsTxt,
+  howTos,
+  pageGraph,
+  withAnswers,
   type SiteConfig,
 } from "./index"
 
@@ -144,5 +150,63 @@ describe("content pages", () => {
     expect(txt).toContain("[Old Town](https://example.com/areas/old-town)")
     expect(txt).toContain("[What it costs](https://example.com/guides/cost)")
     expect(txt).toContain("https://example.com/llms-full.txt")
+  })
+})
+
+describe("AI answer readiness", () => {
+  test("robots.txt names the AI crawlers and keeps /thanks out for all of them", () => {
+    const robots = buildRobotsTxt(site)
+    for (const bot of ["GPTBot", "OAI-SearchBot", "ClaudeBot", "PerplexityBot", "Google-Extended"]) {
+      expect(AI_CRAWLERS).toContain(bot)
+      expect(robots).toContain(`User-agent: ${bot}\n`)
+    }
+    expect(robots.match(/Disallow: \/thanks/g)?.length).toBe(2)
+    expect(robots).not.toMatch(/Disallow: \/\s*$/m)
+  })
+
+  test("the priced answer replaces the plain one only when priceRanges is on", () => {
+    const g = { answer: "plain", pricedAnswer: "priced" }
+    expect(answerOf({ ...site, flags: resolveFlags({ priceRanges: true }) }, g)).toBe("priced")
+    expect(answerOf({ ...site, flags: resolveFlags({ priceRanges: false }) }, g)).toBe("plain")
+  })
+
+  test("withAnswers attaches answers by slug", () => {
+    const [a, b] = withAnswers<{ slug: string; answer?: string; pricedAnswer?: string }>([{ slug: "x" }, { slug: "y" }], { x: "ans", y: { answer: "p", pricedAnswer: "q" } })
+    expect(a).toEqual({ slug: "x", answer: "ans" })
+    expect(b).toEqual({ slug: "y", answer: "p", pricedAnswer: "q" })
+  })
+
+  test("every page graph carries the business, a dated WebPage and HowTo steps", () => {
+    const sections = [
+      { heading: "Steps", paragraphs: ["Do this."], list: ["One", "Two"], howTo: true },
+      { heading: "Not steps", paragraphs: [], list: ["A"] },
+    ]
+    const doc = JSON.parse(
+      pageGraph(
+        { ...site, updated: "2026-11-19" },
+        { path: "/services/pet", title: "T", description: "D", answer: "A" },
+        howTos(site, "/services/pet", sections)
+      )
+    )
+    const types = doc["@graph"].map((n: { "@type": string }) => n["@type"])
+    expect(types).toEqual(["HomeAndConstructionBusiness", "WebSite", "WebPage", "HowTo"])
+    const page = doc["@graph"][2]
+    expect(page.dateModified).toBe("2026-11-19")
+    expect(page.abstract).toBe("A")
+    expect(doc["@graph"][3].step).toHaveLength(2)
+  })
+
+  test("facts gated by a flag stay out of llms.txt when it is off", () => {
+    const withFacts: SiteConfig = {
+      ...site,
+      flags: resolveFlags({ priceRanges: false }),
+      facts: [
+        { label: "Drying time", value: "4 to 8 hours" },
+        { label: "Advertised prices", value: "$88", requires: "priceRanges" },
+      ],
+    }
+    const txt = buildLlmsTxt(withFacts)
+    expect(txt).toContain("- Drying time: 4 to 8 hours")
+    expect(txt).not.toContain("$88")
   })
 })

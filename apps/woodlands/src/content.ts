@@ -76,6 +76,7 @@ export const serviceSections: Record<string, Section[]> = {
     },
     {
       heading: "Before you book",
+      howTo: true,
       paragraphs: [],
       list: [
         "Take a photo of each piece and its tag",
@@ -295,7 +296,7 @@ export const guides: Guide[] = [
     slug: "carpet-cleaning-cost-the-woodlands",
     title: "Carpet cleaning prices in The Woodlands",
     summary: "How carpet cleaning is priced in The Woodlands, TX: rooms, stairs, pet treatment and add-ons, plus how to compare quotes.",
-    updated: "2026-11-18",
+    updated: "2026-11-19",
     intro: [
       "Most Woodlands homes are two stories with carpet upstairs, so the price of a carpet cleaning here mostly comes down to three things: how many rooms, how many staircases, and whether there are pet spots or stains to treat. Add-ons like sofas, rugs and tile are priced by the piece or the area.",
     ],

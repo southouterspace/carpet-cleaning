@@ -1,4 +1,5 @@
-import { resolveFlags, type SiteConfig } from "@carpet/seo"
+import { resolveFlags, withAnswers, type SiteConfig } from "@carpet/seo"
+import { answers } from "./answers"
 import { areas, guides, withMoreContent } from "./content"
 
 /**
@@ -35,13 +36,29 @@ export const site: SiteConfig = {
     ],
   },
   hours: [],
+  // Date the copy was last reviewed. Bump it when the content changes.
+  updated: "2026-11-19",
+  // Short, specific facts for the home page "At a glance" block and llms.txt.
+  facts: [
+    { label: "Villages covered", value: "All eight, from Grogan's Mill to Creekside Park" },
+    { label: "Typical drying time", value: "4 to 8 hours with the AC running" },
+    { label: "How often to clean", value: "Every 6 to 12 months with kids or pets, 12 to 18 months without" },
+    { label: "Best time of year", value: "Late spring, after the pine pollen settles, and before the holidays" },
+    {
+      label: "Advertised local prices",
+      value: "$88 to $225 for three rooms, most near $140, from 13 of 54 local cleaners' websites (Nov 2026); other companies' prices, not a quote",
+      requires: "priceRanges",
+    },
+    { label: "Getting a price", value: "Send rooms, staircases and spots online; the price comes back by text or email" },
+    { label: "Photos", value: "Attach up to 5 photos to the quote form for a firmer price", requires: "photoUpload" },
+  ],
   leadEndpoint: "/api/lead",
   turnstileSiteKey: "0x4AAAAAAF9mIQ55cQuaXFQr",
   // Per-site flag overrides go in the first argument; FLAG_* env vars win at build time.
   flags: resolveFlags({ photoUpload: true }, process.env),
   theme: { accent: "#2b6a3d", accentDark: "#1c4a29" },
   // Longer sections and the extra services live in content.ts.
-  services: withMoreContent([
+  services: withAnswers(withMoreContent([
     {
       slug: "carpet-cleaning",
       name: "Whole-home carpet cleaning",
@@ -115,9 +132,9 @@ export const site: SiteConfig = {
         "Mopping pushes dirty water into grout, so it gets darker every year. A pressurized hot rinse clears out what a mop can't, and an optional sealer slows down how fast it soils again.",
       ],
     },
-  ]),
-  areas,
-  guides,
+  ]), answers.services),
+  areas: withAnswers(areas, answers.areas),
+  guides: withAnswers(guides, answers.guides),
   faqs: [
     {
       q: "How much does carpet cleaning cost in The Woodlands?",
