@@ -39,7 +39,7 @@ const jsonld = pageGraph(
       <Prose site={site} paragraphs={g.intro} sections={g.sections} />
     </div>
   </section>
-  <PriceFactors guideLink={false} />
+  <PriceFactors site={site} guideLink={false} />
   <QuoteForm site={site} />
   <Faq faqs={g.faqs ?? []} heading="More cost questions" />
 </Layout>
