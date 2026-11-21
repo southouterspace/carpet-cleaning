@@ -39,7 +39,22 @@ const photos = site.flags.photoUpload
         <label>Company <input name="company" tabindex="-1" autocomplete="off" /></label>
       </div>
       <label>Name <input name="name" autocomplete="name" required maxlength="80" /></label>
-      <label>Phone <input name="phone" type="tel" autocomplete="tel" inputmode="tel" required maxlength="20" /></label>
+      <label>Phone
+        <input
+          class="qf__phone"
+          name="phone"
+          type="tel"
+          autocomplete="tel"
+          inputmode="tel"
+          placeholder="(936) 555-0123"
+          required
+          maxlength="20"
+          pattern="[^0-9]*(1[^0-9]*)?[2-9][^0-9]*[0-9][^0-9]*[0-9][^0-9]*[2-9]([^0-9]*[0-9]){6}[^0-9]*"
+          title="A 10-digit US phone number, like (936) 555-0123"
+          aria-describedby="qf-phone-hint"
+        />
+        <span class="qf__hint" id="qf-phone-hint" aria-live="polite"></span>
+      </label>
       <label>ZIP code <input name="zip" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" /></label>
       <label>Service
         <select name="service">
@@ -152,6 +167,56 @@ const photos = site.flags.photoUpload
         email.required = contact.value === "email"
         form.querySelector(".qf__opt").hidden = email.required
       }
+      // Phone: keep only digits and show them as (123) 555-5555 while typing.
+      const phone = form.elements.phone
+      const hint = form.querySelector(".qf__hint")
+      // A leading 1 is dropped only once there are 11 digits, as in a pasted +1 (936) 555-0123.
+      const digitsOf = (v) => {
+        const d = v.replace(/\D/g, "")
+        return d.length === 11 && d[0] === "1" ? d.slice(1) : d.slice(0, 10)
+      }
+      const fmt = (d) =>
+        d.length > 6 ? `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}`
+          : d.length > 3 ? `(${d.slice(0, 3)}) ${d.slice(3)}`
+          : d.length ? `(${d}` : ""
+      const phoneProblem = (d) =>
+        d.length < 10 ? "Please enter a 10-digit phone number, like (936) 555-0123."
+          : /^[01]/.test(d) || /^...[01]/.test(d) ? "That doesn't look like a US phone number. Please check it."
+          : ""
+      const formatPhone = (e) => {
+        const v = phone.value
+        const caret = phone.selectionStart ?? v.length
+        let d = digitsOf(v)
+        // Digits before the caret, so the caret stays put after reformatting.
+        const all = v.replace(/\D/g, "")
+        let before = v.slice(0, caret).replace(/\D/g, "").length
+        if (all.length === 11 && all[0] === "1" && before) before--
+        // Backspace over a bracket, space or dash removes the digit before it.
+        if (e?.inputType === "deleteContentBackward" && d === digitsOf(phone.dataset.prev || "") && before > 0) {
+          d = d.slice(0, before - 1) + d.slice(before)
+          before--
+        }
+        const out = fmt(d)
+        phone.value = out
+        phone.dataset.prev = out
+        let pos = 0
+        for (let n = 0; pos < out.length && n < before; pos++) if (/\d/.test(out[pos])) n++
+        if (document.activeElement === phone) phone.setSelectionRange(pos, pos)
+        const problem = phoneProblem(d)
+        phone.setCustomValidity(problem)
+        if (!problem) { hint.textContent = ""; phone.removeAttribute("aria-invalid") }
+      }
+      phone.addEventListener("input", formatPhone)
+      phone.addEventListener("blur", () => {
+        const problem = phone.value ? phoneProblem(digitsOf(phone.value)) : ""
+        hint.textContent = problem
+        if (problem) phone.setAttribute("aria-invalid", "true")
+      })
+      phone.addEventListener("invalid", () => {
+        hint.textContent = phone.validationMessage
+        phone.setAttribute("aria-invalid", "true")
+      })
+      if (phone.value) formatPhone()
       contact.addEventListener("change", syncEmail)
       syncEmail()
       form.addEventListener("focusin", loadTurnstile, { once: true })
@@ -256,6 +321,9 @@ const photos = site.flags.photoUpload
   .qf-done h3 { margin: .25rem 0 .5rem; font-size: 1.5rem; }
   .qf-done__icon { width: 3rem; height: 3rem; margin: 0 auto; border-radius: 50%; background: var(--accent); color: #fff; font-size: 1.6rem; line-height: 3rem; font-weight: 800; }
   .qf__fine { font-size: .85rem; margin: 0; }
+  .qf__hint { font-weight: 600; font-size: .9rem; color: #8a1c1c; }
+  .qf__hint:empty { display: none; }
+  .qf input[aria-invalid="true"] { border-color: #b42318; }
   .qf .qf__photos { padding: .5rem; background: var(--bg-soft); }
   .qf__photo-note { font-weight: 400; font-size: .9rem; }
   .qf__photo-note:empty { display: none; }
