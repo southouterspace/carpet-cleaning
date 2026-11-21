@@ -18,6 +18,7 @@ export const serviceSections: Record<string, Section[]> = {
     },
     {
       heading: "Making it last",
+      howTo: true,
       paragraphs: [],
       list: [
         "Shoes off at the door, or a heavy mat outside and in",
@@ -93,6 +94,7 @@ export const moreServices: Service[] = [
     sections: [
       {
         heading: "Before we get there",
+        howTo: true,
         paragraphs: [],
         list: [
           "Blot, don't rub, with a white towel",
@@ -226,7 +228,7 @@ export const guides: Guide[] = [
     slug: "carpet-cleaning-cost-montgomery",
     title: "What carpet cleaning costs in Montgomery and around Lake Conroe",
     summary: "How carpet cleaning is priced for Montgomery homes, lake houses and rentals, what adds to it, and how to get a firm number.",
-    updated: "2026-11-18",
+    updated: "2026-11-19",
     intro: [
       "There's no single price for carpet cleaning in Montgomery. A full-time home in Woodforest, a lakefront condo in April Sound and a rental turnover in Walden are priced differently, mostly by how many rooms, whether there are stairs, how much spot and odor work is needed, and how tight the schedule is.",
     ],

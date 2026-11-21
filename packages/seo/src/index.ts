@@ -1,6 +1,6 @@
 import type { Faq, SiteConfig } from "./types"
 
-export type { Area, Faq, Guide, Section, Service, SiteConfig } from "./types"
+export type { Area, Fact, Faq, Guide, Section, Service, SiteConfig } from "./types"
 export {
   areaService,
   article,
@@ -8,12 +8,15 @@ export {
   place,
   faqPage,
   graph,
+  howTos,
   localBusiness,
+  pageGraph,
+  webPage,
   service,
   website,
 } from "./jsonld"
-export { visibleSections } from "./sections"
-export { buildLlmsFullTxt, buildLlmsTxt, buildRobotsTxt } from "./llms"
+export { answerOf, formatDate, updatedOf, visibleFacts, visibleSections, withAnswers } from "./sections"
+export { AI_CRAWLERS, buildLlmsFullTxt, buildLlmsTxt, buildRobotsTxt } from "./llms"
 export { FLAG_DEFAULTS, flagEnvName, resolveFlags, type FlagName, type Flags } from "./flags"
 
 /** The number to show and call, or undefined when calls are off or no number is set. */

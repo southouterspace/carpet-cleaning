@@ -1,4 +1,5 @@
-import type { Area, Faq, Guide, Service, SiteConfig } from "./types"
+import { visibleSections } from "./sections"
+import type { Area, Faq, Guide, Section, Service, SiteConfig } from "./types"
 
 const phoneOf = (site: SiteConfig) =>
   site.flags.phoneCalls && site.phone ? site.phone : undefined
@@ -34,6 +35,14 @@ export function localBusiness(site: SiteConfig): JsonLd {
       })),
     ],
     knowsAbout: site.services.map((s) => s.name),
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: `Cleaning services in ${site.city}, ${site.region}`,
+      itemListElement: site.services.map((s) => ({
+        "@type": "Offer",
+        itemOffered: { "@id": `${site.url}/services/${s.slug}#service` },
+      })),
+    },
     priceRange: site.priceFrom ? `From $${site.priceFrom.amount}` : undefined,
     sameAs: site.operator?.profiles,
   }
@@ -66,6 +75,7 @@ export function service(site: SiteConfig, s: Service): JsonLd {
     "@type": "Service",
     "@id": `${site.url}/services/${s.slug}#service`,
     name: `${s.name} in ${site.city}, ${site.region}`,
+    url: `${site.url}/services/${s.slug}`,
     serviceType: s.name,
     description: s.summary,
     provider: { "@id": businessId(site) },
@@ -149,6 +159,58 @@ export function breadcrumbs(
       item: `${site.url}${t.path}`,
     })),
   }
+}
+
+/**
+ * The page itself, with the date its copy was last reviewed. AI answer tools
+ * and search engines use dateModified to judge how fresh a source is.
+ */
+export function webPage(
+  site: SiteConfig,
+  page: { path: string; title: string; description: string; updated?: string; answer?: string }
+): JsonLd {
+  const url = `${site.url}${page.path}`
+  return {
+    "@type": "WebPage",
+    "@id": `${url}#webpage`,
+    url,
+    name: page.title,
+    description: page.description,
+    inLanguage: "en-US",
+    isPartOf: { "@id": `${site.url}/#website` },
+    about: { "@id": businessId(site) },
+    dateModified: page.updated ?? site.updated,
+    abstract: page.answer,
+  }
+}
+
+/**
+ * HowTo nodes for sections marked `howTo` that have a list of steps, so a
+ * page's step-by-step advice is machine-readable.
+ */
+export function howTos(site: SiteConfig, path: string, sections: Section[] = []): JsonLd[] {
+  return visibleSections(site, sections)
+    .filter((sec) => sec.howTo && sec.list?.length)
+    .map((sec, i) => ({
+      "@type": "HowTo",
+      "@id": `${site.url}${path}#howto-${i + 1}`,
+      name: sec.heading,
+      description: sec.paragraphs[0],
+      step: sec.list!.map((text, n) => ({ "@type": "HowToStep", position: n + 1, text })),
+    }))
+}
+
+/**
+ * The standard graph for a page: the business, the website and the page
+ * itself, plus whatever page-specific nodes are passed in. Every page gets
+ * the business node so its @id references resolve on that page.
+ */
+export function pageGraph(
+  site: SiteConfig,
+  page: Parameters<typeof webPage>[1],
+  ...nodes: (JsonLd | JsonLd[] | undefined)[]
+): string {
+  return graph(localBusiness(site), website(site), webPage(site, page), ...nodes.flat())
 }
 
 /** Wraps nodes in one @graph, dropping empty ones and undefined fields. */

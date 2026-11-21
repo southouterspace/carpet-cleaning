@@ -1,5 +1,6 @@
 ---
-import { breadcrumbs, faqPage, graph, localBusiness, website } from "@carpet/seo"
+import { breadcrumbs, faqPage, pageGraph } from "@carpet/seo"
+import Facts from "@carpet/ui/Facts.astro"
 import Layout from "@carpet/ui/Layout.astro"
 import Hero from "@carpet/ui/Hero.astro"
 import Services from "@carpet/ui/Services.astro"
@@ -12,9 +13,9 @@ import { site } from "../site.config"
 
 const title = `Carpet Cleaning Conroe TX | ${site.name}`
 const description = `Carpet cleaning in Conroe, TX for new builds, older homes and Lake Conroe houses: carpet, pet odor, couch, rug and tile. Get a free, exact quote.`
-const jsonld = graph(
-  localBusiness(site),
-  website(site),
+const jsonld = pageGraph(
+  site,
+  { path: "/", title, description },
   faqPage(site.faqs),
   breadcrumbs(site, [{ name: "Home", path: "/" }])
 )
@@ -27,6 +28,7 @@ const jsonld = graph(
     lead="Carpet, upholstery, rug and tile cleaning for Conroe homes and rentals. Tell us about the job and get a price before any work starts."
     points={["Free quotes", "Pet odor treatment", "Move-out cleaning"]}
   />
+  <Facts site={site} />
   <Services site={site} heading="Cleaning services in Conroe" />
   <LocalHomes />
   <PriceFactors />

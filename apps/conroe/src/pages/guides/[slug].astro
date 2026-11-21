@@ -1,6 +1,7 @@
 ---
 import type { GetStaticPaths } from "astro"
-import { article, breadcrumbs, faqPage, graph } from "@carpet/seo"
+import { answerOf, article, breadcrumbs, faqPage, howTos, pageGraph, updatedOf } from "@carpet/seo"
+import Updated from "@carpet/ui/Updated.astro"
 import Layout from "@carpet/ui/Layout.astro"
 import Hero from "@carpet/ui/Hero.astro"
 import Prose from "@carpet/ui/Prose.astro"
@@ -14,7 +15,12 @@ export const getStaticPaths = (() =>
 
 const { g } = Astro.props
 const path = `/guides/${g.slug}`
-const jsonld = graph(
+const answer = answerOf(site, g)
+const updated = updatedOf(site, g)
+const jsonld = pageGraph(
+  site,
+  { path, title: g.title, description: g.summary, updated, answer },
+  howTos(site, path, g.sections),
   article(site, g),
   faqPage(g.faqs ?? []),
   breadcrumbs(site, [
@@ -22,15 +28,14 @@ const jsonld = graph(
     { name: g.title, path },
   ])
 )
-const updated = new Date(`${g.updated}T12:00:00Z`).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" })
 ---
 
 <Layout site={site} title={`${g.title} | ${site.name}`} description={g.summary} path={path} jsonld={jsonld}>
   <nav class="wrap crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Guide</span></nav>
-  <Hero site={site} heading={g.title} lead={g.summary} />
+  <Hero site={site} heading={g.title} lead={answer ?? g.summary} />
   <section class="section">
     <div class="wrap">
-      <p class="muted upd">Last reviewed <time datetime={g.updated}>{updated}</time></p>
+      <Updated date={updated} label="Last reviewed" />
       <Prose site={site} paragraphs={g.intro} sections={g.sections} />
     </div>
   </section>
@@ -41,5 +46,4 @@ const updated = new Date(`${g.updated}T12:00:00Z`).toLocaleDateString("en-US", {
 
 <style>
   .crumbs { padding-top: 1rem; font-size: .9rem; color: var(--ink-soft); }
-  .upd { font-size: .95rem; }
 </style>

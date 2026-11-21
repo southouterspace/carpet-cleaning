@@ -11,6 +11,7 @@ export const serviceSections: Record<string, Section[]> = {
   "carpet-cleaning": [
     {
       heading: "What a deep clean includes",
+      howTo: true,
       paragraphs: [
         "A proper deep clean is more than running a wand over the floor. Each step does a different job, and skipping one is usually why a cheap cleaning looks good for a week and then goes dull.",
       ],
@@ -162,6 +163,7 @@ export const moreServices: Service[] = [
     sections: [
       {
         heading: "What to do right after a spill",
+        howTo: true,
         paragraphs: ["Quick action keeps a spill from becoming a stain."],
         list: [
           "Blot with a white towel, working from the outside in. Don't scrub.",
@@ -328,7 +330,7 @@ export const guides: Guide[] = [
     slug: "carpet-cleaning-cost-conroe",
     title: "How much does carpet cleaning cost in Conroe?",
     summary: "What changes the price of carpet cleaning in Conroe, TX, what usually costs extra, and how to get an exact quote.",
-    updated: "2026-11-18",
+    updated: "2026-11-19",
     intro: [
       "Carpet cleaning in Conroe is priced by the job, not by a single flat rate, and the price depends mostly on how many rooms you have, whether there are stairs, and how much spot and odor work is needed. The fastest way to an exact number is to send those details with a quote request.",
       "This guide explains what goes into a price so you know what to ask and what to compare when you get quotes.",

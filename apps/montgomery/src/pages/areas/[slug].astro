@@ -1,6 +1,7 @@
 ---
 import type { GetStaticPaths } from "astro"
-import { areaService, breadcrumbs, faqPage, graph } from "@carpet/seo"
+import { answerOf, areaService, breadcrumbs, faqPage, howTos, pageGraph, updatedOf } from "@carpet/seo"
+import Updated from "@carpet/ui/Updated.astro"
 import Prose from "@carpet/ui/Prose.astro"
 import Faq from "@carpet/ui/Faq.astro"
 import QuoteForm from "@carpet/ui/QuoteForm.astro"
@@ -14,7 +15,12 @@ export const getStaticPaths = (() =>
 const { a } = Astro.props
 const path = `/areas/${a.slug}`
 const title = `${a.name} Carpet Cleaning, Montgomery TX | ${site.name}`
-const jsonld = graph(
+const answer = answerOf(site, a)
+const updated = updatedOf(site, a)
+const jsonld = pageGraph(
+  site,
+  { path, title: title, description: a.summary, updated, answer },
+  howTos(site, path, a.sections),
   areaService(site, a),
   faqPage(a.faqs ?? []),
   breadcrumbs(site, [
@@ -27,11 +33,12 @@ const others = (site.areas ?? []).filter((o) => o.slug !== a.slug)
 ---
 
 <Page site={site} title={title} description={a.summary} path={path} jsonld={jsonld}>
-  <Hero site={site} heading={`Carpet cleaning in ${a.name}`} lead={a.summary} />
+  <Hero site={site} heading={`Carpet cleaning in ${a.name}`} lead={answer ?? a.summary} />
   <nav class="wrap crumbs" aria-label="Breadcrumb"><a href="/">Home</a> › <a href="/#areas">Where we clean</a> › <span>{a.name}</span></nav>
   <section class="section">
     <div class="wrap">
       <h2>About {a.name}</h2>
+      <Updated date={updated} />
       <Prose site={site} paragraphs={a.intro} sections={a.sections} level={3} />
     </div>
   </section>

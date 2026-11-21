@@ -31,6 +31,13 @@ export interface SiteConfig {
   hours: string[]
   /** Optional starting price, e.g. { amount: 99, unit: "3 rooms" }. Leave out until a renter confirms it. */
   priceFrom?: { amount: number; unit: string }
+  /**
+   * ISO date the site's copy was last reviewed, e.g. "2026-11-19". Shown as
+   * "Updated" on pages and used for dateModified and sitemap lastmod.
+   */
+  updated?: string
+  /** Short, true facts for the home page "At a glance" block and llms.txt. */
+  facts?: Fact[]
   services: Service[]
   faqs: Faq[]
   /** Neighborhood and town pages at /areas/<slug>. */
@@ -67,6 +74,13 @@ export interface Service {
   name: string
   /** Short summary for cards and meta descriptions (under 160 characters). */
   summary: string
+  /**
+   * Two or three sentences that answer the page's main question outright.
+   * Shown first under the H1 so search and AI tools can quote it whole.
+   */
+  answer?: string
+  /** ISO date this page was last reviewed, when it differs from `site.updated`. */
+  updated?: string
   /** Body paragraphs for the service page. */
   body: string[]
   /** Extra sections under the body, each with its own heading. */
@@ -81,6 +95,15 @@ export interface Section {
   /** Optional bullet list shown after the paragraphs. */
   list?: string[]
   requires?: FlagName
+  /** Marks the list as ordered steps, published as HowTo structured data. */
+  howTo?: boolean
+}
+
+/** One line of the "At a glance" block. `requires` hides it unless that flag is on. */
+export interface Fact {
+  label: string
+  value: string
+  requires?: FlagName
 }
 
 /** A neighborhood or nearby town with its own page. */
@@ -92,6 +115,10 @@ export interface Area {
   kind: "neighborhood" | "town"
   /** Meta description and card text, under 160 characters. */
   summary: string
+  /** Direct answer shown first under the H1 (see Service.answer). */
+  answer?: string
+  /** ISO date this page was last reviewed, when it differs from `site.updated`. */
+  updated?: string
   intro: string[]
   sections?: Section[]
   /** Service slugs to feature first on the page. */
@@ -107,6 +134,10 @@ export interface Guide {
   summary: string
   /** ISO date the content was last reviewed, e.g. "2026-11-18". */
   updated: string
+  /** Direct answer shown first under the H1 (see Service.answer). */
+  answer?: string
+  /** Replaces `answer` when the priceRanges flag is on. */
+  pricedAnswer?: string
   intro: string[]
   sections: Section[]
   faqs?: Faq[]
