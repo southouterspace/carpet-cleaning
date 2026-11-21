@@ -8,6 +8,7 @@ interface Props {
 const { site } = Astro.props
 const { towns, zips, neighborhoods } = site.serviceArea
 const nearby = towns.filter((t) => t !== site.city)
+const pageFor = (name: string) => site.areas?.find((a) => a.name === name)
 ---
 
 <section class="section" id="areas" aria-labelledby="areas-h">
@@ -15,13 +16,20 @@ const nearby = towns.filter((t) => t !== site.city)
     <h2 id="areas-h">Every village in The Woodlands</h2>
     <p class="muted">From the older streets near Lake Woodlands to new builds in Creekside Park, we cover the whole township.</p>
     <ul class="vg">
-      {neighborhoods.map((n) => <li>{n}</li>)}
+      {neighborhoods.map((n) => {
+        const a = pageFor(n)
+        return <li>{a ? <a href={`/areas/${a.slug}`}>{n}</a> : n}</li>
+      })}
     </ul>
-    <p>Also serving {nearby.join(", ")}. ZIP codes {zips.join(", ")}.</p>
+    <p>Also serving {nearby.map((t, i) => {
+      const a = pageFor(t)
+      return <>{i > 0 && ", "}{a ? <a href={`/areas/${a.slug}`}>{t}</a> : t}</>
+    })}. ZIP codes {zips.join(", ")}.</p>
   </div>
 </section>
 
 <style>
   .vg { list-style: none; padding: 0; margin: 1.5rem 0; display: grid; gap: .75rem; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); }
   .vg li { background: var(--bg-soft); border-radius: var(--radius); padding: .9rem 1rem; font-weight: 600; }
+  .vg a { color: var(--ink); }
 </style>

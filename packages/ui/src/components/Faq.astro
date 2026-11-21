@@ -5,14 +5,16 @@ import type { Faq } from "@carpet/seo"
 interface Props {
   faqs: Faq[]
   heading?: string
+  /** Section id, so a page can hold more than one FAQ list. */
+  id?: string
 }
-const { faqs, heading = "Frequently asked questions" } = Astro.props
+const { faqs, heading = "Frequently asked questions", id = "faq" } = Astro.props
 ---
 
 {faqs.length > 0 && (
-  <section class="section" id="faq" aria-labelledby="faq-h">
+  <section class="section" id={id} aria-labelledby={`${id}-h`}>
     <div class="wrap">
-      <h2 id="faq-h">{heading}</h2>
+      <h2 id={`${id}-h`}>{heading}</h2>
       {faqs.map((f) => (
         <details class="faq">
           <summary>{f.q}</summary>

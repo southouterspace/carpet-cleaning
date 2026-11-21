@@ -6,14 +6,32 @@ interface Props {
 }
 const { site } = Astro.props
 const { towns, zips, neighborhoods } = site.serviceArea
+const areas = site.areas ?? []
+const paged = new Set(areas.map((a) => a.name))
+const rest = neighborhoods.filter((n) => !paged.has(n))
 ---
 
 <section class="section section--soft" id="areas" aria-labelledby="areas-h">
   <div class="wrap">
     <h2 id="areas-h">Areas we serve around {site.city}</h2>
+    {areas.length > 0 && (
+      <div class="grid ar">
+        {areas.map((a) => (
+          <article class="card">
+            <h3><a href={`/areas/${a.slug}`}>{a.name}</a></h3>
+            <p class="muted">{a.summary}</p>
+          </article>
+        ))}
+      </div>
+    )}
     <p>{towns.join(", ")}, {site.region}{zips.length > 0 && <>, including ZIP codes {zips.join(", ")}</>}.</p>
-    {neighborhoods.length > 0 && (
-      <p class="muted">Neighborhoods include {neighborhoods.join(", ")}.</p>
+    {rest.length > 0 && (
+      <p class="muted">{areas.length > 0 ? "Also" : "Neighborhoods include"} {rest.join(", ")}.</p>
     )}
   </div>
 </section>
+
+<style>
+  .ar { margin: 1.25rem 0 1.5rem; }
+  .ar p { margin: 0; }
+</style>

@@ -1,4 +1,5 @@
 import { resolveFlags, type SiteConfig } from "@carpet/seo"
+import { areas, guides, withMoreContent } from "./content"
 
 /**
  * Conroe city site. Everything on the site comes from this file.
@@ -38,7 +39,8 @@ export const site: SiteConfig = {
   // Per-site flag overrides go in the first argument; FLAG_* env vars win at build time.
   flags: resolveFlags({ photoUpload: true }, process.env),
   theme: { accent: "#0a6672", accentDark: "#064a53" },
-  services: [
+  // Longer sections and the extra services live in content.ts.
+  services: withMoreContent([
     {
       slug: "carpet-cleaning",
       name: "Carpet cleaning",
@@ -126,7 +128,9 @@ export const site: SiteConfig = {
         "Ask your landlord or property manager whether they need a receipt from the cleaning. Many leases do, and it's easy to request when you book.",
       ],
     },
-  ],
+  ]),
+  areas,
+  guides,
   faqs: [
     {
       q: "How much does carpet cleaning cost in Conroe?",
@@ -147,6 +151,18 @@ export const site: SiteConfig = {
     {
       q: "Can I get carpet cleaned before I move out?",
       a: "Yes. Tell us your move-out date and whether your lease requires a receipt, and the cleaning will be scheduled before your walk-through.",
+    },
+    {
+      q: "Is steam cleaning the same as hot water extraction?",
+      a: "Yes. \"Steam cleaning\" is the everyday name for hot water extraction: hot water and cleaning solution are rinsed through the carpet and pulled back out with strong suction. It's the method most carpet makers recommend.",
+    },
+    {
+      q: "Do I need to be home for the cleaning?",
+      a: "Someone needs to be there at the start for the walk-through and to unlock the door. Many people step out once the work is underway and come back when it's done.",
+    },
+    {
+      q: "How do I get a quote without calling?",
+      a: "Use the quote form. It asks for rooms, stairs, pets and stains, and you can add photos. You'll get a price back by text or email, whichever you prefer.",
     },
     {
       q: "Can you get out pet urine smell?",

@@ -1,0 +1,49 @@
+---
+import { allFaqs, breadcrumbs, faqPage, graph } from "@carpet/seo"
+import Layout from "@carpet/ui/Layout.astro"
+import Faq from "@carpet/ui/Faq.astro"
+import { site } from "../site.config"
+
+const groups = allFaqs(site)
+const path = "/faq"
+const jsonld = graph(
+  faqPage(groups.flatMap((g) => g.faqs)),
+  breadcrumbs(site, [
+    { name: "Home", path: "/" },
+    { name: "Questions and answers", path },
+  ])
+)
+---
+
+<Layout
+  site={site}
+  title={`Carpet Cleaning Questions, Conroe TX | ${site.name}`}
+  description={`Answers about carpet, pet odor, couch, rug and tile cleaning in Conroe, TX: drying time, prices, prep, move-outs and more.`}
+  path={path}
+  jsonld={jsonld}
+>
+  <section class="section">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Questions</span></nav>
+      <h1>Carpet cleaning questions from Conroe homeowners</h1>
+      <p class="muted">Straight answers about cleaning, drying, pets and pricing. Don't see yours? Ask it in the <a href="/#quote">quote form</a>.</p>
+      <ul class="jump">
+        {groups.map((g, i) => <li><a href={`#g${i}`}>{g.heading}</a></li>)}
+      </ul>
+    </div>
+  </section>
+  {groups.map((g, i) => (
+    <>
+      <Faq faqs={g.faqs} heading={g.heading} id={`g${i}`} />
+      {g.path && <p class="wrap more"><a href={g.path}>See the {g.heading} page</a></p>}
+    </>
+  ))}
+</Layout>
+
+<style>
+  .crumbs { font-size: .9rem; color: var(--ink-soft); margin-bottom: 1rem; }
+  .jump { display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; padding: 0; list-style: none; }
+  .jump a { display: inline-block; padding: .4rem 0; }
+  .more { margin-top: -1.5rem; }
+  .more a { display: inline-block; padding: .4rem 0; }
+</style>

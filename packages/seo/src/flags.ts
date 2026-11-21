@@ -19,6 +19,11 @@ export const FLAG_DEFAULTS = {
   phoneCalls: false,
   /** Photo picker on the quote form. Needs the lead Worker's PHOTOS bucket. */
   photoUpload: false,
+  /**
+   * Typical local price ranges from public competitor sites (a market survey,
+   * never a quote). On since Justin approved showing them (2026-11-19).
+   */
+  priceRanges: true,
 } satisfies Record<string, boolean>
 
 export type Flags = { [K in keyof typeof FLAG_DEFAULTS]: boolean }

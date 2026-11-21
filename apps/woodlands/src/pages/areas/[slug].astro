@@ -1,0 +1,78 @@
+---
+import type { GetStaticPaths } from "astro"
+import { areaService, breadcrumbs, faqPage, graph } from "@carpet/seo"
+import Prose from "@carpet/ui/Prose.astro"
+import Faq from "@carpet/ui/Faq.astro"
+import QuoteForm from "@carpet/ui/QuoteForm.astro"
+import Page from "../../components/Page.astro"
+import Hero from "../../components/Hero.astro"
+import Steps from "../../components/Steps.astro"
+import { site } from "../../site.config"
+
+export const getStaticPaths = (() =>
+  (site.areas ?? []).map((a) => ({ params: { slug: a.slug }, props: { a } }))) satisfies GetStaticPaths
+
+const { a } = Astro.props
+const path = `/areas/${a.slug}`
+const village = a.kind === "neighborhood"
+const heading = village ? `Carpet cleaning in ${a.name}, The Woodlands` : `Carpet cleaning in ${a.name}, ${site.region}`
+const title = village
+  ? `${a.name} Carpet Cleaning, The Woodlands TX | ${site.name}`
+  : `Carpet Cleaning ${a.name} TX | ${site.name}`
+const jsonld = graph(
+  areaService(site, a),
+  faqPage(a.faqs ?? []),
+  breadcrumbs(site, [
+    { name: "Home", path: "/" },
+    { name: village ? "Villages" : "Nearby towns", path: "/#areas" },
+    { name: a.name, path },
+  ])
+)
+const picks = (a.highlight ?? []).map((slug) => site.services.find((s) => s.slug === slug)).filter((s) => s !== undefined)
+const villages = (site.areas ?? []).filter((o) => o.kind === "neighborhood" && o.slug !== a.slug)
+const towns = (site.areas ?? []).filter((o) => o.kind === "town" && o.slug !== a.slug)
+---
+
+<Page site={site} title={title} description={a.summary} path={path} jsonld={jsonld}>
+  <nav class="wrap crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/#areas">{village ? "Villages" : "Nearby towns"}</a> / <span>{a.name}</span></nav>
+  <Hero site={site} kicker={village ? "Village of The Woodlands" : "Near The Woodlands"} heading={heading} lead={a.summary} card />
+  <section class="section">
+    <div class="wrap ap">
+      <Prose site={site} paragraphs={a.intro} sections={a.sections} />
+      {picks.length > 0 && (
+        <aside class="ap__side" aria-labelledby="picks-h">
+          <h2 id="picks-h">Most requested here</h2>
+          <ul>
+            {picks.map((s) => (
+              <li><a href={`/services/${s.slug}`}>{s.name}</a></li>
+            ))}
+          </ul>
+          <p class="muted"><a href="/#services">All services</a></p>
+        </aside>
+      )}
+    </div>
+  </section>
+  <Steps heading="Getting a price" />
+  <QuoteForm site={site} />
+  <Faq faqs={a.faqs ?? []} heading={`Questions from ${a.name}`} />
+  <section class="section" aria-labelledby="more-h">
+    <div class="wrap">
+      <h2 id="more-h">Other villages and towns</h2>
+      <ul class="vg">
+        {[...villages, ...towns].map((o) => <li><a href={`/areas/${o.slug}`}>{o.name}</a></li>)}
+      </ul>
+    </div>
+  </section>
+</Page>
+
+<style>
+  .crumbs { padding-top: 1rem; font-size: .9rem; color: var(--ink-soft); }
+  .ap { display: grid; gap: 2rem; }
+  .ap__side { background: var(--bg-soft); border-radius: var(--radius); padding: 1.5rem; align-self: start; }
+  .ap__side h2 { font-size: 1.2rem; }
+  .ap__side ul { padding-left: 1.1rem; margin: 0 0 1rem; }
+  .ap__side li a { display: inline-block; padding: .3rem 0; }
+  .vg { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; gap: .75rem; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); }
+  .vg a { display: block; background: var(--bg-soft); border-radius: var(--radius); padding: .9rem 1rem; font-weight: 600; }
+  @media (min-width: 52rem) { .ap { grid-template-columns: minmax(0, 44rem) 16rem; justify-content: space-between; } }
+</style>

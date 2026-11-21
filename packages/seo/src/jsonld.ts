@@ -1,4 +1,4 @@
-import type { Faq, Service, SiteConfig } from "./types"
+import type { Area, Faq, Guide, Service, SiteConfig } from "./types"
 
 const phoneOf = (site: SiteConfig) =>
   site.flags.phoneCalls && site.phone ? site.phone : undefined
@@ -73,6 +73,54 @@ export function service(site: SiteConfig, s: Service): JsonLd {
       "@type": "City",
       name: `${name}, ${site.region}`,
     })),
+  }
+}
+
+/** A place node for an area page: a neighborhood sits inside the site's city. */
+export function place(site: SiteConfig, area: Area): JsonLd {
+  const city = { "@type": "City", name: `${site.city}, ${site.region}` }
+  return area.kind === "town"
+    ? { "@type": "City", name: `${area.name}, ${site.region}` }
+    : { "@type": "Place", name: `${area.name}, ${site.city}, ${site.region}`, containedInPlace: city }
+}
+
+/** The cleaning service as offered in one neighborhood or nearby town. */
+export function areaService(site: SiteConfig, area: Area): JsonLd {
+  return {
+    "@type": "Service",
+    "@id": `${site.url}/areas/${area.slug}#service`,
+    name: `Carpet cleaning in ${area.name}`,
+    serviceType: "Carpet cleaning",
+    description: area.summary,
+    provider: { "@id": businessId(site) },
+    areaServed: place(site, area),
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Cleaning services",
+      itemListElement: site.services.map((s) => ({
+        "@type": "Offer",
+        itemOffered: { "@type": "Service", name: s.name, url: `${site.url}/services/${s.slug}` },
+      })),
+    },
+  }
+}
+
+/** A guide page as an Article published by the site's business. */
+export function article(site: SiteConfig, guide: Guide): JsonLd {
+  const url = `${site.url}/guides/${guide.slug}`
+  return {
+    "@type": "Article",
+    "@id": `${url}#article`,
+    headline: guide.title,
+    description: guide.summary,
+    url,
+    mainEntityOfPage: url,
+    dateModified: guide.updated,
+    inLanguage: "en-US",
+    author: { "@id": businessId(site) },
+    publisher: { "@id": businessId(site) },
+    about: { "@type": "Thing", name: "Carpet cleaning" },
+    contentLocation: { "@type": "City", name: `${site.city}, ${site.region}` },
   }
 }
 

@@ -11,6 +11,15 @@
    Also add that hostname to the `carpet-cleaning` Turnstile widget.
 8. `bun install`, `bun run build`, `bun run lighthouse`, then deploy the site.
 
+## Service, area and guide pages
+
+Each site keeps its longer copy in `src/content.ts`: extra `sections` for each service, extra services, `areas` (pages at `/areas/<slug>`) and `guides` (pages at `/guides/<slug>`). `/faq` collects every FAQ on the site, and `/llms-full.txt` has all of it as plain text for AI agents. The page templates live in each app (`src/pages/areas`, `src/pages/guides`, `src/pages/faq.astro`) so each site can lay them out its own way.
+
+- Write area pages only for places this site should own. Don't add a page for a town that has, or will get, its own site (Montgomery on the Conroe site, Magnolia, Willis and so on), so the sites don't compete with each other.
+- An area's `name` should match its entry in `serviceArea.neighborhoods` (or `towns`) so the home page links to it.
+- Keep facts about a neighborhood general and checkable: rough age of homes, type of housing, where it is. No invented landmarks, prices or statistics.
+- A section with `requires: "<flag>"` only shows when that flag is on.
+
 ## Rules for content
 
 - Only state what's true for the renter. No made-up reviews, ratings, years in business, certifications or addresses.
