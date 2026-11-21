@@ -1,0 +1,15 @@
+{
+  "name": "@carpet/ui",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./*.astro": "./src/components/*.astro",
+    "./styles/*": "./src/styles/*"
+  },
+  "peerDependencies": {
+    "astro": "^7.4.11"
+  },
+  "dependencies": {
+    "@carpet/seo": "workspace:*"
+  }
+}

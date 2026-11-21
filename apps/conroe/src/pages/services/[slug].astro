@@ -1,0 +1,43 @@
+---
+import type { GetStaticPaths } from "astro"
+import { breadcrumbs, faqPage, graph, service } from "@carpet/seo"
+import Layout from "@carpet/ui/Layout.astro"
+import Hero from "@carpet/ui/Hero.astro"
+import Services from "@carpet/ui/Services.astro"
+import Faq from "@carpet/ui/Faq.astro"
+import QuoteForm from "@carpet/ui/QuoteForm.astro"
+import { site } from "../../site.config"
+
+export const getStaticPaths = (() =>
+  site.services.map((s) => ({ params: { slug: s.slug }, props: { s } }))) satisfies GetStaticPaths
+
+const { s } = Astro.props
+const path = `/services/${s.slug}`
+const title = `${s.name} in ${site.city}, ${site.region} | ${site.name}`
+const jsonld = graph(
+  service(site, s),
+  faqPage(s.faqs ?? []),
+  breadcrumbs(site, [
+    { name: "Home", path: "/" },
+    { name: s.name, path },
+  ])
+)
+---
+
+<Layout site={site} title={title} description={s.summary} path={path} jsonld={jsonld}>
+  <nav class="wrap crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>{s.name}</span></nav>
+  <Hero site={site} heading={`${s.name} in ${site.city}, ${site.region}`} lead={s.summary} />
+  <section class="section">
+    <div class="wrap prose">
+      {s.body.map((p) => <p>{p}</p>)}
+    </div>
+  </section>
+  <QuoteForm site={site} service={s.slug} />
+  <Faq faqs={s.faqs ?? []} heading={`${s.name} questions`} />
+  <Services site={site} heading="Other services" exclude={s.slug} />
+</Layout>
+
+<style>
+  .crumbs { padding-top: 1rem; font-size: .9rem; color: var(--ink-soft); }
+  .prose { max-width: 44rem; font-size: 1.05rem; }
+</style>

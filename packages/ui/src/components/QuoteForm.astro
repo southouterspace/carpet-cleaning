@@ -1,0 +1,263 @@
+---
+/**
+ * Quote form. Works as a plain HTML POST to the lead Worker (which redirects
+ * to /thanks), and upgrades to an in-page submit when JS runs. Turnstile is
+ * loaded only after the visitor first touches the form, so it never costs
+ * page-load performance.
+ */
+import { callNumber, formatPhone, type SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+  /** Preselects a service, e.g. on a service page. */
+  service?: string
+}
+const { site, service } = Astro.props
+const phone = callNumber(site)
+const photos = site.flags.photoUpload
+---
+
+{site.flags.quoteForm && (
+<section class="section section--soft" id="quote" aria-labelledby="quote-h">
+  <div class="wrap quote">
+    <div>
+      <h2 id="quote-h">Get a free quote</h2>
+      <p>Tell us about the job and a local carpet cleaner will call or text you with a price before any work starts.</p>
+      <p class="muted">The more detail you give (rooms, stairs, pets), the more accurate the quote.</p>
+      {phone && <p>Prefer to talk now? Call <a href={`tel:${phone}`}>{formatPhone(phone)}</a>.</p>}
+    </div>
+    <form
+      class="qf"
+      method="post"
+      action={site.leadEndpoint}
+      data-turnstile={site.turnstileSiteKey}
+      enctype={photos ? "multipart/form-data" : undefined}
+    >
+      <input type="hidden" name="site" value={site.id} />
+      <input type="hidden" name="page" value={Astro.url.pathname.replace(/(index)?\.html$/, "")} />
+      <div class="qf__hp" aria-hidden="true">
+        <label>Company <input name="company" tabindex="-1" autocomplete="off" /></label>
+      </div>
+      <label>Name <input name="name" autocomplete="name" required maxlength="80" /></label>
+      <label>Phone <input name="phone" type="tel" autocomplete="tel" inputmode="tel" required maxlength="20" /></label>
+      <label>ZIP code <input name="zip" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" /></label>
+      <label>Service
+        <select name="service">
+          {site.services.map((s) => (
+            <option value={s.slug} selected={s.slug === service}>{s.name}</option>
+          ))}
+          <option value="other">Something else</option>
+        </select>
+      </label>
+      <label>Rooms
+        <select name="rooms">
+          <option value="">Not sure</option>
+          <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          <option value="6+">6 or more</option>
+        </select>
+      </label>
+      <label>Stairs
+        <select name="stairs">
+          <option value="none">No stairs</option>
+          <option value="1">1 staircase</option>
+          <option value="2+">2 or more</option>
+        </select>
+      </label>
+      <label>When
+        <select name="timing">
+          <option value="asap">As soon as possible</option>
+          <option value="week">Within a week</option>
+          <option value="month">Within a month</option>
+          <option value="pricing">Just comparing prices</option>
+        </select>
+      </label>
+      <label>Best way to reach you
+        <select name="contact">
+          <option value="text">Text</option>
+          <option value="call">Call</option>
+          <option value="email">Email</option>
+        </select>
+      </label>
+      <label class="qf__wide">Email <span class="muted qf__opt">(optional)</span>
+        <input name="email" type="email" autocomplete="email" maxlength="120" />
+      </label>
+      <label class="qf__check qf__wide"><input type="checkbox" name="pets" value="yes" /> Pet stains or odor</label>
+      <label class="qf__wide">Anything else <span class="muted">(stains, furniture, gate code)</span>
+        <textarea name="message" rows="3" maxlength="1000"></textarea>
+      </label>
+      {photos && (
+        <label class="qf__wide">Photos <span class="muted">(optional, up to 5: stains, rooms, rugs)</span>
+          <input class="qf__photos" name="photos" type="file" accept="image/*" multiple />
+          <span class="muted qf__photo-note" aria-live="polite"></span>
+        </label>
+      )}
+      <div class="qf__wide qf__ts"></div>
+      <p class="qf__wide qf__error" role="alert"></p>
+      <button class="btn qf__wide" type="submit">Request my quote</button>
+      <p class="qf__wide qf__status" role="status" aria-live="polite"></p>
+      <p class="qf__wide muted qf__fine">We only use your details to reply about this request. <a href="/privacy">Privacy</a></p>
+    </form>
+    <div class="qf-done" tabindex="-1" hidden>
+      <p class="qf-done__icon" aria-hidden="true">✓</p>
+      <h3>Request sent</h3>
+      <p>Thanks, <span class="qf-done__name"></span>. A local carpet cleaner will <span class="qf-done__how">text</span> you shortly with a price. Nothing is booked until you say yes.</p>
+      <p class="muted">Didn't mean to send it, or need to change something? Just reply when they reach out.</p>
+    </div>
+  </div>
+  <script is:inline>
+    (() => {
+      const form = document.querySelector("form.qf")
+      if (!form) return
+      const key = form.dataset.turnstile
+      const tsBox = form.querySelector(".qf__ts")
+      const errBox = form.querySelector(".qf__error")
+      const status = form.querySelector(".qf__status")
+      const btn = form.querySelector("button[type=submit]")
+      const email = form.elements.email
+      const contact = form.elements.contact
+      let token = ""
+      let waiters = []
+      let tsLoaded = false
+      const loadTurnstile = () => {
+        if (tsLoaded || !key) return
+        tsLoaded = true
+        window.onTurnstileLoad = () =>
+          window.turnstile.render(tsBox, {
+            sitekey: key,
+            size: "flexible",
+            appearance: "interaction-only",
+            callback: (t) => { token = t; waiters.forEach((w) => w(t)); waiters = [] },
+            "expired-callback": () => { token = "" },
+          })
+        const s = document.createElement("script")
+        s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad&render=explicit"
+        s.async = true
+        document.head.appendChild(s)
+      }
+      // Wait for the bot check to finish instead of sending without it.
+      const getToken = () => {
+        if (!key || token) return Promise.resolve(token)
+        loadTurnstile()
+        return new Promise((resolve, reject) => {
+          waiters.push(resolve)
+          setTimeout(() => reject(new Error("The spam check didn't finish. Please try again.")), 20000)
+        })
+      }
+      const showError = (msg) => {
+        errBox.textContent = msg
+        errBox.scrollIntoView({ block: "center", behavior: "smooth" })
+      }
+      // Email becomes required when it's the chosen way to reply.
+      const syncEmail = () => {
+        email.required = contact.value === "email"
+        form.querySelector(".qf__opt").hidden = email.required
+      }
+      contact.addEventListener("change", syncEmail)
+      syncEmail()
+      form.addEventListener("focusin", loadTurnstile, { once: true })
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault()
+        errBox.textContent = ""
+        btn.disabled = true
+        btn.textContent = "Sending…"
+        try {
+          status.textContent = key && !token ? "Running a quick spam check…" : "Sending…"
+          await getToken()
+          // The photo script (photoUpload flag) swaps in shrunk photos.
+          const body = window.qfPhotoBody ? await window.qfPhotoBody(form, status) : new FormData(form)
+          status.textContent = "Sending…"
+          const res = await fetch(form.action, {
+            method: "POST",
+            body,
+            headers: { Accept: "application/json" },
+          })
+          const data = await res.json().catch(() => ({}))
+          if (!res.ok) throw new Error(data.error || "Something went wrong. Please try again.")
+          const done = form.parentElement.querySelector(".qf-done")
+          done.querySelector(".qf-done__name").textContent = form.elements.name.value.trim().split(" ")[0] || "we got it"
+          done.querySelector(".qf-done__how").textContent = { text: "text", call: "call", email: "email" }[contact.value] || "reach out to"
+          form.hidden = true
+          done.hidden = false
+          document.querySelector(".callbar")?.remove()
+          done.focus()
+          done.scrollIntoView({ block: "center", behavior: "smooth" })
+        } catch (err) {
+          showError(err.message)
+          token = ""
+          window.turnstile?.reset()
+        } finally {
+          status.textContent = ""
+          btn.disabled = false
+          btn.textContent = "Request my quote"
+        }
+      })
+    })()
+  </script>
+  {photos && (
+    <script is:inline>
+      (() => {
+        // Shrink photos on the phone before upload, so a 4 MB camera shot sends as ~300 KB.
+        const form = document.querySelector("form.qf")
+        const input = form?.querySelector(".qf__photos")
+        if (!input) return
+        const note = form.querySelector(".qf__photo-note")
+        const MAX = 5
+        input.addEventListener("change", () => {
+          const n = input.files.length
+          note.textContent = n > MAX
+            ? `Only the first ${MAX} photos will be sent.`
+            : n ? `${n} photo${n > 1 ? "s" : ""} added.` : ""
+        })
+        const shrink = async (file) => {
+          try {
+            const img = await createImageBitmap(file)
+            const scale = Math.min(1, 1600 / Math.max(img.width, img.height))
+            const c = document.createElement("canvas")
+            c.width = Math.round(img.width * scale)
+            c.height = Math.round(img.height * scale)
+            c.getContext("2d").drawImage(img, 0, 0, c.width, c.height)
+            const blob = await new Promise((r) => c.toBlob(r, "image/jpeg", 0.8))
+            return blob ? new File([blob], "photo.jpg", { type: "image/jpeg" }) : file
+          } catch {
+            return file // e.g. HEIC the browser can't decode; the server accepts it as-is
+          }
+        }
+        window.qfPhotoBody = async (f, status) => {
+          const body = new FormData(f)
+          body.delete("photos")
+          const files = [...input.files].slice(0, MAX)
+          if (files.length) status.textContent = "Preparing photos…"
+          for (const p of await Promise.all(files.map(shrink))) body.append("photos", p)
+          return body
+        }
+      })()
+    </script>
+  )}
+</section>
+)}
+
+<style>
+  .quote { display: grid; gap: 1.5rem; }
+  @media (min-width: 56rem) { .quote { grid-template-columns: 1fr 1.4fr; align-items: start; } }
+  .qf { display: grid; gap: .9rem; grid-template-columns: 1fr 1fr; background: #fff; padding: 1.25rem; border: 1px solid var(--line); border-radius: var(--radius); }
+  .qf label { display: grid; gap: .3rem; font-weight: 600; grid-column: span 2; }
+  @media (min-width: 36rem) { .qf label { grid-column: span 1; } }
+  .qf .qf__wide { grid-column: 1 / -1; }
+  .qf input, .qf select, .qf textarea { font: inherit; padding: .65rem .75rem; border: 1px solid #b9bec8; border-radius: 8px; min-height: 48px; width: 100%; }
+  .qf__hp { position: absolute; left: -9999px; }
+  .qf[hidden] { display: none; }
+  .qf .qf__check { display: flex; align-items: center; gap: .6rem; min-height: 48px; }
+  .qf .qf__check input { width: 1.4rem; min-height: 0; height: 1.4rem; accent-color: var(--accent); }
+  .qf__status:empty, .qf__ts:empty, .qf__error:empty { display: none; }
+  .qf__status { margin: 0; text-align: center; font-weight: 600; }
+  .qf__error { margin: 0; padding: .75rem 1rem; border-radius: 8px; background: #fdecec; color: #8a1c1c; border: 1px solid #f3b4b4; font-weight: 600; }
+  .qf-done { background: #fff; padding: 2rem 1.25rem; border: 2px solid var(--accent); border-radius: var(--radius); text-align: center; }
+  .qf-done:focus { outline: none; }
+  .qf-done h3 { margin: .25rem 0 .5rem; font-size: 1.5rem; }
+  .qf-done__icon { width: 3rem; height: 3rem; margin: 0 auto; border-radius: 50%; background: var(--accent); color: #fff; font-size: 1.6rem; line-height: 3rem; font-weight: 800; }
+  .qf__fine { font-size: .85rem; margin: 0; }
+  .qf .qf__photos { padding: .5rem; background: var(--bg-soft); }
+  .qf__photo-note { font-weight: 400; font-size: .9rem; }
+  .qf__photo-note:empty { display: none; }
+</style>
+
