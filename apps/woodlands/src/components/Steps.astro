@@ -1,0 +1,33 @@
+---
+/** How a job goes, in three steps. Plain HTML, no JS. */
+interface Props {
+  heading?: string
+}
+const { heading = "How it works" } = Astro.props
+const steps = [
+  { h: "Send the details", p: "Use the form to tell us about the rooms, stairs and any spots. It takes about a minute." },
+  { h: "Get a price", p: "A local cleaner reviews it and replies by text, call or email with a price and open times." },
+  { h: "Pick a time", p: "Choose a day that works. Nothing is booked, and you pay nothing, until you say yes." },
+]
+---
+
+<section class="section section--soft" aria-labelledby="steps-h">
+  <div class="wrap">
+    <h2 id="steps-h">{heading}</h2>
+    <ol class="st">
+      {steps.map((s) => (
+        <li>
+          <h3>{s.h}</h3>
+          <p class="muted">{s.p}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .st { list-style: none; counter-reset: st; padding: 0; margin: 1.5rem 0 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
+  .st li { counter-increment: st; background: #fff; border-radius: var(--radius); padding: 1.25rem; border: 1px solid var(--line); }
+  .st li::before { content: counter(st); display: inline-grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 700; margin-bottom: .75rem; }
+  .st p { margin: 0; }
+</style>

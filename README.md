@@ -8,7 +8,9 @@ Everything runs on Cloudflare: each site is a static Astro build served by Worke
 
 ```
 apps/
-  conroe/        Conroe site (the reference site), live at carpet-cleaning-conroe.southouterspace.workers.dev
+  conroe/        Conroe site (the reference site): conroetxcarpetcleaners.com
+  woodlands/     The Woodlands site: woodlandscarpetcleaning.com
+  montgomery/    Montgomery site: montgomerycarpetcleaning.com
   leads/         Shared lead Worker: validates, stores in D1, emails the renter
 packages/
   seo/           SiteConfig type, JSON-LD builders, llms.txt and robots.txt
@@ -69,6 +71,6 @@ The D1 database (`carpet-cleaning-leads`) and a Turnstile widget already exist i
 3. Add the site's hostname to the `carpet-cleaning` Turnstile widget. Put the site key in `site.config.ts` and run `bunx wrangler secret put TURNSTILE_SECRET` in `apps/leads`.
 4. `bun run deploy` deploys the lead Worker, then every site.
 
-Sites live on workers.dev for now (`carpet-cleaning-<city>.southouterspace.workers.dev`). To move one to its own domain later, add the domain as a zone in the account, add a custom-domain route in its `wrangler.jsonc`, update `site` and `url`, and update the `sites.domain` row in D1.
+Each site is served on its own domain (a zone in the admin account) through a custom-domain route in its `wrangler.jsonc`, with `workers_dev` off. `www` redirects to the apex with a zone redirect rule. A new site can start on workers.dev (`carpet-cleaning-<city>.southouterspace.workers.dev`) until its domain is ready. To move it, add the custom-domain route, update `site` and `url`, and update the `sites.domain` row in D1 with a migration.
 
 After the first manual deploy works, set the repository variable `DEPLOY_ENABLED=true` and the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets so every push to `main` deploys.

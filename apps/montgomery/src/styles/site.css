@@ -1,0 +1,15 @@
+/*
+ * Montgomery look: brick red on warm off-white, square corners, bold
+ * uppercase section labels. Selectors start with :root to beat base styles.
+ */
+:root {
+  --ink: #241a16;
+  --ink-soft: #57493f;
+  --bg-soft: #faf5ef;
+  --line: #e8ddd1;
+  --radius: 4px;
+  --max: 62rem;
+}
+:root h1 { font-weight: 850; letter-spacing: -.02em; }
+:root h2 { font-weight: 800; }
+:root .card { border-width: 0 0 0 4px; border-color: var(--accent); background: var(--bg-soft); }

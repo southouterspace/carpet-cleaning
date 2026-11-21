@@ -1,0 +1,14 @@
+---
+import Page from "../components/Page.astro"
+import { site } from "../site.config"
+---
+
+<Page site={site} title={`Thanks | ${site.name}`} description="We got your request." path="/thanks" noindex>
+  <section class="section">
+    <div class="wrap">
+      <h1>Got it, thank you</h1>
+      <p>Your request is in. A local cleaner will look over the details and reach out the way you asked, with a price and a few open times. Nothing is booked until you say yes.</p>
+      <p><a href="/">Back to home</a></p>
+    </div>
+  </section>
+</Page>

@@ -34,6 +34,40 @@
         "wrangler": "^4.160.1",
       },
     },
+    "apps/montgomery": {
+      "name": "@carpet/montgomery",
+      "dependencies": {
+        "@astrojs/sitemap": "^3.7.4",
+        "@carpet/leads": "workspace:*",
+        "@carpet/seo": "workspace:*",
+        "@carpet/ui": "workspace:*",
+        "astro": "^7.4.11",
+      },
+      "devDependencies": {
+        "@astrojs/check": "^0.9.12",
+        "@cloudflare/workers-types": "^5.20261112.1",
+        "@lhci/cli": "0.16.1",
+        "typescript": "5",
+        "wrangler": "^4.160.1",
+      },
+    },
+    "apps/woodlands": {
+      "name": "@carpet/woodlands",
+      "dependencies": {
+        "@astrojs/sitemap": "^3.7.4",
+        "@carpet/leads": "workspace:*",
+        "@carpet/seo": "workspace:*",
+        "@carpet/ui": "workspace:*",
+        "astro": "^7.4.11",
+      },
+      "devDependencies": {
+        "@astrojs/check": "^0.9.12",
+        "@cloudflare/workers-types": "^5.20261112.1",
+        "@lhci/cli": "0.16.1",
+        "typescript": "5",
+        "wrangler": "^4.160.1",
+      },
+    },
     "packages/seo": {
       "name": "@carpet/seo",
       "devDependencies": {
@@ -134,9 +168,13 @@
 
     "@carpet/leads": ["@carpet/leads@workspace:apps/leads"],
 
+    "@carpet/montgomery": ["@carpet/montgomery@workspace:apps/montgomery"],
+
     "@carpet/seo": ["@carpet/seo@workspace:packages/seo"],
 
     "@carpet/ui": ["@carpet/ui@workspace:packages/ui"],
+
+    "@carpet/woodlands": ["@carpet/woodlands@workspace:apps/woodlands"],
 
     "@clack/core": ["@clack/core@1.6.0", "", { "dependencies": { "fast-string-width": "^3.0.2", "fast-wrap-ansi": "^0.2.0", "sisteransi": "^2.0.0" } }, "sha512-4GZynIB2IIe431odxesswvWTCP6orvqd6e2b07b3VFWBQRqUqIHc/EPIZwFoKS692QBp+ooPuXKaJV8g4kXuYA=="],
 

@@ -10,7 +10,7 @@ export interface SiteConfig {
   id: string
   /** Brand name shown on the site and in structured data. */
   name: string
-  /** Canonical origin, no trailing slash: "https://carpet-cleaning-conroe.southouterspace.workers.dev". */
+  /** Canonical origin, no trailing slash: "https://conroetxcarpetcleaners.com". */
   url: string
   /** One-line description used for meta description and llms.txt. */
   tagline: string

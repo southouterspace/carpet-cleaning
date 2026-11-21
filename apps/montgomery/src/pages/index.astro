@@ -1,0 +1,34 @@
+---
+import { breadcrumbs, faqPage, graph, localBusiness, website } from "@carpet/seo"
+import Services from "@carpet/ui/Services.astro"
+import Faq from "@carpet/ui/Faq.astro"
+import QuoteForm from "@carpet/ui/QuoteForm.astro"
+import Page from "../components/Page.astro"
+import Hero from "../components/Hero.astro"
+import LakeHomes from "../components/LakeHomes.astro"
+import Areas from "../components/Areas.astro"
+import { site } from "../site.config"
+
+const title = `Carpet Cleaning Montgomery TX | ${site.name}`
+const description = `Carpet cleaning in Montgomery, TX for homes, Lake Conroe weekend houses and rentals. Carpet, couch, pet odor, rug and tile. Request a free quote.`
+const jsonld = graph(
+  localBusiness(site),
+  website(site),
+  faqPage(site.faqs),
+  breadcrumbs(site, [{ name: "Home", path: "/" }])
+)
+---
+
+<Page site={site} title={title} description={description} path="/" jsonld={jsonld}>
+  <Hero
+    site={site}
+    heading="Carpet cleaning in Montgomery, TX"
+    lead="For homes in town and on the west side of Lake Conroe, including weekend houses and rentals. Send a few details and get a price before anyone comes out."
+    points={["Free quotes", "Rental turnovers", "Pet odor treatment"]}
+  />
+  <QuoteForm site={site} />
+  <Services site={site} heading="Services in Montgomery" />
+  <LakeHomes />
+  <Areas site={site} />
+  <Faq faqs={site.faqs} heading="Common questions" />
+</Page>
