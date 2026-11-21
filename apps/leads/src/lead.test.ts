@@ -12,8 +12,19 @@ describe("normalizePhone", () => {
     expect(normalizePhone("(936) 555-0100")).toBe("+19365550100")
     expect(normalizePhone("1-936-555-0100")).toBe("+19365550100")
   })
+  test("accepts +1 and dotted formats", () => {
+    expect(normalizePhone("+1 (936) 555-0100")).toBe("+19365550100")
+    expect(normalizePhone("936.555.0100")).toBe("+19365550100")
+  })
   test("rejects short numbers", () => {
     expect(normalizePhone("555-0100")).toBeNull()
+  })
+  test("rejects words and numbers that can't be US phones", () => {
+    expect(normalizePhone("Mom")).toBeNull()
+    expect(normalizePhone("Mom 936-555-0100")).toBeNull()
+    expect(normalizePhone("(123) 555-0100")).toBeNull()
+    expect(normalizePhone("(936) 055-0100")).toBeNull()
+    expect(normalizePhone("936-555-01000")).toBeNull()
   })
 })
 
