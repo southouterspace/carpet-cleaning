@@ -1,5 +1,16 @@
 ---
 /** Local detail: the kinds of homes and carpet problems common around Conroe. */
+import type { SiteConfig } from "@carpet/seo"
+import SitePhoto from "@carpet/ui/SitePhoto.astro"
+import type { PhotoSlot } from "@carpet/ui/photo"
+
+interface Props {
+  site: SiteConfig
+  /** One photo per column, in order: new builds, established, lake. */
+  photos?: PhotoSlot[]
+}
+const { site, photos = [] } = Astro.props
+const sizes = "(min-width: 68rem) 21rem, (min-width: 34rem) 45vw, 100vw"
 ---
 
 <section class="section section--soft" aria-labelledby="local-h">
@@ -7,14 +18,17 @@
     <h2 id="local-h">Carpet cleaning for Conroe homes</h2>
     <div class="lh__cols">
       <div>
+        <SitePhoto site={site} photo={photos[0]} class="lh__photo" sizes={sizes} />
         <h3>New builds</h3>
         <p>Grand Central Park, Artavia and Harper's Preserve are full of newer homes with light, builder-grade carpet. It shows traffic lanes quickly, so a first deep clean in year one or two keeps it from setting in.</p>
       </div>
       <div>
+        <SitePhoto site={site} photo={photos[1]} class="lh__photo" sizes={sizes} />
         <h3>Established neighborhoods</h3>
         <p>In older homes near downtown Conroe and in River Plantation, the usual jobs are years of pet spots, worn traffic lanes and carpet that needs refreshing before a sale.</p>
       </div>
       <div>
+        <SitePhoto site={site} photo={photos[2]} class="lh__photo" sizes={sizes} />
         <h3>Around Lake Conroe</h3>
         <p>Lake homes and weekend places pick up sand, sunscreen and damp towels. Owners often book a cleaning at the start or end of the season, or between renters.</p>
       </div>
@@ -25,4 +39,5 @@
 <style>
   .lh__cols { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); margin-top: 1rem; }
   .lh__cols p { margin: 0; color: var(--ink-soft); }
+  .lh__cols :global(.lh__photo) { margin-bottom: 1rem; }
 </style>

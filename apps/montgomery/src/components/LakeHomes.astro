@@ -1,5 +1,15 @@
 ---
 /** Lake house and rental section, the main local angle for Montgomery. */
+import type { SiteConfig } from "@carpet/seo"
+import SitePhoto from "@carpet/ui/SitePhoto.astro"
+import type { PhotoSlot } from "@carpet/ui/photo"
+
+interface Props {
+  site: SiteConfig
+  /** Photo above the list. */
+  photo?: PhotoSlot
+}
+const { site, photo } = Astro.props
 ---
 
 <section class="section lk" aria-labelledby="lake-h">
@@ -11,17 +21,21 @@
       <p>Send your check-out and check-in times with your quote request, and the cleaning is scheduled in the gap with time to dry.</p>
       <p><a href="/services/lake-house-rental-cleaning">More about rental turnovers</a></p>
     </div>
-    <ul class="lk__list">
-      <li><strong>Between guests.</strong> Fit into your turnover window.</li>
-      <li><strong>Season open and close.</strong> Freshen carpet and cushions in spring, or before you shut the house for winter.</li>
-      <li><strong>No one home?</strong> Many owners share a door code. We confirm every detail ahead of time.</li>
-    </ul>
+    <div class="lk__side">
+      <SitePhoto site={site} photo={photo} sizes="(min-width: 52rem) 26rem, 100vw" />
+      <ul class="lk__list">
+        <li><strong>Between guests.</strong> Fit into your turnover window.</li>
+        <li><strong>Season open and close.</strong> Freshen carpet and cushions in spring, or before you shut the house for winter.</li>
+        <li><strong>No one home?</strong> Many owners share a door code. We confirm every detail ahead of time.</li>
+      </ul>
+    </div>
   </div>
 </section>
 
 <style>
   .lk__in { display: grid; gap: 2rem; }
   .lk__label { text-transform: uppercase; letter-spacing: .08em; font-weight: 800; font-size: .85rem; color: var(--accent-dark); margin-bottom: .25rem; }
+  .lk__side { display: grid; gap: 1rem; align-content: start; }
   .lk__list { list-style: none; padding: 0; margin: 0; display: grid; gap: .75rem; align-content: start; }
   .lk__list li { border-left: 4px solid var(--accent); background: var(--bg-soft); padding: 1rem 1.25rem; }
   @media (min-width: 52rem) { .lk__in { grid-template-columns: 1.2fr 1fr; } }

@@ -1,9 +1,12 @@
 ---
 /**
  * Montgomery hero: a centered, full-width brick band. Phone buttons appear
- * only when the phoneCalls flag is on.
+ * only when the phoneCalls flag is on. An optional photo sits behind the
+ * text under a solid brick overlay, so the text contrast doesn't change.
  */
 import { callNumber, formatPhone, type SiteConfig } from "@carpet/seo"
+import SitePhoto from "@carpet/ui/SitePhoto.astro"
+import { showPhoto, type PhotoSlot } from "@carpet/ui/photo"
 
 interface Props {
   site: SiteConfig
@@ -11,12 +14,20 @@ interface Props {
   lead: string
   /** Short true facts under the buttons. */
   points?: string[]
+  /** Decorative background photo (alt should be empty). */
+  photo?: PhotoSlot
 }
-const { site, heading, lead, points = [] } = Astro.props
+const { site, heading, lead, points = [], photo } = Astro.props
 const phone = callNumber(site)
+const hasPhoto = showPhoto(site, photo)
 ---
 
-<section class="mh">
+<section class:list={["mh", { "mh--photo": hasPhoto }]}>
+  {hasPhoto && (
+    <div class="mh__bg">
+      <SitePhoto site={site} photo={photo} priority sizes="100vw" />
+    </div>
+  )}
   <div class="wrap mh__in">
     <h1>{heading}</h1>
     <p class="mh__lead">{lead}</p>
@@ -48,5 +59,16 @@ const phone = callNumber(site)
   .mh :focus-visible { outline-color: #fff; }
   .mh__pts { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem 1.5rem; font-weight: 600; }
   .mh__pts li::before { content: "• "; }
+  .mh--photo { position: relative; isolation: isolate; overflow: hidden; }
+  .mh__bg { position: absolute; inset: 0; z-index: -1; }
+  .mh__bg::after { content: ""; position: absolute; inset: 0; background: rgb(107 38 16 / 80%); }
+  .mh__bg :global(picture) { display: block; height: 100%; }
+  .mh__bg :global(.sp) { width: 100%; height: 100%; aspect-ratio: auto !important; border-radius: 0; }
+  /* Placeholder: brick band with its label in the corner, above the overlay. */
+  .mh__bg :global(.sp--ph) {
+    position: relative; z-index: 1; background: transparent; border-color: rgb(255 255 255 / 45%);
+    place-content: end; justify-items: end; text-align: right; color: #fbefe8;
+  }
+  .mh__bg :global(.sp--ph span) { color: #fbefe8; }
   @media (min-width: 48rem) { .mh { padding: 5rem 0; } }
 </style>

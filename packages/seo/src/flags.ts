@@ -24,6 +24,11 @@ export const FLAG_DEFAULTS = {
    * never a quote). On since Justin approved showing them (2026-11-19).
    */
   priceRanges: true,
+  /**
+   * Sized placeholder boxes where planned photos will go. For previews only;
+   * slots with a real image render regardless of this flag.
+   */
+  photoPlaceholders: false,
 } satisfies Record<string, boolean>
 
 export type Flags = { [K in keyof typeof FLAG_DEFAULTS]: boolean }
