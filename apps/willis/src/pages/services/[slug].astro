@@ -1,0 +1,55 @@
+---
+import type { GetStaticPaths } from "astro"
+import { answerOf, breadcrumbs, faqPage, howTos, pageGraph, service, updatedOf } from "@carpet/seo"
+import Updated from "@carpet/ui/Updated.astro"
+import Page from "../../components/Page.astro"
+import Hero from "../../components/Hero.astro"
+import Services from "@carpet/ui/Services.astro"
+import Faq from "@carpet/ui/Faq.astro"
+import QuoteForm from "@carpet/ui/QuoteForm.astro"
+import Prose from "@carpet/ui/Prose.astro"
+import SitePhoto from "@carpet/ui/SitePhoto.astro"
+import { site } from "../../site.config"
+import { servicePhotos } from "../../photos"
+
+export const getStaticPaths = (() =>
+  site.services.map((s) => ({ params: { slug: s.slug }, props: { s } }))) satisfies GetStaticPaths
+
+const { s } = Astro.props
+const path = `/services/${s.slug}`
+const title = `${s.name} in ${site.city}, ${site.region} | ${site.name}`
+const answer = answerOf(site, s)
+const updated = updatedOf(site, s)
+const jsonld = pageGraph(
+  site,
+  { path, title: title, description: s.summary, updated, answer },
+  howTos(site, path, s.sections),
+  service(site, s),
+  faqPage(s.faqs ?? []),
+  breadcrumbs(site, [
+    { name: "Home", path: "/" },
+    { name: s.name, path },
+  ])
+)
+---
+
+<Page site={site} title={title} description={s.summary} path={path} jsonld={jsonld}>
+  <Hero site={site} heading={`${s.name} in ${site.city}, ${site.region}`} lead={answer ?? s.summary} />
+  <nav class="wrap crumbs" aria-label="Breadcrumb"><a href="/">Home</a> › <span>{s.name}</span></nav>
+  <section class="section">
+    <div class="wrap">
+      <h2>About {s.name.toLowerCase()}</h2>
+      <SitePhoto site={site} photo={servicePhotos[s.slug]} class="svc-photo" sizes="(min-width: 46rem) 44rem, 100vw" />
+      <Updated date={updated} />
+      <Prose site={site} paragraphs={s.body} sections={s.sections} level={3} />
+    </div>
+  </section>
+  <QuoteForm site={site} service={s.slug} />
+  <Faq faqs={s.faqs ?? []} heading={`${s.name} questions`} />
+  <Services site={site} heading="More services" exclude={s.slug} />
+</Page>
+
+<style>
+  .crumbs { padding-top: 1rem; font-size: .9rem; color: var(--ink-soft); }
+  .section :global(.svc-photo) { margin-bottom: 1.5rem; }
+</style>

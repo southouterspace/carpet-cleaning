@@ -1,0 +1,50 @@
+---
+/**
+ * Spring hero: white background, heavy heading with an indigo underline,
+ * and a lavender "what to send" card beside it on wide screens. Phone
+ * buttons show only when the phoneCalls flag is on.
+ */
+import { callNumber, formatPhone, type SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+  heading: string
+  lead: string
+  /** Items for the "what to send" card (home page only). */
+  send?: string[]
+}
+const { site, heading, lead, send = [] } = Astro.props
+const phone = callNumber(site)
+---
+
+<section class="sh">
+  <div class:list={["wrap", { sh__in: send.length > 0 }]}>
+    <div>
+      <h1><span>{heading}</span></h1>
+      <p class="sh__lead">{lead}</p>
+      <div class="sh__cta">
+        {site.flags.quoteForm && <a class="btn" href="#quote">Get a free quote</a>}
+        {phone && <a class="btn btn--ghost" href={`tel:${phone}`}>Call {formatPhone(phone)}</a>}
+      </div>
+    </div>
+    {send.length > 0 && (
+      <div class="sh__card">
+        <p class="sh__card-h">For an exact price, send:</p>
+        <ul>{send.map((s) => <li>{s}</li>)}</ul>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .sh { padding: 3rem 0 2.5rem; }
+  .sh h1 span { background: linear-gradient(transparent 82%, #d6d3f5 82%); }
+  .sh__lead { font-size: 1.15rem; color: var(--ink-soft); max-width: 38rem; }
+  .sh__cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+  .sh__in { display: grid; gap: 2rem; align-items: center; }
+  .sh__card { background: var(--bg-soft); border-radius: var(--radius); padding: 1.5rem 1.75rem; }
+  .sh__card-h { font-weight: 800; color: var(--accent-dark); margin-bottom: .5rem; }
+  .sh__card ul { margin: 0; padding-left: 1.2rem; display: grid; gap: .4rem; }
+  .sh__card li::marker { color: var(--accent); }
+  @media (min-width: 52rem) { .sh__in { grid-template-columns: 1.3fr 1fr; } .sh { padding: 4.5rem 0 3.5rem; } }
+</style>

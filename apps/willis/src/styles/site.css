@@ -1,0 +1,18 @@
+/*
+ * Willis look: navy and slate on cool white, 6px corners, a slanted hero
+ * edge and numbered service cards. Selectors start with :root to beat base
+ * styles.
+ */
+:root {
+  --ink: #101a26;
+  --ink-soft: #46525f;
+  --bg-soft: #f1f4f8;
+  --line: #d9e0e8;
+  --radius: 6px;
+  --max: 70rem;
+}
+:root h1 { font-weight: 800; letter-spacing: -.02em; }
+:root h2 { font-weight: 750; letter-spacing: -.01em; }
+:root #services .grid { counter-reset: svc; }
+:root #services .card { counter-increment: svc; border-top: 3px solid var(--accent); }
+:root #services .card h3::before { content: counter(svc, decimal-leading-zero) " "; color: var(--ink-soft); font-weight: 600; font-size: .9em; }

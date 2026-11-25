@@ -1,0 +1,48 @@
+---
+/**
+ * Tomball hero: light parchment band with dark text, a small kicker line
+ * and a ruled box of short notes. Phone buttons show only when the
+ * phoneCalls flag is on.
+ */
+import { callNumber, formatPhone, type SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+  heading: string
+  lead: string
+  kicker?: string
+  /** Short true notes shown in a ruled box on wide screens. */
+  notes?: string[]
+}
+const { site, heading, lead, kicker, notes = [] } = Astro.props
+const phone = callNumber(site)
+---
+
+<section class="th">
+  <div class:list={["wrap", { th__in: notes.length > 0 }]}>
+    <div>
+      {kicker && <p class="th__kicker">{kicker}</p>}
+      <h1>{heading}</h1>
+      <p class="th__lead">{lead}</p>
+      <div class="th__cta">
+        {site.flags.quoteForm && <a class="btn" href="#quote">Request a price</a>}
+        {phone && <a class="btn btn--ghost" href={`tel:${phone}`}>Call {formatPhone(phone)}</a>}
+      </div>
+    </div>
+    {notes.length > 0 && (
+      <ul class="th__notes">{notes.map((n) => <li>{n}</li>)}</ul>
+    )}
+  </div>
+</section>
+
+<style>
+  .th { background: var(--bg-soft); border-bottom: 4px double var(--accent-dark); padding: 3rem 0; }
+  .th__kicker { text-transform: uppercase; letter-spacing: .12em; font-size: .85rem; font-weight: 750; color: var(--accent-dark); margin-bottom: .5rem; }
+  .th__lead { font-size: 1.15rem; color: var(--ink-soft); max-width: 38rem; }
+  .th__cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+  .th__in { display: grid; gap: 2rem; align-items: center; }
+  .th__notes { list-style: none; margin: 0; padding: 0; border: 2px solid var(--accent-dark); background: #fffdf8; }
+  .th__notes li { padding: .85rem 1.1rem; font-weight: 650; }
+  .th__notes li + li { border-top: 1px dashed var(--line); }
+  @media (min-width: 52rem) { .th__in { grid-template-columns: 1.4fr 1fr; } .th { padding: 4.5rem 0; } }
+</style>

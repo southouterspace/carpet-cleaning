@@ -11,6 +11,10 @@ apps/
   conroe/        Conroe site (the reference site): conroetxcarpetcleaners.com
   woodlands/     The Woodlands site: woodlandscarpetcleaning.com
   montgomery/    Montgomery site: montgomerycarpetcleaning.com
+  magnolia/      Magnolia site: magnoliatxcarpetcleaning.com
+  willis/        Willis site: williscarpetcleaning.com
+  tomball/       Tomball site: tomballtxcarpetcleaning.com
+  spring/        Spring site: springtxcarpetcleaners.com
   leads/         Shared lead Worker: validates, stores in D1, emails the renter
 packages/
   seo/           SiteConfig type, JSON-LD builders, llms.txt and robots.txt

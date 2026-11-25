@@ -1,0 +1,37 @@
+---
+/** Service area as a simple table-like list: neighborhoods, then towns. */
+import type { SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+}
+const { site } = Astro.props
+const { towns, zips, neighborhoods } = site.serviceArea
+const pageFor = (name: string) => site.areas?.find((a) => a.name === name)
+---
+
+<section class="section" id="areas" aria-labelledby="areas-h">
+  <div class="wrap">
+    <h2 id="areas-h">Service area</h2>
+    <dl class="sa">
+      <dt>Willis neighborhoods</dt>
+      <dd><ul>{neighborhoods.map((n) => {
+        const a = pageFor(n)
+        return <li>{a ? <a href={`/areas/${a.slug}`}>{n}</a> : n}</li>
+      })}</ul></dd>
+      <dt>Nearby towns</dt>
+      <dd>{towns.filter((t) => t !== site.city).join(", ")}</dd>
+      <dt>ZIP codes</dt>
+      <dd>{zips.join(", ")}</dd>
+    </dl>
+  </div>
+</section>
+
+<style>
+  .sa { display: grid; gap: .25rem 2rem; margin: 1rem 0 0; }
+  .sa dt { font-weight: 750; padding-top: .75rem; }
+  .sa dd { margin: 0; padding-bottom: .75rem; border-bottom: 1px solid var(--line); color: var(--ink-soft); }
+  .sa ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: .25rem 1.5rem; }
+  .sa a { display: inline-block; padding: .35rem 0; font-weight: 650; }
+  @media (min-width: 46rem) { .sa { grid-template-columns: 14rem 1fr; } .sa dt, .sa dd { padding: .9rem 0; border-bottom: 1px solid var(--line); } }
+</style>

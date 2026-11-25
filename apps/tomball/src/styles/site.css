@@ -1,0 +1,17 @@
+/*
+ * Tomball look: walnut and ochre on parchment, square corners, dashed
+ * "ticket" cards and small uppercase kickers. Selectors start with :root
+ * to beat base styles.
+ */
+:root {
+  --ink: #221a12;
+  --ink-soft: #55483a;
+  --bg-soft: #f8f1e3;
+  --line: #e4d6bd;
+  --radius: 2px;
+  --max: 64rem;
+}
+:root h1 { font-weight: 800; letter-spacing: -.01em; }
+:root h2 { font-weight: 800; text-transform: uppercase; letter-spacing: .03em; font-size: clamp(1.25rem, 2.6vw, 1.6rem); }
+:root .card { border: 2px dashed var(--line); background: #fffdf8; }
+:root .btn { text-transform: uppercase; letter-spacing: .04em; font-size: .95rem; }
