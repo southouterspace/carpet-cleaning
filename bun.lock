@@ -34,8 +34,76 @@
         "wrangler": "^4.160.1",
       },
     },
+    "apps/magnolia": {
+      "name": "@carpet/magnolia",
+      "dependencies": {
+        "@astrojs/sitemap": "^3.7.4",
+        "@carpet/leads": "workspace:*",
+        "@carpet/seo": "workspace:*",
+        "@carpet/ui": "workspace:*",
+        "astro": "^7.4.11",
+      },
+      "devDependencies": {
+        "@astrojs/check": "^0.9.12",
+        "@cloudflare/workers-types": "^5.20261112.1",
+        "@lhci/cli": "0.16.1",
+        "typescript": "5",
+        "wrangler": "^4.160.1",
+      },
+    },
     "apps/montgomery": {
       "name": "@carpet/montgomery",
+      "dependencies": {
+        "@astrojs/sitemap": "^3.7.4",
+        "@carpet/leads": "workspace:*",
+        "@carpet/seo": "workspace:*",
+        "@carpet/ui": "workspace:*",
+        "astro": "^7.4.11",
+      },
+      "devDependencies": {
+        "@astrojs/check": "^0.9.12",
+        "@cloudflare/workers-types": "^5.20261112.1",
+        "@lhci/cli": "0.16.1",
+        "typescript": "5",
+        "wrangler": "^4.160.1",
+      },
+    },
+    "apps/spring": {
+      "name": "@carpet/spring",
+      "dependencies": {
+        "@astrojs/sitemap": "^3.7.4",
+        "@carpet/leads": "workspace:*",
+        "@carpet/seo": "workspace:*",
+        "@carpet/ui": "workspace:*",
+        "astro": "^7.4.11",
+      },
+      "devDependencies": {
+        "@astrojs/check": "^0.9.12",
+        "@cloudflare/workers-types": "^5.20261112.1",
+        "@lhci/cli": "0.16.1",
+        "typescript": "5",
+        "wrangler": "^4.160.1",
+      },
+    },
+    "apps/tomball": {
+      "name": "@carpet/tomball",
+      "dependencies": {
+        "@astrojs/sitemap": "^3.7.4",
+        "@carpet/leads": "workspace:*",
+        "@carpet/seo": "workspace:*",
+        "@carpet/ui": "workspace:*",
+        "astro": "^7.4.11",
+      },
+      "devDependencies": {
+        "@astrojs/check": "^0.9.12",
+        "@cloudflare/workers-types": "^5.20261112.1",
+        "@lhci/cli": "0.16.1",
+        "typescript": "5",
+        "wrangler": "^4.160.1",
+      },
+    },
+    "apps/willis": {
+      "name": "@carpet/willis",
       "dependencies": {
         "@astrojs/sitemap": "^3.7.4",
         "@carpet/leads": "workspace:*",
@@ -168,11 +236,19 @@
 
     "@carpet/leads": ["@carpet/leads@workspace:apps/leads"],
 
+    "@carpet/magnolia": ["@carpet/magnolia@workspace:apps/magnolia"],
+
     "@carpet/montgomery": ["@carpet/montgomery@workspace:apps/montgomery"],
 
     "@carpet/seo": ["@carpet/seo@workspace:packages/seo"],
 
+    "@carpet/spring": ["@carpet/spring@workspace:apps/spring"],
+
+    "@carpet/tomball": ["@carpet/tomball@workspace:apps/tomball"],
+
     "@carpet/ui": ["@carpet/ui@workspace:packages/ui"],
+
+    "@carpet/willis": ["@carpet/willis@workspace:apps/willis"],
 
     "@carpet/woodlands": ["@carpet/woodlands@workspace:apps/woodlands"],
 

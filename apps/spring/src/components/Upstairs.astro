@@ -1,0 +1,37 @@
+---
+/** Two-story homes: Spring's local angle (stairs, landings, game rooms). */
+import type { SiteConfig } from "@carpet/seo"
+import SitePhoto from "@carpet/ui/SitePhoto.astro"
+import type { PhotoSlot } from "@carpet/ui/photo"
+
+interface Props {
+  site: SiteConfig
+  photo?: PhotoSlot
+}
+const { site, photo } = Astro.props
+---
+
+<section class="section up" aria-labelledby="up-h">
+  <div class="wrap up__in">
+    <SitePhoto site={site} photo={photo} sizes="(min-width: 52rem) 26rem, 100vw" />
+    <div>
+      <h2 id="up-h">Tile downstairs, carpet upstairs</h2>
+      <p>That's most of Spring. The carpet that needs the most help is usually the landing at the top of the stairs, the stairs themselves and the hall to the kids' rooms.</p>
+      <dl class="up__dl">
+        <dt>Stairs</dt><dd>Cleaned step by step, edges and corners included.</dd>
+        <dt>Landing</dt><dd>Pre-treated as the darkest carpet in the house.</dd>
+        <dt>Game room</dt><dd>Spots from snacks, drinks and pets handled before the rinse.</dd>
+      </dl>
+      <p><a href="/services/stairs-and-landings">Stairs and landings</a></p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .up__in { display: grid; gap: 2rem; align-items: center; }
+  .up__dl { display: grid; grid-template-columns: 7rem 1fr; gap: .5rem 1rem; margin: 1rem 0; }
+  .up__dl dt { font-weight: 800; color: var(--accent-dark); }
+  .up__dl dd { margin: 0; }
+  .up a { display: inline-block; padding: .3rem 0; font-weight: 700; }
+  @media (min-width: 52rem) { .up__in { grid-template-columns: 1fr 1.3fr; } }
+</style>

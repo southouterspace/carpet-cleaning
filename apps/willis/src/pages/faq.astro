@@ -1,0 +1,46 @@
+---
+import { allFaqs, breadcrumbs, faqPage, pageGraph } from "@carpet/seo"
+import Faq from "@carpet/ui/Faq.astro"
+import Page from "../components/Page.astro"
+import Hero from "../components/Hero.astro"
+import { site } from "../site.config"
+
+const groups = allFaqs(site)
+const path = "/faq"
+const title = `Carpet Cleaning FAQ, Willis TX | ${site.name}`
+const description = "Answers about carpet, pet odor, upholstery, rug, tile and move-out cleaning in Willis, TX and the east side of Lake Conroe: drying, prep and price."
+const jsonld = pageGraph(
+  site,
+  { path, title, description },
+  faqPage(groups.flatMap((g) => g.faqs)),
+  breadcrumbs(site, [
+    { name: "Home", path: "/" },
+    { name: "Common questions", path },
+  ])
+)
+---
+
+<Page
+  site={site}
+  title={title}
+  description={description}
+  path={path}
+  jsonld={jsonld}
+>
+  <Hero
+    site={site}
+    heading="Common questions"
+    lead="Straight answers about cleaning carpet and furniture in Willis, New Waverly and around Lake Conroe."
+  />
+  {groups.map((g, i) => (
+    <>
+      <Faq faqs={g.faqs} heading={g.heading} id={`g${i}`} />
+      {g.path && <p class="wrap more"><a href={g.path}>{g.heading}: full page</a></p>}
+    </>
+  ))}
+</Page>
+
+<style>
+  .more { margin-top: -1.5rem; }
+  .more a { display: inline-block; padding: .4rem 0; }
+</style>

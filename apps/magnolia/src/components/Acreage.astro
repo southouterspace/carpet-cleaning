@@ -1,0 +1,43 @@
+---
+/** Country homes and acreage: the main local angle for Magnolia. */
+import type { SiteConfig } from "@carpet/seo"
+import SitePhoto from "@carpet/ui/SitePhoto.astro"
+import type { PhotoSlot } from "@carpet/ui/photo"
+
+interface Props {
+  site: SiteConfig
+  photo?: PhotoSlot
+}
+const { site, photo } = Astro.props
+---
+
+<section class="section ac" aria-labelledby="ac-h">
+  <div class="wrap">
+    <h2 id="ac-h">New subdivisions and five-acre lots</h2>
+    <p class="ac__intro">Magnolia is two kinds of town at once. Here's how the cleaning changes with the house.</p>
+    <SitePhoto site={site} photo={photo} class="ac__photo" sizes="(min-width: 66rem) 1024px, 100vw" />
+    <div class="ac__cols">
+      <div>
+        <h3>Newer homes</h3>
+        <p>Builder-grade carpet, carpeted stairs and dust from lots still under construction. Clean before the traffic lanes show, keep the receipt for the warranty, and give the stairs extra attention.</p>
+        <p><a href="/services/new-home-carpet-care">New home carpet care</a></p>
+      </div>
+      <div>
+        <h3>Homes on acreage</h3>
+        <p>Mud from the drive, dogs that live half outside and a back door that gets more use than the front. The entries get pre-treated first, and pet spots are treated where the urine went, not just on top.</p>
+        <p><a href="/services/pet-urine-odor">Pet urine and odor</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ac__intro { color: var(--ink-soft); max-width: 40rem; }
+  .ac__cols { display: grid; gap: 1.25rem; margin-top: 1.5rem; }
+  .ac__cols > div { background: var(--bg-soft); border-radius: var(--radius); padding: 1.5rem; }
+  .ac__cols h3 { color: var(--accent-dark); }
+  .ac__cols p:last-child { margin: 0; }
+  .ac__cols a { display: inline-block; padding: .3rem 0; font-weight: 650; }
+  :global(.ac__photo) { margin-top: 1.5rem; }
+  @media (min-width: 46rem) { .ac__cols { grid-template-columns: 1fr 1fr; } }
+</style>

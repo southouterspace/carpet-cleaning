@@ -1,0 +1,50 @@
+---
+/**
+ * Willis hero: navy band with a slanted bottom edge, text left-aligned, a
+ * row of short notes underneath. Phone buttons show only when the
+ * phoneCalls flag is on.
+ */
+import { callNumber, formatPhone, type SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+  heading: string
+  lead: string
+  /** Short true notes shown in a row under the buttons. */
+  notes?: string[]
+}
+const { site, heading, lead, notes = [] } = Astro.props
+const phone = callNumber(site)
+---
+
+<section class="lh">
+  <div class="wrap">
+    <h1>{heading}</h1>
+    <p class="lh__lead">{lead}</p>
+    <div class="lh__cta">
+      {site.flags.quoteForm && <a class="lh__btn" href="#quote">Get a free quote</a>}
+      {phone && <a class="lh__btn lh__btn--line" href={`tel:${phone}`}>Call {formatPhone(phone)}</a>}
+    </div>
+    {notes.length > 0 && (
+      <ul class="lh__notes">{notes.map((n) => <li>{n}</li>)}</ul>
+    )}
+  </div>
+</section>
+
+<style>
+  .lh { background: var(--accent-dark); color: #fff; padding: 3rem 0 4.5rem; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 2rem), 0 100%); }
+  .lh h1 { color: #fff; max-width: 42rem; }
+  .lh__lead { font-size: 1.15rem; max-width: 38rem; color: #dfe8f2; }
+  .lh__cta { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1.5rem 0; }
+  .lh__btn {
+    display: inline-flex; align-items: center; min-height: 48px; padding: .7rem 1.4rem;
+    border-radius: var(--radius); border: 2px solid #fff; background: #fff; color: var(--accent-dark);
+    font-weight: 750; font-size: 1.05rem; text-decoration: none;
+  }
+  .lh__btn:hover, .lh__btn:focus-visible { background: #dfe8f2; }
+  .lh__btn--line { background: transparent; color: #fff; }
+  .lh :focus-visible { outline-color: #fff; }
+  .lh__notes { list-style: none; padding: 0; margin: 0; display: grid; gap: .5rem; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); max-width: 48rem; }
+  .lh__notes li { border-left: 3px solid #8fb3da; padding: .1rem 0 .1rem .75rem; color: #fff; font-weight: 550; }
+  @media (min-width: 48rem) { .lh { padding: 4.5rem 0 6rem; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 3.5rem), 0 100%); } }
+</style>

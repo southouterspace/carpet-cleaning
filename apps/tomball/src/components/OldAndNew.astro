@@ -1,0 +1,30 @@
+---
+/** Older homes near downtown and newer family homes: Tomball's local angle. */
+import type { SiteConfig } from "@carpet/seo"
+import SitePhoto from "@carpet/ui/SitePhoto.astro"
+import type { PhotoSlot } from "@carpet/ui/photo"
+
+interface Props {
+  site: SiteConfig
+  photo?: PhotoSlot
+}
+const { site, photo } = Astro.props
+---
+
+<section class="section on" aria-labelledby="on-h">
+  <div class="wrap on__in">
+    <div>
+      <h2 id="on-h">Old Tomball and new Tomball</h2>
+      <p>Near Main Street, a lot of homes have wood floors, a family rug or two and bedroom carpet that's been down a long time. Those get a fiber and dye check, and a lighter hand on worn seams.</p>
+      <p>Out in the newer subdivisions, most carpet is upstairs, and the stairs and landings wear first. Those get extra pre-treatment and a step-by-step cleaning.</p>
+      <p><a href="/services/area-rug-cleaning">About rug cleaning</a> · <a href="/areas/northpointe">Northpointe homes</a></p>
+    </div>
+    <SitePhoto site={site} photo={photo} sizes="(min-width: 52rem) 24rem, 100vw" />
+  </div>
+</section>
+
+<style>
+  .on__in { display: grid; gap: 2rem; align-items: center; }
+  .on a { display: inline-block; padding: .3rem 0; font-weight: 650; }
+  @media (min-width: 52rem) { .on__in { grid-template-columns: 1.4fr 1fr; } }
+</style>

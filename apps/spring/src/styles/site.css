@@ -1,0 +1,16 @@
+/*
+ * Spring look: indigo on white with a lavender tint, 8px corners, heavy
+ * sans headings and services as a two-column list instead of cards.
+ * Selectors start with :root to beat base styles.
+ */
+:root {
+  --ink: #15142a;
+  --ink-soft: #4b4a63;
+  --bg-soft: #f3f2fb;
+  --line: #dedcef;
+  --radius: 8px;
+  --max: 68rem;
+}
+:root h1 { font-weight: 900; letter-spacing: -.025em; }
+:root h2 { font-weight: 800; letter-spacing: -.015em; }
+:root .card { border-color: var(--line); }

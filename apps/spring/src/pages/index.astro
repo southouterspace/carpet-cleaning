@@ -1,0 +1,37 @@
+---
+import { breadcrumbs, faqPage, pageGraph } from "@carpet/seo"
+import Facts from "@carpet/ui/Facts.astro"
+import Faq from "@carpet/ui/Faq.astro"
+import QuoteForm from "@carpet/ui/QuoteForm.astro"
+import Page from "../components/Page.astro"
+import Hero from "../components/Hero.astro"
+import ServiceList from "../components/ServiceList.astro"
+import Upstairs from "../components/Upstairs.astro"
+import Areas from "../components/Areas.astro"
+import { site } from "../site.config"
+import { photos } from "../photos"
+
+const title = `Carpet Cleaning Spring TX | ${site.name}`
+const description = `Carpet cleaning in Spring, TX: stairs and landings, pet urine, couches, rugs and tile, from Old Town Spring to Gleannloch Farms. Free quote, one total.`
+const jsonld = pageGraph(
+  site,
+  { path: "/", title, description },
+  faqPage(site.faqs),
+  breadcrumbs(site, [{ name: "Home", path: "/" }])
+)
+---
+
+<Page site={site} title={title} description={description} path="/" jsonld={jsonld}>
+  <Hero
+    site={site}
+    heading="Carpet cleaning in Spring, TX"
+    lead="Bedrooms, game rooms, stairs and the landing in between, plus couches, rugs and tile. Tell us what's carpeted and get one total price."
+    send={["How many rooms, and which are upstairs", "Stairs and landing", "Pet spots or stains", "Any couches or rugs"]}
+  />
+  <QuoteForm site={site} />
+  <ServiceList site={site} heading="What we clean in Spring" />
+  <Upstairs site={site} photo={photos.upstairs} />
+  <Facts site={site} />
+  <Areas site={site} />
+  <Faq faqs={site.faqs} heading="Spring carpet cleaning questions" />
+</Page>

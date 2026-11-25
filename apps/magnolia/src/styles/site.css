@@ -1,0 +1,18 @@
+/*
+ * Magnolia look: plum on warm cream, soft 12px corners, light headings
+ * with a plum rule under section titles. Selectors start with :root to
+ * beat base styles.
+ */
+:root {
+  --ink: #1f1a1d;
+  --ink-soft: #544a50;
+  --bg-soft: #fbf5f2;
+  --line: #ecdfe2;
+  --radius: 12px;
+  --max: 66rem;
+}
+:root h1 { font-weight: 700; letter-spacing: -.015em; }
+:root h2 { font-weight: 650; }
+:root .section > .wrap > h2::after { content: ""; display: block; width: 3rem; height: 3px; margin-top: .5rem; background: var(--accent); border-radius: 2px; }
+:root .card { border-color: var(--line); background: #fff; }
+:root .card h3 a { color: var(--accent-dark); }

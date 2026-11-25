@@ -1,0 +1,40 @@
+---
+/** Willis's two kinds of homes: new builds near I-45 and older lake homes. */
+import type { SiteConfig } from "@carpet/seo"
+import SitePhoto from "@carpet/ui/SitePhoto.astro"
+import type { PhotoSlot } from "@carpet/ui/photo"
+
+interface Props {
+  site: SiteConfig
+  photo?: PhotoSlot
+}
+const { site, photo } = Astro.props
+---
+
+<section class="section section--soft" aria-labelledby="ts-h">
+  <div class="wrap">
+    <h2 id="ts-h">Two sides of Willis</h2>
+    <div class="ts">
+      <article>
+        <p class="ts__tag">In town, along I-45</p>
+        <h3>New builds and growing subdivisions</h3>
+        <p>Builder-grade carpet, stairs and construction dust. A cleaning before the lanes show keeps new carpet looking new, and the receipt covers most warranty rules.</p>
+      </article>
+      <article>
+        <p class="ts__tag">East side of Lake Conroe</p>
+        <h3>Lake homes, cottages and rentals</h3>
+        <p>Sand, damp towels and dogs fresh from the water. Weekend places can be cleaned midweek, and rentals between guests.</p>
+      </article>
+    </div>
+    <SitePhoto site={site} photo={photo} class="ts__photo" sizes="(min-width: 70rem) 1088px, 100vw" />
+  </div>
+</section>
+
+<style>
+  .ts { display: grid; gap: 1rem; margin-top: 1.25rem; }
+  .ts article { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; }
+  .ts article p:last-child { margin: 0; }
+  .ts__tag { text-transform: uppercase; letter-spacing: .08em; font-size: .8rem; font-weight: 750; color: var(--accent); margin-bottom: .4rem; }
+  :global(.ts__photo) { margin-top: 1.5rem; }
+  @media (min-width: 46rem) { .ts { grid-template-columns: 1fr 1fr; } }
+</style>
