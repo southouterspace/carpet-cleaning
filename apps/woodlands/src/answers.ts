@@ -51,5 +51,13 @@ export const answers = {
       pricedAnswer:
         "Carpet cleaners around The Woodlands that post prices advertise $88 to $225 for three rooms, most around $140, with minimums near $150 (our November 2026 review of 54 local cleaners' websites). Staircases, pet treatment and add-ons change the total, so ask for one written price.",
     },
+    "rug-cleaning-cost-by-size-and-fiber": {
+      answer:
+        "Area rug cleaning is usually priced by the square foot, so a 5x8 rug (40 sq ft) costs about half as much as an 8x10 (80 sq ft), and a 9x12 is 108 sq ft. Fiber changes the rate: synthetic rugs cost least, wool more, and silk, viscose and jute the most because they need gentler, slower cleaning.",
+    },
+    "hot-water-extraction-vs-low-moisture-cleaning": {
+      answer:
+        "Hot water extraction (often called steam cleaning) rinses carpet with hot water and pulls it back out with strong suction, which removes the most soil and is what most carpet makers recommend. Low-moisture methods use less water and dry in an hour or two but clean less deeply. For pet urine and heavy traffic lanes, extraction is usually the better choice.",
+    },
   },
 }

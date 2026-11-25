@@ -11,6 +11,7 @@ export const serviceSections: Record<string, Section[]> = {
   "carpet-cleaning": [
     {
       heading: "Acreage, mud and the back door",
+      link: { href: "/guides/red-clay-mud-out-of-carpet", text: "How to get red clay and mud out of carpet" },
       paragraphs: [
         "Homes on acreage get more dirt through the back door than the front. Boots from the barn, dogs from the pasture and kids from the yard all come in the same way, so the carpet nearest that door usually wears first.",
         "A boot tray and a washable runner just inside that door catch most of it. When you ask for a quote, mention which entry gets the most use so it gets extra pre-treatment.",
@@ -62,6 +63,20 @@ export const serviceSections: Record<string, Section[]> = {
         "Skip steam irons and heat, which can set the odor",
       ],
     },
+    {
+      heading: "Ask these before booking pet urine work",
+      paragraphs: [
+        "Pet urine is the one job where cleaners differ most. These questions tell you what you're paying for.",
+      ],
+      list: [
+        "Do you find spots with a UV light first?",
+        "Do you use an enzyme or oxidizing treatment, or a scented deodorizer?",
+        "Will you treat the pad and subfloor where urine soaked through?",
+        "If a spot wicks back as it dries, what's your policy?",
+        "How do you price pet treatment: per spot, per room or by area?",
+        "Is pet treatment part of the special, or added on?",
+      ],
+    },
   ],
   "upholstery-cleaning": [
     {
@@ -109,6 +124,15 @@ export const moreServices: Service[] = [
     body: [
       "Every trip up and down lands on the same spot of each step, so stairs mat down and darken before any room does. Each step is cleaned on its own with a hand tool, including the nose of the step and the corners against the wall, where dust collects.",
       "Stairs are usually priced per staircase or per step. Mention them in your quote request, along with any landing at the top.",
+    ],
+    sections: [
+      {
+        heading: "Between professional cleanings",
+        paragraphs: [
+          "Vacuuming the stairs once a week with a hand tool keeps grit from grinding into the step edges.",
+        ],
+        link: { href: "/guides/how-to-clean-carpeted-stairs", text: "How to clean carpeted stairs yourself" },
+      },
     ],
   },
 ]
@@ -179,6 +203,13 @@ export const guides: Guide[] = [
         ],
       },
       {
+        heading: "Per room, by the numbers",
+        requires: "priceRanges",
+        paragraphs: [
+          "Split by three, those advertised specials come to about $30 to $75 per room, most close to $47. That's arithmetic on other companies' posted prices, not a quote, and most also have a minimum charge.",
+        ],
+      },
+      {
         heading: "What changes the total",
         paragraphs: [],
         list: [
@@ -188,6 +219,13 @@ export const guides: Guide[] = [
           "Furniture that has to be moved",
           "Couches, rugs, tile or mattresses added to the visit",
           "Distance, for homes well outside town",
+        ],
+      },
+      {
+        heading: "Per room or per square foot",
+        paragraphs: [
+          "Most Magnolia quotes are per room, with stairs and pet treatment on top. Bigger homes on acreage often have large open rooms, and a per-square-foot quote can be fairer for those.",
+          "Measure the big rooms if you're comparing quotes. A 16 by 20 family room is 320 square feet and will often count as two rooms.",
         ],
       },
       {
@@ -211,6 +249,131 @@ export const guides: Guide[] = [
       {
         q: "Is it cheaper to rent a machine?",
         a: "Up front, yes. But rental machines leave more water and soap behind, carpet takes longer to dry, and it can get dirty again faster. For a light refresh between cleanings they're fine.",
+      },
+    ],
+  },
+  {
+    slug: "how-to-clean-carpeted-stairs",
+    title: "How to clean carpeted stairs",
+    summary: "Step-by-step: vacuum, spot clean and deep clean carpeted stairs at home, including the step edges, corners and the landing.",
+    updated: "2026-11-25",
+    intro: [
+      "Stairs get dirty before any room in the house. Every step lands on the same small patch, grit grinds into the front edge, and full-size vacuums don't fit. In two-story Magnolia homes, especially the new builds in Audubon and Escondido, the stairs and the landing are usually the first carpet to look worn.",
+      "Here's how to clean them yourself, and when it's worth having them done.",
+    ],
+    sections: [
+      {
+        heading: "Cleaning carpeted stairs step by step",
+        howTo: true,
+        paragraphs: [
+          "You need a vacuum with a hose and crevice tool or a handheld vacuum, a stiff brush, white cloths and a carpet spot cleaner.",
+        ],
+        list: [
+          "Start at the top step and work down so dirt falls onto steps you haven't cleaned yet.",
+          "Brush each step toward the front edge to loosen grit and hair.",
+          "Vacuum the flat part of the step, then the front edge, then the corners against the wall and the rail.",
+          "Spot clean stains with a small amount of cleaner on a white cloth. Blot, don't scrub.",
+          "For a deeper clean, go over each step with a handheld carpet extractor, then a dry pass to pull out extra water.",
+          "Leave the stairs to dry with a fan running, and keep traffic light until they're dry.",
+        ],
+      },
+      {
+        heading: "Don't forget the landing",
+        paragraphs: [
+          "The landing at the top of the stairs takes almost as much traffic as the stairs, plus everyone pauses and turns there. Vacuum it slowly in two directions and treat it like a high-traffic room.",
+        ],
+      },
+      {
+        heading: "Red clay and mud on the stairs",
+        paragraphs: [
+          "Let mud dry completely, then break it up and vacuum before you use any water. Wet red clay spreads and stains. Once the dry dirt is out, blot the stain with a little cleaner.",
+        ],
+        link: { href: "/guides/red-clay-mud-out-of-carpet", text: "How to get red clay and mud out of carpet" },
+      },
+      {
+        heading: "When to have stairs cleaned professionally",
+        paragraphs: [
+          "If the stairs are dark across the middle of each step, or the edges look gray and matted, a home extractor usually can't reach deep enough. A professional cleaning does each step by hand with more heat and suction, and stairs are usually priced per staircase or per step.",
+        ],
+        link: { href: "/services/stair-carpet-cleaning", text: "See stair carpet cleaning" },
+      },
+    ],
+    faqs: [
+      {
+        q: "How do you deep clean carpeted stairs?",
+        a: "Vacuum each step, treat spots, then go over each step with a handheld extractor and let it dry. Work from the top down.",
+      },
+      {
+        q: "Why do carpeted stairs get dirty so fast?",
+        a: "Every step lands on the same small area, and grit grinds into the front edge of each stair. Full-size vacuums also don't reach them well.",
+      },
+      {
+        q: "How long do carpeted stairs take to dry after cleaning?",
+        a: "Usually a few hours. A fan and good air flow speed it up. Keep heavy traffic off until they're dry.",
+      },
+    ],
+  },
+  {
+    slug: "red-clay-mud-out-of-carpet",
+    title: "How to get red clay and mud out of carpet",
+    summary: "How to get red clay and mud stains out of carpet: let it dry, vacuum it out, then blot. What to avoid, and when the stain needs a pro.",
+    updated: "2026-11-25",
+    intro: [
+      "On acreage in Magnolia, mud comes in on boots, tires, kids and dogs, and red or orange clay is the hardest of all. It's mostly fine mineral particles that carry color, so scrubbing it while wet pushes it deeper.",
+      "The key is patience. Most clay stains come out if the dry dirt goes first.",
+    ],
+    sections: [
+      {
+        heading: "Getting mud and clay out",
+        howTo: true,
+        paragraphs: [
+          "You need a spoon or dull knife, a vacuum, clear dish soap, white cloths and warm water.",
+        ],
+        list: [
+          "Leave the mud alone until it's completely dry. Overnight is best.",
+          "Break up the dried mud with a spoon or dull knife and vacuum it up, going over the spot several times.",
+          "Mix a few drops of clear dish soap in a cup of warm water.",
+          "Dab the solution onto the stain with a white cloth and blot from the outside in.",
+          "Rinse by blotting with plain water, then press a dry towel on the spot.",
+          "Repeat if color is still coming up on the cloth, and let it dry.",
+        ],
+      },
+      {
+        heading: "What not to do",
+        paragraphs: [],
+        list: [
+          "Don't rub wet mud. It spreads the clay and drives it deeper.",
+          "Don't use hot water on fresh mud, which can set the color.",
+          "Don't use colored cleaners or a lot of soap, which leave residue that attracts more dirt.",
+          "Don't soak the spot. Too much water wicks the stain back up as it dries.",
+        ],
+      },
+      {
+        heading: "When red clay won't come out",
+        paragraphs: [
+          "Clay that's been walked in for months, or a path from the back door, usually needs a professional cleaning with hot water and a rinse. Some old clay stains in light carpet may lighten without disappearing completely.",
+        ],
+        link: { href: "/services/stain-removal", text: "See stain removal" },
+      },
+      {
+        heading: "Keeping mud off the carpet",
+        paragraphs: [
+          "Put a coarse mat outside and a washable rug inside every door people use, including the garage door. A boot tray and a towel for the dog by the back door stop most of it.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Can red clay stains come out of carpet?",
+        a: "Most can, if you let the mud dry and vacuum out as much as possible before using any water. Old clay stains in light carpet may only lighten.",
+      },
+      {
+        q: "Should I use vinegar on a mud stain?",
+        a: "A little white vinegar mixed with water can help with leftover color after the dry dirt is vacuumed out. Test it on a hidden spot first.",
+      },
+      {
+        q: "Why does the mud stain come back after it dries?",
+        a: "That's wicking. Dirt deeper in the carpet rises to the surface as it dries. Blot with less water and press a dry towel on the spot to pull it out.",
       },
     ],
   },

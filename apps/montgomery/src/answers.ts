@@ -43,5 +43,13 @@ export const answers = {
       pricedAnswer:
         "Carpet cleaners around Montgomery and Lake Conroe that post prices advertise $88 to $225 for three rooms, most near $140, with minimums around $150 (our November 2026 review of 54 local cleaners' websites). Rooms, stairs, odor work and tight rental turnovers change the total.",
     },
+    "get-dog-hair-out-of-carpet": {
+      answer:
+        "Rake the carpet with a rubber broom or a window squeegee in short strokes to pull embedded hair into clumps, pick up the clumps, then vacuum slowly in two directions with the brush roll on and a full-height setting. Lightly misting the carpet with water first helps hair release. Vacuum high-shed areas every day or two.",
+    },
+    "is-professional-carpet-cleaning-worth-it": {
+      answer:
+        "Professional carpet cleaning is usually worth it once a year for most homes, and more often with pets or kids. It removes more soil and leaves less soap behind than a rental machine, which keeps carpet looking good longer. For a single fresh spill or a light refresh, a rental or spot cleaner can be enough.",
+    },
   },
 }

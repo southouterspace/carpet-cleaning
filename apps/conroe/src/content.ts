@@ -76,6 +76,21 @@ export const serviceSections: Record<string, Section[]> = {
         "A hot water cleaning removes many flea eggs, larvae and adults from the carpet, so it helps. It isn't a flea treatment on its own, though. Treat your pets with a product your vet recommends at the same time, or the fleas come straight back from the pets and the yard.",
       ],
     },
+    {
+      heading: "Before you book any pet odor cleaning, ask these",
+      paragraphs: [
+        "Pet odor work varies more than any other part of carpet cleaning. These questions sort a real treatment from a deodorizer that wears off in a week.",
+      ],
+      list: [
+        "Will you check the carpet with a UV light to find every spot, or only treat the ones I point out?",
+        "What product do you use on urine: an enzyme or oxidizer that breaks it down, or a deodorizer that covers it?",
+        "Do you treat the pad and subfloor, or only the carpet surface?",
+        "If a spot wicks back up or the smell returns after drying, what is your policy?",
+        "How is pet treatment priced: by the spot, by the room, or by the area?",
+        "Is pet treatment included in your advertised special, or added on top?",
+      ],
+      link: { href: "/guides/find-pet-urine-carpet-black-light", text: "How to find urine spots with a black light" },
+    },
   ],
   "upholstery-cleaning": [
     {
@@ -100,6 +115,7 @@ export const serviceSections: Record<string, Section[]> = {
   "tile-and-grout-cleaning": [
     {
       heading: "Cleaning versus sealing",
+      link: { href: "/guides/tile-and-grout-cleaning-cost-conroe", text: "What changes the price of tile and grout cleaning" },
       paragraphs: [
         "Cleaning gets the dirt out of the grout. Sealing fills the pores afterward so the next spill sits on top instead of soaking in. Unsealed grout in a busy kitchen can look dingy again within months, while sealed grout usually stays clean much longer with ordinary mopping.",
         "If your grout is cracked or crumbling, cleaning won't fix it. That's a regrouting job, and we'll say so if we see it.",
@@ -357,7 +373,7 @@ export const guides: Guide[] = [
     slug: "carpet-cleaning-cost-conroe",
     title: "How much does carpet cleaning cost in Conroe?",
     summary: "What changes the price of carpet cleaning in Conroe, TX, what usually costs extra, and how to get an exact quote.",
-    updated: "2026-11-19",
+    updated: "2026-11-25",
     intro: [
       "Carpet cleaning in Conroe is priced by the job, not by a single flat rate, and the price depends mostly on how many rooms you have, whether there are stairs, and how much spot and odor work is needed. The fastest way to an exact number is to send those details with a quote request.",
       "This guide explains what goes into a price so you know what to ask and what to compare when you get quotes.",
@@ -369,6 +385,13 @@ export const guides: Guide[] = [
         paragraphs: [
           "In November 2026 we looked at the websites of 54 carpet cleaners serving Conroe, Montgomery, The Woodlands and nearby towns. Only 13 posted a carpet price. Their advertised prices for three rooms ran from $88 to $225, with most near $140, and a minimum charge of around $150 was common.",
           "These are other companies' advertised prices, not a quote. Low teaser prices often exclude pre-treatment, stairs or larger rooms.",
+        ],
+      },
+      {
+        heading: "What that works out to per room",
+        requires: "priceRanges",
+        paragraphs: [
+          "Divided out, the advertised three-room prices above come to roughly $30 to $75 per room, with most near $47. That is simple arithmetic on other companies' posted specials, not a quote, and a minimum charge usually applies to small jobs.",
         ],
       },
       {
@@ -396,6 +419,13 @@ export const guides: Guide[] = [
         ],
       },
       {
+        heading: "Per room or per square foot?",
+        paragraphs: [
+          "Most Conroe carpet cleaners quote by the room, then add stairs and extras. A few quote by the square foot, which is common for commercial jobs and very large open rooms. Neither is better on its own. What matters is that both quotes cover the same rooms and the same treatments.",
+          "To compare a per-room quote with a per-square-foot one, measure your rooms. A 12 by 14 bedroom is 168 square feet. If a room is over about 300 square feet, expect a per-room price to count it as more than one.",
+        ],
+      },
+      {
         heading: "How to get an exact price",
         paragraphs: [
           "Our quote form asks for exactly what changes the price: rooms, stairs, pets and stains, and when you'd like it done. Add photos if you can. You'll get a price for the whole job before anyone comes out, with no phone call needed.",
@@ -414,6 +444,125 @@ export const guides: Guide[] = [
       {
         q: "Does a move-out cleaning cost more?",
         a: "Usually not. An empty home is often quicker to clean because there's no furniture to work around, though heavy stains or pet spots add to it.",
+      },
+    ],
+  },
+  {
+    slug: "tile-and-grout-cleaning-cost-conroe",
+    title: "What changes the price of tile and grout cleaning in Conroe",
+    summary: "How tile and grout cleaning is priced in Conroe homes, what sealing adds, and what to send for an exact quote.",
+    updated: "2026-11-25",
+    intro: [
+      "Tile and grout cleaning is priced differently from carpet. Instead of counting rooms, most cleaners measure the floor area, then add for showers, backsplashes and sealing. In Conroe, where a lot of homes have tile through the kitchen, living areas and wet rooms, that area adds up quickly, so it helps to know what goes into the number.",
+      "We haven't surveyed local tile prices yet, so this guide has no price table. It explains how the price is built so you can compare quotes on the same terms.",
+    ],
+    sections: [
+      {
+        heading: "How the area is measured",
+        paragraphs: [
+          "Most quotes are based on square feet of floor. Measure each tiled room wall to wall and multiply length by width, then add the rooms together. A 12 by 15 kitchen is 180 square feet. Leave out the space under cabinets and islands.",
+          "Showers, tub surrounds and backsplashes are usually priced separately because the work is by hand on a vertical surface.",
+        ],
+      },
+      {
+        heading: "What makes the job take longer",
+        paragraphs: [],
+        list: [
+          "Dark or stained grout lines, especially in kitchens and entries",
+          "Textured, slate or saltillo tile that holds soil in its surface",
+          "Soap scum and hard water buildup in showers",
+          "Wide grout lines or a lot of small mosaic tile",
+          "Old sealer or wax that has to come off first",
+        ],
+      },
+      {
+        heading: "Cleaning, sealing and color sealing",
+        paragraphs: [
+          "Cleaning removes the dirt. A clear sealer goes on afterward to slow down how fast the grout soaks up spills, and it is a separate line on most quotes. Color sealing paints the grout lines with a tinted sealer, which can even out grout that won't come clean, and it costs more than clear sealer because each line is done by hand.",
+          "If your grout is cracked or missing, that is a regrout job, not a cleaning. Ask for it to be quoted on its own.",
+        ],
+      },
+      {
+        heading: "What to send for an exact price",
+        paragraphs: [
+          "Send the rough square footage of each tiled room, whether showers are included, and whether you want sealing. Photos of the worst grout lines help a lot. You'll get one total for the whole job before anyone comes out.",
+        ],
+        link: { href: "/services/tile-and-grout-cleaning", text: "See our tile and grout cleaning service" },
+      },
+    ],
+    faqs: [
+      {
+        q: "Is tile and grout cleaning priced by the square foot?",
+        a: "Usually. Most cleaners measure the floor area and add separate prices for showers, backsplashes and sealing. Some price by the room for small jobs.",
+      },
+      {
+        q: "Do I need to seal grout after cleaning?",
+        a: "It isn't required, but unsealed grout soaks up spills and gets dark again sooner. A clear sealer is a common add-on right after cleaning, once the grout is dry.",
+      },
+      {
+        q: "Can cleaning make old grout look new?",
+        a: "Often it gets close. Grout that is stained deep or worn away may still look uneven, and color sealing is the usual fix for that.",
+      },
+    ],
+  },
+  {
+    slug: "find-pet-urine-carpet-black-light",
+    title: "How to find pet urine in carpet with a black light",
+    summary: "Step-by-step: use a UV black light to find dog and cat urine spots in carpet, mark them, and tell them apart from other stains.",
+    updated: "2026-11-25",
+    intro: [
+      "Most pet urine in carpet is invisible in daylight. It dries clear, the smell comes and goes with humidity, and the spot you know about is rarely the only one. A UV flashlight, often called a black light, makes dried urine glow so you can find every spot.",
+      "Finding them before a cleaning matters. Urine has to be treated where it soaked into the pad, and a cleaner can only treat the spots they know about.",
+    ],
+    sections: [
+      {
+        heading: "How to check carpet for urine with a UV light",
+        howTo: true,
+        paragraphs: [
+          "You need a UV flashlight, ideally one labeled 365 nm, a roll of painter's tape and a dark room.",
+        ],
+        list: [
+          "Wait until after dark and turn off every light in the room. Close the blinds.",
+          "Hold the light one to two feet above the carpet and walk the room slowly in rows.",
+          "Look for dull yellow or green glowing spots, splash marks and drip trails.",
+          "Check along baseboards, in corners, behind doors and under beds and tables, where pets go when no one is watching.",
+          "Mark the edge of each spot with painter's tape so you can find it in daylight.",
+          "Smell the marked spots up close. Urine usually smells stronger right at the carpet surface.",
+          "Count the spots and take a photo of the room with the tape in place.",
+        ],
+      },
+      {
+        heading: "What else glows under a black light",
+        paragraphs: [
+          "Urine isn't the only thing that shows up. Some spilled drinks, old cleaning residue, lint, and optical brighteners in laundry soap can glow too. Urine spots tend to have a ring or splash shape and a smell. A round spot with no smell is more likely a spill or old soap.",
+        ],
+      },
+      {
+        heading: "What the spots tell you",
+        paragraphs: [
+          "Small spots in open areas usually mean an accident or two. Big spots, many spots along one wall, or spots on top of each other mean repeated marking, and the urine has likely reached the pad and the floor underneath. Those need a deeper treatment than a surface clean.",
+        ],
+      },
+      {
+        heading: "What to do before the cleaning",
+        paragraphs: [
+          "Leave the tape down and don't scrub the dried spots with store-bought cleaners. Some leave residue or set the odor. In your quote request, say how many spots you found and which rooms they're in, and add a photo.",
+        ],
+        link: { href: "/services/pet-odor-removal", text: "See how pet odor removal works" },
+      },
+    ],
+    faqs: [
+      {
+        q: "What color is cat or dog urine under a black light?",
+        a: "Dried urine usually glows a dull yellow or yellow-green. Fresh urine may barely glow at all until it dries.",
+      },
+      {
+        q: "Does a black light find old urine stains?",
+        a: "Yes. Dried urine, even months old, usually glows. Spots that were cleaned with some products may glow less, but the urine underneath is often still there.",
+      },
+      {
+        q: "Can I use my phone as a black light?",
+        a: "No. A phone flashlight is white light. You need a UV flashlight, and one rated 365 nm shows urine more clearly than cheaper 395 nm lights.",
       },
     ],
   },

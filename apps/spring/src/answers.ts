@@ -35,5 +35,9 @@ export const answers = {
       pricedAnswer:
         "Carpet cleaners around Spring that post prices advertise $88 to $225 for three rooms, most near $140, with minimums around $150 (our November 2026 review of 54 local cleaners' websites). Stairs, landings and pet treatment change the total.",
     },
+    "replace-carpet-or-clean-it": {
+      answer:
+        "Clean the carpet if the fibers are intact and the problems are dirt, traffic lanes or a few spots. Replace it if it's worn through, seams or edges are coming apart, it's rippled and won't stretch flat, or urine has soaked the pad in many places. Most carpet lasts 8 to 15 years, and a cleaning can often add years to 10 to 15-year-old carpet that isn't worn.",
+    },
   },
 }

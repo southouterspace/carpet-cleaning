@@ -97,6 +97,8 @@ export interface Section {
   requires?: FlagName
   /** Marks the list as ordered steps, published as HowTo structured data. */
   howTo?: boolean
+  /** Optional link to a related page on the same site, shown after the section. */
+  link?: { href: string; text: string }
 }
 
 /** One line of the "At a glance" block. `requires` hides it unless that flag is on. */

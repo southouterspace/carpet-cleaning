@@ -37,5 +37,13 @@ export const answers = {
       pricedAnswer:
         "Carpet cleaners around Willis and Conroe that post prices advertise $88 to $225 for three rooms, most near $140, with minimums around $150 (our November 2026 review of 54 local cleaners' websites). Stairs, pet treatment and tight move-out dates change the total.",
     },
+    "remove-furniture-dents-from-carpet": {
+      answer:
+        "Put an ice cube in each dent and let it melt overnight, then blot up extra water and fluff the fibers with a spoon edge or your fingers. For stubborn dents, dampen them and dry with a hair dryer while brushing the fibers up. Most dents lift; very old ones in worn carpet may not.",
+    },
+    "questions-to-ask-a-carpet-cleaner": {
+      answer:
+        "Before booking a carpet cleaner, ask for one written total for the whole job, what method they use and how long the carpet takes to dry, whether pre-treatment and moving furniture are included, how they treat pet urine, whether they're insured, and what happens if a spot comes back.",
+    },
   },
 }
