@@ -18,6 +18,7 @@ export const serviceSections: Record<string, Section[]> = {
     },
     {
       heading: "Making it last",
+      link: { href: "/guides/is-professional-carpet-cleaning-worth-it", text: "Is professional carpet cleaning worth it?" },
       howTo: true,
       paragraphs: [],
       list: [
@@ -50,6 +51,7 @@ export const serviceSections: Record<string, Section[]> = {
   "pet-odor-removal": [
     {
       heading: "Lake dogs and wet carpet",
+      link: { href: "/guides/get-dog-hair-out-of-carpet", text: "How to get dog hair out of carpet" },
       paragraphs: [
         "A dog that spends the afternoon in the lake comes inside with more than dirt. Lake water carries algae and bacteria that leave a smell when the dog dries off on the carpet or the couch. That odor is different from urine, and it usually comes out with a thorough rinse plus a deodorizing treatment.",
         "Urine is the harder problem. Spots that have soaked into the pad need treatment at that depth. In bad cases, the pad section is replaced. You'll get an honest read on which you're dealing with before anything is done.",
@@ -60,6 +62,20 @@ export const serviceSections: Record<string, Section[]> = {
       paragraphs: [
         "Rental shampooers and home carpet machines put down a lot of water and don't pull much of it back out. On a urine spot, that water carries the urine deeper into the pad and spreads it wider, so the smell often comes back stronger once it dries.",
         "To treat a spot yourself without a machine, blot it with towels, use an enzyme cleaner made for pet urine, and let it sit as long as the label says. Old spots, big ones and ones that keep coming back need treatment at pad depth.",
+      ],
+    },
+    {
+      heading: "What to ask before you book pet odor work",
+      paragraphs: [
+        "Pet odor jobs vary from company to company. Ask these first.",
+      ],
+      list: [
+        "Will you check for spots with a UV light?",
+        "Do you use an enzyme or oxidizing urine treatment, or a deodorizer?",
+        "Does the treatment reach the pad and subfloor?",
+        "If a spot comes back as the carpet dries, what do you do?",
+        "Is pet treatment priced by the spot, the room or the area?",
+        "Is it included in any special you advertise?",
       ],
     },
   ],
@@ -249,6 +265,13 @@ export const guides: Guide[] = [
         ],
       },
       {
+        heading: "That works out per room to",
+        requires: "priceRanges",
+        paragraphs: [
+          "Dividing those three-room specials by three gives about $30 to $75 a room, with most around $47. It's arithmetic on other companies' posted prices, not a quote, and most have a minimum for small jobs.",
+        ],
+      },
+      {
         heading: "What sets the price",
         paragraphs: [],
         list: [
@@ -257,6 +280,13 @@ export const guides: Guide[] = [
           "Spot, clay and pet odor treatment",
           "Furniture that needs moving",
           "Couches, rugs, tile and mattresses added to the visit",
+        ],
+      },
+      {
+        heading: "Per room or per square foot",
+        paragraphs: [
+          "Homes are usually quoted by the room. Lake condos, rental units and large open living areas are sometimes quoted by the square foot instead, which makes a big great room easier to price fairly.",
+          "Either way, ask what counts as a room and whether hallways, closets and landings are included. A 14 by 20 living room is 280 square feet and may count as more than one room on a per-room quote.",
         ],
       },
       {
@@ -287,6 +317,126 @@ export const guides: Guide[] = [
       {
         q: "Do rental turnovers cost more?",
         a: "Sometimes, if the window between guests is short. Booking a regular schedule for the season usually costs less per visit.",
+      },
+    ],
+  },
+  {
+    slug: "get-dog-hair-out-of-carpet",
+    title: "How to get dog hair out of carpet",
+    summary: "Step-by-step ways to get embedded dog hair out of carpet with a rubber broom, a squeegee and the right vacuum settings, plus how to keep it down.",
+    updated: "2026-11-25",
+    intro: [
+      "Dog hair weaves itself into carpet, especially short, wiry hair from labs, heelers and shepherds. A regular pass with the vacuum picks up what's on top and leaves the rest. Around Lake Montgomery, where dogs go from the water to the couch to the bedroom carpet, it builds up fast.",
+      "Here's what actually gets it out, using things most homes already have.",
+    ],
+    sections: [
+      {
+        heading: "Getting embedded dog hair out",
+        howTo: true,
+        paragraphs: [
+          "You need a rubber broom or a window squeegee, a spray bottle of water and a vacuum with a brush roll.",
+        ],
+        list: [
+          "Lightly mist one section of carpet with water. Don't soak it.",
+          "Pull a rubber broom or squeegee toward you in short, firm strokes. Hair will roll up into clumps.",
+          "Pick up the clumps by hand or with a dustpan.",
+          "Set the vacuum to the right height for your carpet and turn the brush roll on.",
+          "Vacuum slowly, first in one direction and then crosswise.",
+          "Empty the bin or bag and clean hair off the brush roll when you're done.",
+        ],
+      },
+      {
+        heading: "Other tools that work",
+        paragraphs: [],
+        list: [
+          "Rubber gloves: run a damp gloved hand over stairs and edges",
+          "A pumice-style pet hair stone for small areas and car mats",
+          "A lint roller for stair treads and furniture edges",
+          "A vacuum with a tangle-free brush roll if you have long-haired dogs",
+        ],
+      },
+      {
+        heading: "Keeping dog hair down",
+        paragraphs: [
+          "Brush your dog outside a few times a week, more during spring and fall shedding. A washable rug or towel by the back door catches wet, sandy fur before it hits the carpet. Vacuum the dog's favorite spots every day or two, before the hair gets worked in.",
+        ],
+      },
+      {
+        heading: "When a cleaning helps",
+        paragraphs: [
+          "A professional cleaning loosens hair, dander and the oils from your dog's coat that make carpet look dull and smell like dog. It works best right after a thorough vacuum, and it's a good time to treat any urine spots too.",
+        ],
+        link: { href: "/services/pet-odor-removal", text: "See pet odor removal" },
+      },
+    ],
+    faqs: [
+      {
+        q: "What is the best way to get dog hair out of carpet?",
+        a: "A rubber broom or squeegee pulls embedded hair into clumps better than a vacuum alone. Follow it with slow vacuuming in two directions.",
+      },
+      {
+        q: "Does carpet cleaning remove dog hair?",
+        a: "It removes some, but hair should be vacuumed out first. Wet hair is harder to pull from carpet, so a good vacuum beforehand makes the cleaning work better.",
+      },
+      {
+        q: "Why won't my vacuum pick up dog hair?",
+        a: "Short, stiff hair works into the carpet weave. Check the vacuum height setting, clear hair from the brush roll, and rake the carpet with a rubber broom first.",
+      },
+    ],
+  },
+  {
+    slug: "is-professional-carpet-cleaning-worth-it",
+    title: "Is professional carpet cleaning worth it?",
+    summary: "When a professional carpet cleaning is worth paying for, when renting a machine is enough, and how often Montgomery homes need one.",
+    updated: "2026-11-25",
+    intro: [
+      "Carpet is one of the biggest surfaces in a house and one of the most expensive to replace. Whether a professional cleaning is worth it depends on what you're trying to fix and how long you want the carpet to last.",
+      "Here's an honest look at when it pays off and when it doesn't.",
+    ],
+    sections: [
+      {
+        heading: "When it's worth paying for",
+        paragraphs: [],
+        list: [
+          "Traffic lanes that have turned gray and don't vacuum out",
+          "Pet urine spots or an odor you can smell when you walk in",
+          "Before selling, listing or moving out",
+          "Lake houses and rentals between seasons or guests",
+          "Carpet under warranty, which often requires professional cleaning",
+          "Allergies, when dust and dander build up in the carpet",
+        ],
+      },
+      {
+        heading: "When a rental or DIY is enough",
+        paragraphs: [
+          "A rented machine can handle a light refresh in a low-traffic room or a fresh spill. The catch is suction. Rental units leave more water and soap in the carpet, so it dries slowly and can get dirty again faster. Use less soap than the bottle says and rinse with plain water.",
+        ],
+      },
+      {
+        heading: "How often to clean",
+        paragraphs: [
+          "Most carpet makers suggest a professional cleaning every 12 to 18 months. Homes with pets, small kids or a lot of lake traffic usually do better every 6 to 12 months. Vacuuming twice a week does more to keep carpet looking good than anything else.",
+        ],
+      },
+      {
+        heading: "Cleaning versus replacing",
+        paragraphs: [
+          "If carpet is worn through, has seams coming apart, or the pad is soaked with urine in many places, cleaning won't make it new. If the fibers are intact and the problem is dirt or spots, cleaning usually costs far less than replacing and can add years.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Does professional carpet cleaning really make a difference?",
+        a: "Usually yes. Professional machines have more heat and suction than rental units, so they pull out more soil and leave less residue behind.",
+      },
+      {
+        q: "How often should carpet be professionally cleaned?",
+        a: "About once a year for most homes, and every 6 to 12 months with pets, kids or heavy traffic.",
+      },
+      {
+        q: "Can carpet cleaning make carpet worse?",
+        a: "It can if too much soap is left behind or the carpet is overwet. Ask how the cleaner rinses and how long drying will take.",
       },
     ],
   },

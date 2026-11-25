@@ -38,10 +38,25 @@ export const serviceSections: Record<string, Section[]> = {
         "The carpet backing feels stiff or crunchy",
       ],
     },
+    {
+      heading: "Before you book: pet urine questions",
+      paragraphs: [
+        "Ask any company these before they treat urine.",
+      ],
+      list: [
+        "Do you check with a UV light?",
+        "Enzyme or oxidizer, or a deodorizer?",
+        "Do you treat the pad when it's soaked through?",
+        "What if a spot comes back as it dries?",
+        "How is pet treatment priced?",
+        "Is it included in your special?",
+      ],
+    },
   ],
   "sofa-cleaning": [
     {
       heading: "Cleaning codes",
+      link: { href: "/guides/upholstery-cleaning-codes", text: "Upholstery cleaning codes explained" },
       paragraphs: [],
       list: [
         "W: water-based cleaning",
@@ -81,6 +96,7 @@ export const moreServices: Service[] = [
     sections: [
       {
         heading: "Before we arrive",
+        link: { href: "/guides/kool-aid-red-drink-stains-carpet", text: "How to get red drink stains out of carpet" },
         howTo: true,
         paragraphs: [],
         list: [
@@ -149,6 +165,13 @@ export const guides: Guide[] = [
         ],
       },
       {
+        heading: "What that is per room",
+        requires: "priceRanges",
+        paragraphs: [
+          "Divide those three-room prices by three and you get roughly $30 to $75 a room, most around $47. That's our arithmetic on posted specials from other companies, not a quote. Minimum charges are common.",
+        ],
+      },
+      {
         heading: "What moves the number",
         paragraphs: [],
         list: [
@@ -157,6 +180,13 @@ export const guides: Guide[] = [
           "Pet urine treatment",
           "Moving heavy furniture",
           "Sofas, rugs, tile and stain work added to the visit",
+        ],
+      },
+      {
+        heading: "Per room or per square foot",
+        paragraphs: [
+          "Tomball homes are usually priced per room. Shops, offices and older homes with big open rooms are often priced per square foot. Either can be fair; the trouble comes when one quote counts the hallway and the other doesn't.",
+          "If you're comparing, measure the rooms. A 13 by 15 bedroom is 195 square feet. A room over about 300 square feet usually counts as two on a per-room quote.",
         ],
       },
       {
@@ -180,6 +210,125 @@ export const guides: Guide[] = [
       {
         q: "Is pet treatment extra?",
         a: "Usually, because it takes more product and time. A spot that has reached the pad takes more work than a surface stain.",
+      },
+    ],
+  },
+  {
+    slug: "upholstery-cleaning-codes",
+    title: "Upholstery cleaning codes: W, S, W/S and X explained",
+    summary: "What the W, S, W/S and X cleaning codes on your couch tag mean, which cleaners are safe for each, and what to do if there's no tag.",
+    updated: "2026-11-25",
+    intro: [
+      "Most sofas, chairs and cushions have a tag under the cushion or on the frame with a single letter code. It's the most useful thing to know before you try to clean a stain or book an upholstery cleaning, because the wrong cleaner can leave a permanent water ring.",
+      "Here's what each code means, in plain terms.",
+    ],
+    sections: [
+      {
+        heading: "What each code means",
+        paragraphs: [],
+        list: [
+          "W: water-based cleaners are safe. Most cotton blends, polyester and many performance fabrics.",
+          "S: solvent-based cleaners only. No water. Common on rayon, viscose, some velvets and some microfiber.",
+          "W/S or SW: either water-based or solvent cleaners can be used. Test a hidden spot first.",
+          "X: vacuum or brush only. No liquid cleaners of any kind. Professional cleaning only, if at all.",
+        ],
+      },
+      {
+        heading: "Where to find the tag",
+        paragraphs: [
+          "Look under the seat cushions, on the deck of the couch, on the underside of the frame, or on a cushion zipper. Some manufacturers print it in the care guide or on their website under your model.",
+        ],
+      },
+      {
+        heading: "If there's no tag",
+        paragraphs: [
+          "Treat the fabric as if it were S and don't use water until you know. A professional cleaner can test the fabric for fiber type and dye stability before cleaning. Older and hand-me-down furniture often has no tag at all.",
+        ],
+      },
+      {
+        heading: "Microfiber, leather and other special cases",
+        paragraphs: [
+          "Microfiber couches are often coded S, and water can leave marks unless it's blotted out evenly. Leather has its own cleaners and conditioners and isn't covered by these codes. Performance fabrics are usually W, but check, since some coatings don't take solvents well.",
+        ],
+      },
+      {
+        heading: "Before you book an upholstery cleaning",
+        paragraphs: [
+          "Take a photo of the tag and send it with your quote request, along with photos of any stains. It tells the cleaner which method to use and avoids surprises.",
+        ],
+        link: { href: "/services/sofa-cleaning", text: "See sofa and upholstery cleaning" },
+      },
+    ],
+    faqs: [
+      {
+        q: "What does S mean on a couch tag?",
+        a: "S means solvent cleaning only. Don't use water or water-based cleaners, which can leave rings or change the color.",
+      },
+      {
+        q: "Can you clean an X-code couch?",
+        a: "X means vacuum or brush only, with no liquid cleaners. A professional may be able to do a dry cleaning, but many X fabrics can only be vacuumed.",
+      },
+      {
+        q: "Can I use water on a W/S couch?",
+        a: "Yes. W/S means either water-based or solvent cleaners are safe. Test a hidden spot first.",
+      },
+    ],
+  },
+  {
+    slug: "kool-aid-red-drink-stains-carpet",
+    title: "How to get Kool-Aid and red drink stains out of carpet",
+    summary: "How to get red Kool-Aid, fruit punch, sports drink and red soda stains out of carpet: blot, rinse, then treat the dye. What to try and what to avoid.",
+    updated: "2026-11-25",
+    intro: [
+      "Red drinks are a two-part stain. The sugar comes out with water. The red dye is made to color things and bonds to nylon carpet fibers, especially once it dries. In Tomball homes with kids, red punch and sports drinks are the most common stain cleaners get asked about.",
+      "Act fast and the dye usually comes out. Here's what to do.",
+    ],
+    sections: [
+      {
+        heading: "Getting red drink out of carpet",
+        howTo: true,
+        paragraphs: [
+          "You need white cloths or paper towels, cool water, clear dish soap and white vinegar.",
+        ],
+        list: [
+          "Blot up the spill right away with a white cloth. Don't rub.",
+          "Pour a little cool water on the spot and blot again to dilute the dye.",
+          "Mix one teaspoon of clear dish soap and one tablespoon of white vinegar in two cups of warm water.",
+          "Dab the mix onto the stain and blot from the outside toward the center.",
+          "Rinse with plain water and blot until no more color comes up.",
+          "Press a stack of dry towels on the spot with something heavy on top and let it dry.",
+        ],
+      },
+      {
+        heading: "What not to use",
+        paragraphs: [],
+        list: [
+          "Bleach, which removes carpet color along with the stain",
+          "Colored or scented carpet cleaners, which can leave their own stain",
+          "A lot of soap, which leaves a sticky spot that attracts dirt",
+          "Scrubbing, which spreads the dye and frays the fibers",
+        ],
+      },
+      {
+        heading: "When the red won't come out",
+        paragraphs: [
+          "If a pink or red shadow is left after the spot dries, the dye has bonded to the fiber. Professional red dye removers use heat to lift it, and they work on many nylon carpets. Very old stains, or stains on wool, may only lighten. Tell the cleaner what the drink was and how long ago it spilled.",
+        ],
+        link: { href: "/services/spot-and-stain-removal", text: "See spot and stain removal" },
+      },
+    ],
+    faqs: [
+      {
+        q: "Can Kool-Aid stains come out of carpet?",
+        a: "Often, especially when treated quickly. Old or set-in red dye may need a professional dye remover and sometimes can only be lightened.",
+      },
+      {
+        q: "Does hydrogen peroxide remove red Kool-Aid?",
+        a: "It can lighten red dye, but it can also lighten carpet color. Test it on a hidden spot first, and never use it on wool.",
+      },
+      {
+        q: "Why does the stain come back pink after drying?",
+        a: "Dye left deeper in the carpet rises to the surface as it dries. Rinse and blot again, then dry with weighted towels.",
       },
     ],
   },

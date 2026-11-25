@@ -23,6 +23,7 @@ const H = level === 2 ? "h2" : "h3"
       <H>{sec.heading}</H>
       {sec.paragraphs.map((p) => <p>{p}</p>)}
       {sec.list && sec.list.length > 0 && <ul>{sec.list.map((l) => <li>{l}</li>)}</ul>}
+      {sec.link && <p class="prose__more"><a href={sec.link.href}>{sec.link.text}</a></p>}
     </>
   ))}
 </div>
@@ -32,4 +33,5 @@ const H = level === 2 ? "h2" : "h3"
   .prose :is(h2, h3) { margin-top: 1.75em; }
   .prose ul { padding-left: 1.25rem; margin: 0 0 1em; }
   .prose li { margin: .25em 0; }
+  .prose__more a { font-weight: 600; }
 </style>

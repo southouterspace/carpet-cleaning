@@ -17,6 +17,7 @@ export const serviceSections: Record<string, Section[]> = {
     },
     {
       heading: "Getting the most from a cleaning",
+      link: { href: "/guides/remove-furniture-dents-from-carpet", text: "How to remove furniture dents from carpet" },
       howTo: true,
       paragraphs: [],
       list: [
@@ -43,6 +44,21 @@ export const serviceSections: Record<string, Section[]> = {
         "Fragrance sprays, which cover the smell for a day",
         "Rental shampooers, which push urine deeper into the pad",
       ],
+    },
+    {
+      heading: "Before you book pet urine treatment",
+      paragraphs: [
+        "Ask any company these before they come out.",
+      ],
+      list: [
+        "Do you use a UV light to find spots I can't see?",
+        "Is the product an enzyme or oxidizer that breaks urine down, or a deodorizer?",
+        "Do you treat the pad when urine has soaked through?",
+        "What if a spot wicks back up as the carpet dries?",
+        "How is pet treatment priced?",
+        "Does your special include pet treatment?",
+      ],
+      link: { href: "/guides/questions-to-ask-a-carpet-cleaner", text: "Questions to ask any carpet cleaner" },
     },
   ],
   "upholstery-cleaning": [
@@ -154,6 +170,13 @@ export const guides: Guide[] = [
         ],
       },
       {
+        heading: "Per room, roughly",
+        requires: "priceRanges",
+        paragraphs: [
+          "Those three-room prices work out to roughly $30 to $75 per room, most near $47, before stairs and extras. That's our arithmetic on other companies' posted specials, not a quote, and a minimum charge usually applies.",
+        ],
+      },
+      {
         heading: "What adds to the price",
         paragraphs: [],
         list: [
@@ -165,7 +188,15 @@ export const guides: Guide[] = [
         ],
       },
       {
+        heading: "Per room or per square foot",
+        paragraphs: [
+          "Willis cleaners mostly quote by the room. Some quote by the square foot, especially for rentals, shops and large open rooms. A square-foot price is easier to compare across quotes; a room price is easier to understand at a glance.",
+          "If you get one of each, measure. A 12 by 12 bedroom is 144 square feet. Rooms over about 300 square feet are often counted as two.",
+        ],
+      },
+      {
         heading: "Questions to ask any cleaner",
+        link: { href: "/guides/questions-to-ask-a-carpet-cleaner", text: "More questions to ask before you book" },
         paragraphs: [],
         list: [
           "Is pre-treatment included?",
@@ -189,6 +220,137 @@ export const guides: Guide[] = [
       {
         q: "Should I pick the cheapest coupon?",
         a: "Compare the total for your home, not the coupon. Ask what's included before you book.",
+      },
+    ],
+  },
+  {
+    slug: "remove-furniture-dents-from-carpet",
+    title: "How to remove furniture dents from carpet",
+    summary: "Step-by-step: lift furniture dents out of carpet with ice cubes, a hair dryer or a steam iron, and when a dent won't come back.",
+    updated: "2026-11-25",
+    intro: [
+      "When you move a couch or bed in Willis, the carpet underneath often has deep square dents. They aren't permanent. The fibers have been crushed flat, and water and a little heat help them stand back up.",
+      "Here's the simple method, plus a faster one for dents that won't budge.",
+    ],
+    sections: [
+      {
+        heading: "Lifting dents with ice",
+        howTo: true,
+        paragraphs: [
+          "This is the easiest method and works on most synthetic carpet. You need ice cubes, a towel and a spoon.",
+        ],
+        list: [
+          "Place one ice cube in each dent, or a few for large dents.",
+          "Let the ice melt completely, usually a few hours or overnight.",
+          "Blot up extra water with a towel.",
+          "Use the edge of a spoon or your fingertips to lift the fibers upward.",
+          "Let the carpet dry, then vacuum the spot.",
+        ],
+      },
+      {
+        heading: "If the dent is still there",
+        paragraphs: [
+          "Mist the dent with water, then dry it with a hair dryer on medium heat while brushing the fibers up with your fingers. Another option is to hold a steam iron an inch above a damp cloth laid over the dent. Never set the iron on the carpet, and test a hidden spot first, especially on wool.",
+        ],
+      },
+      {
+        heading: "When dents don't come back",
+        paragraphs: [
+          "Carpet that sat under heavy furniture for many years, or carpet that is already worn, may stay flat. A professional cleaning can help because hot water and grooming lift the pile, but it can't fix fibers that have broken down.",
+        ],
+      },
+      {
+        heading: "Preventing new dents",
+        paragraphs: [
+          "Use furniture cups or coasters under legs to spread the weight, and shift heavy pieces an inch or two every few months.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Does the ice cube trick really work on carpet dents?",
+        a: "Yes, for most dents. Water swells the crushed fibers and lets them stand back up as they dry. Fluff them by hand to finish.",
+      },
+      {
+        q: "Will carpet cleaning remove furniture dents?",
+        a: "It often helps. Hot water extraction and grooming the pile lift most dents, though very old dents in worn carpet may stay.",
+      },
+      {
+        q: "Can I use a hair dryer on carpet dents?",
+        a: "Yes. Dampen the dent and dry it on medium heat while brushing the fibers up. Keep it moving so the fibers don't overheat.",
+      },
+    ],
+  },
+  {
+    slug: "questions-to-ask-a-carpet-cleaner",
+    title: "Questions to ask a carpet cleaner before you book",
+    summary: "The questions to ask any carpet cleaner in Willis before booking: price, method, drying time, pet treatment, insurance and what happens if a spot returns.",
+    updated: "2026-11-25",
+    intro: [
+      "Most bad carpet cleaning experiences come down to a surprise: a price that grew at the door, carpet that stayed wet for two days, or a pet smell that came back a week later. A few questions before you book prevent nearly all of them.",
+      "Use these with anyone you're thinking about hiring, including us.",
+    ],
+    sections: [
+      {
+        heading: "About the price",
+        paragraphs: [],
+        list: [
+          "Can you give me one total for the whole job, in writing, before you start?",
+          "Is pre-treatment included, or extra?",
+          "What counts as a room, and are hallways, closets and stairs included?",
+          "Is there a minimum charge or a trip charge for my area?",
+          "Do you move furniture, and does that cost extra?",
+        ],
+      },
+      {
+        heading: "About the method and drying",
+        paragraphs: [],
+        list: [
+          "What cleaning method do you use?",
+          "Do you rinse out the cleaning solution?",
+          "How long will the carpet take to dry?",
+          "Is the method approved by my carpet's warranty?",
+        ],
+      },
+      {
+        heading: "About pets and stains",
+        paragraphs: [],
+        list: [
+          "How do you find urine spots I can't see?",
+          "Do you treat urine at the pad, or only the surface?",
+          "Which stains might not come out, and will you tell me before you start?",
+          "If a spot comes back after drying, what is your policy?",
+        ],
+      },
+      {
+        heading: "About the company",
+        paragraphs: [],
+        list: [
+          "Are you insured if something is damaged?",
+          "Will the person who comes out be the one doing the work?",
+          "Can I see recent reviews from people in my area?",
+        ],
+      },
+      {
+        heading: "Asking us",
+        paragraphs: [
+          "Send these with your quote request if you like. You'll get the answers in writing along with your price, before anything is booked.",
+        ],
+        link: { href: "/services/carpet-cleaning", text: "See our carpet cleaning service" },
+      },
+    ],
+    faqs: [
+      {
+        q: "What should I ask a carpet cleaner before hiring?",
+        a: "Ask for a written total, what's included, the cleaning method and drying time, how pet urine is treated, whether they're insured, and what happens if a spot comes back.",
+      },
+      {
+        q: "Should a carpet cleaner give a price over the phone?",
+        a: "A cleaner should be able to give a firm total once they know your rooms, stairs and any spots or pet areas. Photos make that easier.",
+      },
+      {
+        q: "Should I tip a carpet cleaner?",
+        a: "It isn't expected, but many people tip for a hard job like heavy furniture or a lot of pet treatment.",
       },
     ],
   },

@@ -35,5 +35,13 @@ export const answers = {
       pricedAnswer:
         "Carpet cleaners around Tomball that post prices advertise $88 to $225 for three rooms, most near $140, with minimums around $150 (our November 2026 review of 54 local cleaners' websites). Stairs, pet treatment and add-ons change the total.",
     },
+    "upholstery-cleaning-codes": {
+      answer:
+        "The cleaning code on a couch tag tells you what can safely touch the fabric. W means water-based cleaners are fine. S means solvent only, no water. W/S or SW means either works. X means vacuum only, no liquid cleaners. Using water on an S fabric can leave rings, shrinkage or color loss.",
+    },
+    "kool-aid-red-drink-stains-carpet": {
+      answer:
+        "Blot up as much as you can right away, rinse with cool water and blot again. Then dab on a mix of a teaspoon of clear dish soap and a tablespoon of white vinegar in two cups of warm water, rinse and blot dry. Red dye that remains usually needs a professional red dye remover, and some stains on light nylon carpet can't be fully removed.",
+    },
   },
 }

@@ -39,5 +39,13 @@ export const answers = {
       pricedAnswer:
         "Carpet cleaners around Magnolia that post prices advertise $88 to $225 for three rooms, most near $140, with minimums around $150 (our November 2026 review of 54 local cleaners' websites). Stairs, pet treatment and distance change the total.",
     },
+    "how-to-clean-carpeted-stairs": {
+      answer:
+        "Vacuum each stair with a hand tool or crevice attachment, working top to bottom and getting the edge of each step and the corners. Treat spots with a little carpet cleaner on a white cloth, blotting rather than scrubbing. For a deep clean, use a handheld extractor one step at a time and let the stairs dry before heavy use.",
+    },
+    "red-clay-mud-out-of-carpet": {
+      answer:
+        "Let the mud dry completely, break it up and vacuum out as much as you can before using any water. Then blot the stain with a mix of a few drops of clear dish soap in warm water, rinse with plain water, and blot dry. Don't rub wet clay or use colored or oxygen cleaners, which can spread or set the stain.",
+    },
   },
 }

@@ -11,6 +11,7 @@ export const serviceSections: Record<string, Section[]> = {
   "carpet-cleaning": [
     {
       heading: "Why hot water extraction",
+      link: { href: "/guides/hot-water-extraction-vs-low-moisture-cleaning", text: "Hot water extraction vs low-moisture cleaning" },
       paragraphs: [
         "The major carpet makers recommend hot water extraction for deep cleaning, and many of their warranties ask for it every 12 to 24 months. It works by rinsing: a heated cleaning solution goes into the pile, loosens the soil, and is pulled back out with strong suction along with the dirt.",
         "Low-moisture and encapsulation methods dry faster and are fine for a quick refresh, but they leave more of the soil in the carpet. For a home that hasn't been cleaned in a year or more, a rinse is what brings the color back.",
@@ -79,6 +80,20 @@ export const serviceSections: Record<string, Section[]> = {
         "Each of those spots has to be treated at the depth it reached, and a corner that's been used for months may need its pad section replaced. Removing the smell also takes away what draws the cat back. If the habit started suddenly, it's worth a call to your vet.",
       ],
     },
+    {
+      heading: "A short checklist before you book pet treatment",
+      paragraphs: [
+        "Whoever you hire, these answers tell you whether the urine will actually be treated or only masked.",
+      ],
+      list: [
+        "Do you find spots with a UV light, or only treat what I can see?",
+        "Is the urine treatment an enzyme or oxidizer, or a fragrance deodorizer?",
+        "Can you treat the pad underneath when the urine has soaked through?",
+        "What happens if a spot wicks back after the carpet dries?",
+        "Is pet treatment priced per spot, per room or by area?",
+        "Does the advertised special include pet treatment, or is it extra?",
+      ],
+    },
   ],
   "upholstery-cleaning": [
     {
@@ -102,6 +117,7 @@ export const serviceSections: Record<string, Section[]> = {
   "area-rug-cleaning": [
     {
       heading: "Rugs over hardwood and tile",
+      link: { href: "/guides/rug-cleaning-cost-by-size-and-fiber", text: "How rug size and fiber set the price" },
       paragraphs: [
         "Many Woodlands homes have hardwood or tile downstairs with rugs in the living room, dining room and entry. Those rugs trap a surprising amount of grit, which grinds at the fibers and can scratch the floor underneath. A yearly cleaning, plus vacuuming both sides now and then, keeps them in better shape.",
         "Wool, viscose and hand-knotted rugs get the gentlest handling. Viscose in particular can yellow or lose its sheen if it's cleaned with too much water, so tell us if your rug is soft and shiny and was inexpensive for its look; that's often viscose.",
@@ -330,9 +346,23 @@ export const guides: Guide[] = [
         ],
       },
       {
+        heading: "Per room, worked out",
+        requires: "priceRanges",
+        paragraphs: [
+          "Split three ways, those advertised three-room prices land between about $30 and $75 a room, most near $47. That is arithmetic on other companies' posted specials, not our quote, and minimum charges apply to small jobs.",
+        ],
+      },
+      {
         heading: "Rooms, landings and game rooms",
         paragraphs: [
           "A bedroom is one room. A big game room or media room is often priced as two. The upstairs landing and hallway are sometimes included free and sometimes counted as a room, so it's worth asking. Listing every space you want cleaned is the easiest way to avoid surprises.",
+        ],
+      },
+      {
+        heading: "Per room or per square foot",
+        paragraphs: [
+          "Most cleaners in The Woodlands price carpet by the room; a few price by the square foot. A room quote is simpler, but it hides how big a \"room\" can be. A square-foot quote is easier to compare, as long as you measure the same way.",
+          "If you're comparing the two, measure wall to wall. Bedrooms here are often 150 to 220 square feet, while upstairs game rooms over a garage can run past 300 and may be counted as two rooms.",
         ],
       },
       {
@@ -372,6 +402,140 @@ export const guides: Guide[] = [
       {
         q: "Are $99 whole-house carpet cleaning specials real?",
         a: "Some are, but check what they cover. Low specials often count only a few rooms, cap the size of each room, and price pre-treatment, stairs, hallways and spot work separately. Ask what the advertised price includes and get one total for your home before you book.",
+      },
+    ],
+  },
+  {
+    slug: "rug-cleaning-cost-by-size-and-fiber",
+    title: "Rug cleaning cost in The Woodlands: how size and fiber set the price",
+    summary: "How area rug cleaning is priced in The Woodlands by size and fiber, from 5x8 to 9x12, and what wool, silk and jute add.",
+    updated: "2026-11-25",
+    intro: [
+      "Rug cleaning is priced differently from wall-to-wall carpet. Most cleaners charge by the square foot of the rug, and the rate per square foot depends on what the rug is made of. That is why two 8x10 rugs can get very different quotes.",
+      "We haven't surveyed local rug prices yet, so this guide explains how the price is built rather than listing dollar figures. Use it to check that quotes are measuring the same thing.",
+    ],
+    sections: [
+      {
+        heading: "Size: work out the square feet",
+        paragraphs: [
+          "Multiply the length by the width in feet. Round rugs are usually measured as the square they fit in. These are the common sizes and their areas:",
+        ],
+        list: [
+          "3x5 rug: 15 square feet",
+          "5x8 rug: 40 square feet",
+          "6x9 rug: 54 square feet",
+          "8x10 rug: 80 square feet",
+          "9x12 rug: 108 square feet",
+          "10x14 rug: 140 square feet",
+        ],
+      },
+      {
+        heading: "Fiber: why the rate changes",
+        paragraphs: [
+          "The fiber decides how the rug can be washed, how long it takes to dry, and how much risk there is of shrinking, browning or dye bleeding. Check the label on the back or underside before you ask for a quote.",
+        ],
+        list: [
+          "Nylon, polyester and olefin: the easiest to clean and usually the lowest rate",
+          "Wool: needs cooler water and a wool-safe rinse, so it usually costs more",
+          "Cotton and flatweaves: can shrink or bleed if overwet",
+          "Jute, sisal and seagrass: brown and stain with water, so they need dry or very low-moisture cleaning",
+          "Silk, viscose and bamboo silk: the most delicate and usually the highest rate",
+        ],
+      },
+      {
+        heading: "Other things that add to a rug quote",
+        paragraphs: [],
+        list: [
+          "Pet urine, which may need a soak to reach the base of the rug",
+          "Fringe cleaning or repair",
+          "Pickup and delivery, if the rug is cleaned off site",
+          "Moth or water damage",
+          "A rug pad, if you want a new one cut to size",
+        ],
+      },
+      {
+        heading: "In-home or off-site cleaning",
+        paragraphs: [
+          "Synthetic rugs can often be cleaned in your home, on a protected floor, at the same visit as your carpet. Wool, silk and rugs with urine usually do better at a rug plant, where they can be dusted, washed and dried flat. Off-site cleaning takes longer and costs more, but it is the safer choice for valuable rugs.",
+        ],
+      },
+      {
+        heading: "What to send for an exact rug price",
+        paragraphs: [
+          "Send the size of each rug, the fiber from the label if you can find it, and photos of the front, back and any stains or fringe damage. Mention pets. You'll get a price for each rug before anything is picked up.",
+        ],
+        link: { href: "/services/area-rug-cleaning", text: "See our area rug cleaning service" },
+      },
+    ],
+    faqs: [
+      {
+        q: "How much more does an 8x10 rug cost to clean than a 5x8?",
+        a: "About twice as much, because an 8x10 rug is 80 square feet and a 5x8 is 40, and most cleaners price rugs by the square foot. Fiber and stains can change that.",
+      },
+      {
+        q: "Why does wool rug cleaning cost more?",
+        a: "Wool needs cooler water, a wool-safe cleaner and careful drying to avoid shrinking or browning. That takes more time than cleaning a synthetic rug.",
+      },
+      {
+        q: "Can you clean a rug at the same time as my carpet?",
+        a: "Synthetic rugs often can be cleaned in the home during the same visit. Delicate or urine-soaked rugs usually need to go to a rug plant.",
+      },
+    ],
+  },
+  {
+    slug: "hot-water-extraction-vs-low-moisture-cleaning",
+    title: "Hot water extraction vs low-moisture carpet cleaning",
+    summary: "Steam cleaning, low-moisture and dry carpet cleaning compared: how each works, drying time, and which suits pets, traffic lanes and quick refreshes.",
+    updated: "2026-11-25",
+    intro: [
+      "Carpet cleaning methods go by a lot of names: steam cleaning, hot water extraction, encapsulation, low-moisture, dry cleaning, bonnet cleaning. They boil down to two groups. One rinses the carpet and pulls the water back out. The other uses very little water and lifts soil with a cleaning solution that dries.",
+      "Here's how they compare in a typical Woodlands home, where most carpet is upstairs and gets a lot of foot traffic from kids and pets.",
+    ],
+    sections: [
+      {
+        heading: "Hot water extraction",
+        paragraphs: [
+          "A cleaning solution is sprayed into the carpet, then a wand rinses it with hot water while a powerful vacuum pulls the water, soil and solution back out. Truck-mounted units have the most heat and suction. This is the method most carpet manufacturers name in their warranty care instructions.",
+          "Carpet is usually damp for 4 to 8 hours afterward, sometimes longer on humid days or with thick carpet.",
+        ],
+      },
+      {
+        heading: "Low-moisture and encapsulation cleaning",
+        paragraphs: [
+          "A small amount of solution is worked into the carpet with a rotary or brush machine. The solution wraps around soil and dries into crystals that are vacuumed up later. Carpet is usually dry in one to two hours.",
+          "It is popular for offices and for quick refreshes between deep cleanings. It removes less soil from the base of the carpet and doesn't flush out urine.",
+        ],
+      },
+      {
+        heading: "Which method fits which job",
+        paragraphs: [],
+        list: [
+          "Pet urine and odor: hot water extraction, with a urine treatment that reaches the pad",
+          "Dark traffic lanes and years of buildup: hot water extraction",
+          "A quick refresh before guests: low-moisture is fine",
+          "Offices that can't close for long: low-moisture between periodic extractions",
+          "Carpet under a manufacturer's warranty: check the warranty, which usually asks for extraction",
+        ],
+      },
+      {
+        heading: "Questions to ask about the method",
+        paragraphs: [
+          "Ask what method will be used, how long the carpet will take to dry, and whether the cleaner rinses out the cleaning solution. Leftover soap is the main reason carpet looks dirty again soon after a cleaning, whatever the method.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Is steam cleaning the same as hot water extraction?",
+        a: "Yes. \"Steam cleaning\" is the common name, but the machine uses hot water, not steam. The industry term is hot water extraction.",
+      },
+      {
+        q: "Does dry carpet cleaning use any water?",
+        a: "A little. \"Dry\" and low-moisture methods use far less water than extraction, which is why carpet dries in an hour or two.",
+      },
+      {
+        q: "Which carpet cleaning method lasts longest?",
+        a: "Hot water extraction usually stays clean longest because it removes the most soil and rinses out the cleaning solution.",
       },
     ],
   },

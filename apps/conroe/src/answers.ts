@@ -48,5 +48,13 @@ export const answers = {
       pricedAnswer:
         "Conroe-area carpet cleaners that post prices advertise $88 to $225 for three rooms, with most around $140 and minimum charges near $150 (our November 2026 review of 54 local cleaners' websites). Your price depends on rooms, stairs and pet or stain work, so ask for one written total.",
     },
+    "tile-and-grout-cleaning-cost-conroe": {
+      answer:
+        "Tile and grout cleaning in Conroe is priced by the area cleaned, usually by the square foot or by the room, plus extra for grout sealing or color sealing. Heavy soil in kitchens, showers and textured tile takes longer. Measure the rooms, say whether you want sealing, and ask for one written total.",
+    },
+    "find-pet-urine-carpet-black-light": {
+      answer:
+        "Turn off the lights after dark, hold a 365 nm UV flashlight a foot or two above the carpet, and look for yellow-green glowing spots and splash shapes. Mark each one with painter's tape, check along walls and under furniture, and confirm with your nose. The tape map tells a cleaner how many spots to treat.",
+    },
   },
 }
