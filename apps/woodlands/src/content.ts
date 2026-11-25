@@ -17,6 +17,12 @@ export const serviceSections: Record<string, Section[]> = {
       ],
     },
     {
+      heading: "Can you sleep in the room the same night?",
+      paragraphs: [
+        "Usually, yes. With the AC or ceiling fans running, carpet is dry enough to walk on in socks within a few hours and fully dry in 4 to 12, depending on how thick it is and how humid the day is. Wait to put wooden furniture back until it's dry, or set the legs on foil or plastic tabs so they can't stain it, and keep pets off it until then.",
+      ],
+    },
+    {
       heading: "Pine pollen and the spring clean",
       paragraphs: [
         "Every spring the pines across The Woodlands drop a yellow-green layer of pollen on cars, patios and anything near an open door. Much of it ends up inside, on shoes and paws, and it works its way into light-colored carpet near entries, on stairs and in the main hallway.",
@@ -64,6 +70,13 @@ export const serviceSections: Record<string, Section[]> = {
         "Surface spots: treated during the regular cleaning",
         "Spots in the pad: an enzyme or oxidizing treatment worked down to the depth of the spot, then rinsed",
         "Heavily soaked areas: the carpet is lifted, the pad section replaced, the subfloor treated or sealed, and the carpet relaid",
+      ],
+    },
+    {
+      heading: "Can carpet cleaning get rid of cat urine smell?",
+      paragraphs: [
+        "Yes, but rarely with one surface clean. Cat urine is more concentrated than dog urine, so even a small spot smells strong and lingers. Cats also go back to the same place, often a corner, along a wall or beside a bed, so one spot is usually several old ones on top of each other.",
+        "Each of those spots has to be treated at the depth it reached, and a corner that's been used for months may need its pad section replaced. Removing the smell also takes away what draws the cat back. If the habit started suddenly, it's worth a call to your vet.",
       ],
     },
   ],
@@ -148,6 +161,13 @@ export const moreServices: Service[] = [
         heading: "Timing for renters and landlords",
         paragraphs: [
           "Leave a day between the cleaning and the walk-through so the carpet is fully dry. Ask your landlord or property manager whether they need a receipt, and request one when you book.",
+        ],
+      },
+      {
+        heading: "Clean or replace before you list?",
+        paragraphs: [
+          "Cleaning costs a small fraction of new carpet, so it's worth trying first. Buyers notice smell and stains much more than the carpet's age. Replacement makes more sense when the carpet is torn, badly sun-faded, rippled from stretching, or soaked with pet urine through the pad.",
+          "Ask for an honest read on each room before you book. Sometimes the answer is to clean the bedrooms and replace one stained room, which costs far less than redoing the whole house.",
         ],
       },
     ],
@@ -296,7 +316,7 @@ export const guides: Guide[] = [
     slug: "carpet-cleaning-cost-the-woodlands",
     title: "Carpet cleaning prices in The Woodlands",
     summary: "How carpet cleaning is priced in The Woodlands, TX: rooms, stairs, pet treatment and add-ons, plus how to compare quotes.",
-    updated: "2026-11-19",
+    updated: "2026-11-25",
     intro: [
       "Most Woodlands homes are two stories with carpet upstairs, so the price of a carpet cleaning here mostly comes down to three things: how many rooms, how many staircases, and whether there are pet spots or stains to treat. Add-ons like sofas, rugs and tile are priced by the piece or the area.",
     ],
@@ -348,6 +368,10 @@ export const guides: Guide[] = [
       {
         q: "How do I get a price without a phone call?",
         a: "Send the quote form with your rooms, stairs and spots, and add photos if you can. The price comes back by text or email.",
+      },
+      {
+        q: "Are $99 whole-house carpet cleaning specials real?",
+        a: "Some are, but check what they cover. Low specials often count only a few rooms, cap the size of each room, and price pre-treatment, stairs, hallways and spot work separately. Ask what the advertised price includes and get one total for your home before you book.",
       },
     ],
   },

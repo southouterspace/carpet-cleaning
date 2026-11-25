@@ -55,6 +55,13 @@ export const serviceSections: Record<string, Section[]> = {
         "Urine is the harder problem. Spots that have soaked into the pad need treatment at that depth. In bad cases, the pad section is replaced. You'll get an honest read on which you're dealing with before anything is done.",
       ],
     },
+    {
+      heading: "Before you rent a carpet machine for pee spots",
+      paragraphs: [
+        "Rental shampooers and home carpet machines put down a lot of water and don't pull much of it back out. On a urine spot, that water carries the urine deeper into the pad and spreads it wider, so the smell often comes back stronger once it dries.",
+        "To treat a spot yourself without a machine, blot it with towels, use an enzyme cleaner made for pet urine, and let it sit as long as the label says. Old spots, big ones and ones that keep coming back need treatment at pad depth.",
+      ],
+    },
   ],
   "upholstery-cleaning": [
     {
@@ -228,7 +235,7 @@ export const guides: Guide[] = [
     slug: "carpet-cleaning-cost-montgomery",
     title: "What carpet cleaning costs in Montgomery and around Lake Conroe",
     summary: "How carpet cleaning is priced for Montgomery homes, lake houses and rentals, what adds to it, and how to get a firm number.",
-    updated: "2026-11-19",
+    updated: "2026-11-25",
     intro: [
       "There's no single price for carpet cleaning in Montgomery. A full-time home in Woodforest, a lakefront condo in April Sound and a rental turnover in Walden are priced differently, mostly by how many rooms, whether there are stairs, how much spot and odor work is needed, and how tight the schedule is.",
     ],
@@ -256,6 +263,13 @@ export const guides: Guide[] = [
         heading: "Rentals and lake houses",
         paragraphs: [
           "A same-day turnover between guests can cost more than a flexible booking, because the schedule is fixed. Booking turnovers ahead for the season, or bundling several units on one day, usually brings the price down.",
+        ],
+      },
+      {
+        heading: "Cheap specials and what they leave out",
+        paragraphs: [
+          "A low coupon price is built to get a crew to your door. It usually covers a set number of small rooms with a basic rinse. Hallways, stairs, pre-treatment, pet spots and protector are often extra, and a home out by the lake may carry a trip charge.",
+          "That doesn't make a special a bad deal. It just means the number to compare is the total for your home, not the price on the flyer.",
         ],
       },
       {

@@ -56,6 +56,26 @@ export const serviceSections: Record<string, Section[]> = {
         "Whether you're selling, moving out or staying in the home",
       ],
     },
+    {
+      heading: "How to get dog or cat pee out of carpet before we arrive",
+      paragraphs: [
+        "What you do in the first hour decides how much of a fresh accident reaches the pad. An old, dried spot is different: the goal there is not to make it worse before it's treated properly.",
+      ],
+      list: [
+        "Blot a fresh puddle with white towels, pressing down or standing on them to pull up as much as you can",
+        "Add a little cool water and blot again. Skip vinegar and bleach mixtures, ammonia and scented sprays",
+        "Use an enzyme cleaner made for pet urine and leave it wet as long as its label says",
+        "Keep heat off the spot. A home steam machine or a hair dryer can set the stain and the smell",
+        "Leave old, dried spots alone and list them in your quote request so they're treated at pad depth",
+      ],
+      howTo: true,
+    },
+    {
+      heading: "Will carpet cleaning kill fleas?",
+      paragraphs: [
+        "A hot water cleaning removes many flea eggs, larvae and adults from the carpet, so it helps. It isn't a flea treatment on its own, though. Treat your pets with a product your vet recommends at the same time, or the fleas come straight back from the pets and the yard.",
+      ],
+    },
   ],
   "upholstery-cleaning": [
     {
@@ -100,6 +120,13 @@ export const serviceSections: Record<string, Section[]> = {
       paragraphs: [
         "Book the cleaning for after the last furniture is out and before the final walk-through, ideally with a day in between so the carpet is fully dry. If movers are coming the same day, schedule the cleaning after they leave.",
         "Sellers can book the cleaning before listing photos, so rooms look their best online.",
+      ],
+    },
+    {
+      heading: "Will a cleaning protect my deposit?",
+      paragraphs: [
+        "Texas law doesn't let a landlord keep your deposit for normal wear and tear, like light traffic lanes on older carpet. Stains, pet damage and odor are another matter. A professional cleaning removes most of those, and the receipt shows you met a lease that requires one.",
+        "Burns, tears and spots where the color has bleached out won't clean up, so photograph them before you hand back the keys.",
       ],
     },
   ],

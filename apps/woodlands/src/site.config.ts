@@ -37,7 +37,7 @@ export const site: SiteConfig = {
   },
   hours: [],
   // Date the copy was last reviewed. Bump it when the content changes.
-  updated: "2026-11-19",
+  updated: "2026-11-25",
   // Short, specific facts for the home page "At a glance" block and llms.txt.
   facts: [
     { label: "Villages covered", value: "All eight, from Grogan's Mill to Creekside Park" },

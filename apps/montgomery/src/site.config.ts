@@ -36,7 +36,7 @@ export const site: SiteConfig = {
   },
   hours: [],
   // Date the copy was last reviewed. Bump it when the content changes.
-  updated: "2026-11-19",
+  updated: "2026-11-25",
   // Short, specific facts for the home page "At a glance" block and llms.txt.
   facts: [
     { label: "Lake communities", value: "Walden, Bentwater, April Sound, Del Lago and Grand Harbor" },
