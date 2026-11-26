@@ -1,0 +1,25 @@
+---
+/** Area pages as a definition list with each area's short answer. */
+import type { SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+}
+const { site } = Astro.props
+---
+
+<section class="section section--soft" id="areas" aria-labelledby="areas-h">
+  <div class="wrap">
+    <h2 id="areas-h">Around Willis</h2>
+    <dl class="wa">
+      {(site.areas ?? []).map((a) => (<><dt><a href={`/areas/${a.slug}`}>{a.name}</a></dt><dd>{a.summary}</dd></>))}
+    </dl>
+    <p class="muted">Also {site.serviceArea.towns.filter((t) => t !== site.city).join(", ")}. ZIP codes {site.serviceArea.zips.join(" and ")}.</p>
+  </div>
+</section>
+
+<style>
+  .wa { margin: 1rem 0; }
+  .wa dt a { font-weight: 800; display: inline-block; padding: .3rem 0; }
+  .wa dd { margin: 0 0 1rem; color: var(--ink-soft); }
+</style>

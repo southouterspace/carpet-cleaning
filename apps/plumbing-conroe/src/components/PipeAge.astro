@@ -1,0 +1,33 @@
+---
+/** What's likely behind the walls, by when the house was built. General, checkable facts only. */
+const rows = [
+  { era: "Before the 1970s", supply: "Galvanized steel or copper", drain: "Cast iron or clay sewer", watch: "Low pressure, rusty water, roots in the sewer line" },
+  { era: "Late 1970s to mid-1990s", supply: "Polybutylene (gray plastic) or copper", drain: "Cast iron or PVC", watch: "Polybutylene fittings failing, slab leaks" },
+  { era: "Mid-1990s to today", supply: "Copper, CPVC or PEX", drain: "PVC", watch: "Fixtures, water heaters, loose fittings in new builds" },
+]
+---
+
+<section class="section" aria-labelledby="pa-h">
+  <div class="wrap">
+    <h2 id="pa-h">What your Conroe house is probably plumbed with</h2>
+    <p class="muted">Pipe material tracks the year a house was built. It's why the quote form asks.</p>
+    <div class="pa">
+      <table>
+        <thead><tr><th scope="col">Built</th><th scope="col">Water lines</th><th scope="col">Drains</th><th scope="col">What to watch for</th></tr></thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr><th scope="row">{r.era}</th><td>{r.supply}</td><td>{r.drain}</td><td>{r.watch}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pa { overflow-x: auto; margin-top: 1rem; }
+  .pa table { width: 100%; border-collapse: collapse; min-width: 36rem; }
+  .pa th, .pa td { text-align: left; vertical-align: top; padding: .75rem; border-bottom: 1px solid var(--line); }
+  .pa thead th { background: var(--accent-dark); color: #fff; }
+  .pa tbody th { font-weight: 750; white-space: nowrap; }
+</style>

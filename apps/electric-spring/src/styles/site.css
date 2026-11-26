@@ -1,0 +1,17 @@
+/*
+ * Spring electric look: black and dark gold with a bright gold signal
+ * color, 6px corners, a gold underline on section headings. Selectors start
+ * with :root to beat base styles.
+ */
+:root {
+  --ink: #141414;
+  --ink-soft: #4d4a44;
+  --bg-soft: #f6f3ec;
+  --line: #e4ded0;
+  --radius: 6px;
+  --max: 68rem;
+}
+:root h1 { font-weight: 850; letter-spacing: -.02em; }
+:root h2 { font-weight: 800; }
+:root .section h2::after { content: ""; display: block; width: 3rem; height: 4px; background: #f2c230; margin-top: .5rem; }
+:root #services .card { border-color: var(--line); }

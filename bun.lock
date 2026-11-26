@@ -25,6 +25,91 @@
         "wrangler": "^4.160.1",
       },
     },
+    "apps/electric-conroe": {
+      "name": "@carpet/electric-conroe",
+      "dependencies": {
+        "@astrojs/sitemap": "^3.7.4",
+        "@carpet/leads": "workspace:*",
+        "@carpet/seo": "workspace:*",
+        "@carpet/ui": "workspace:*",
+        "astro": "^7.4.11",
+      },
+      "devDependencies": {
+        "@astrojs/check": "^0.9.12",
+        "@cloudflare/workers-types": "^5.20261112.1",
+        "@lhci/cli": "0.16.1",
+        "typescript": "5",
+        "wrangler": "^4.160.1",
+      },
+    },
+    "apps/electric-spring": {
+      "name": "@carpet/electric-spring",
+      "dependencies": {
+        "@astrojs/sitemap": "^3.7.4",
+        "@carpet/leads": "workspace:*",
+        "@carpet/seo": "workspace:*",
+        "@carpet/ui": "workspace:*",
+        "astro": "^7.4.11",
+      },
+      "devDependencies": {
+        "@astrojs/check": "^0.9.12",
+        "@cloudflare/workers-types": "^5.20261112.1",
+        "@lhci/cli": "0.16.1",
+        "typescript": "5",
+        "wrangler": "^4.160.1",
+      },
+    },
+    "apps/electric-woodlands": {
+      "name": "@carpet/electric-woodlands",
+      "dependencies": {
+        "@astrojs/sitemap": "^3.7.4",
+        "@carpet/leads": "workspace:*",
+        "@carpet/seo": "workspace:*",
+        "@carpet/ui": "workspace:*",
+        "astro": "^7.4.11",
+      },
+      "devDependencies": {
+        "@astrojs/check": "^0.9.12",
+        "@cloudflare/workers-types": "^5.20261112.1",
+        "@lhci/cli": "0.16.1",
+        "typescript": "5",
+        "wrangler": "^4.160.1",
+      },
+    },
+    "apps/garage-conroe": {
+      "name": "@carpet/garage-conroe",
+      "dependencies": {
+        "@astrojs/sitemap": "^3.7.4",
+        "@carpet/leads": "workspace:*",
+        "@carpet/seo": "workspace:*",
+        "@carpet/ui": "workspace:*",
+        "astro": "^7.4.11",
+      },
+      "devDependencies": {
+        "@astrojs/check": "^0.9.12",
+        "@cloudflare/workers-types": "^5.20261112.1",
+        "@lhci/cli": "0.16.1",
+        "typescript": "5",
+        "wrangler": "^4.160.1",
+      },
+    },
+    "apps/hvac-conroe": {
+      "name": "@carpet/hvac-conroe",
+      "dependencies": {
+        "@astrojs/sitemap": "^3.7.4",
+        "@carpet/leads": "workspace:*",
+        "@carpet/seo": "workspace:*",
+        "@carpet/ui": "workspace:*",
+        "astro": "^7.4.11",
+      },
+      "devDependencies": {
+        "@astrojs/check": "^0.9.12",
+        "@cloudflare/workers-types": "^5.20261112.1",
+        "@lhci/cli": "0.16.1",
+        "typescript": "5",
+        "wrangler": "^4.160.1",
+      },
+    },
     "apps/leads": {
       "name": "@carpet/leads",
       "devDependencies": {
@@ -53,6 +138,108 @@
     },
     "apps/montgomery": {
       "name": "@carpet/montgomery",
+      "dependencies": {
+        "@astrojs/sitemap": "^3.7.4",
+        "@carpet/leads": "workspace:*",
+        "@carpet/seo": "workspace:*",
+        "@carpet/ui": "workspace:*",
+        "astro": "^7.4.11",
+      },
+      "devDependencies": {
+        "@astrojs/check": "^0.9.12",
+        "@cloudflare/workers-types": "^5.20261112.1",
+        "@lhci/cli": "0.16.1",
+        "typescript": "5",
+        "wrangler": "^4.160.1",
+      },
+    },
+    "apps/plumbing-conroe": {
+      "name": "@carpet/plumbing-conroe",
+      "dependencies": {
+        "@astrojs/sitemap": "^3.7.4",
+        "@carpet/leads": "workspace:*",
+        "@carpet/seo": "workspace:*",
+        "@carpet/ui": "workspace:*",
+        "astro": "^7.4.11",
+      },
+      "devDependencies": {
+        "@astrojs/check": "^0.9.12",
+        "@cloudflare/workers-types": "^5.20261112.1",
+        "@lhci/cli": "0.16.1",
+        "typescript": "5",
+        "wrangler": "^4.160.1",
+      },
+    },
+    "apps/plumbing-magnolia": {
+      "name": "@carpet/plumbing-magnolia",
+      "dependencies": {
+        "@astrojs/sitemap": "^3.7.4",
+        "@carpet/leads": "workspace:*",
+        "@carpet/seo": "workspace:*",
+        "@carpet/ui": "workspace:*",
+        "astro": "^7.4.11",
+      },
+      "devDependencies": {
+        "@astrojs/check": "^0.9.12",
+        "@cloudflare/workers-types": "^5.20261112.1",
+        "@lhci/cli": "0.16.1",
+        "typescript": "5",
+        "wrangler": "^4.160.1",
+      },
+    },
+    "apps/plumbing-montgomery": {
+      "name": "@carpet/plumbing-montgomery",
+      "dependencies": {
+        "@astrojs/sitemap": "^3.7.4",
+        "@carpet/leads": "workspace:*",
+        "@carpet/seo": "workspace:*",
+        "@carpet/ui": "workspace:*",
+        "astro": "^7.4.11",
+      },
+      "devDependencies": {
+        "@astrojs/check": "^0.9.12",
+        "@cloudflare/workers-types": "^5.20261112.1",
+        "@lhci/cli": "0.16.1",
+        "typescript": "5",
+        "wrangler": "^4.160.1",
+      },
+    },
+    "apps/plumbing-spring": {
+      "name": "@carpet/plumbing-spring",
+      "dependencies": {
+        "@astrojs/sitemap": "^3.7.4",
+        "@carpet/leads": "workspace:*",
+        "@carpet/seo": "workspace:*",
+        "@carpet/ui": "workspace:*",
+        "astro": "^7.4.11",
+      },
+      "devDependencies": {
+        "@astrojs/check": "^0.9.12",
+        "@cloudflare/workers-types": "^5.20261112.1",
+        "@lhci/cli": "0.16.1",
+        "typescript": "5",
+        "wrangler": "^4.160.1",
+      },
+    },
+    "apps/plumbing-willis": {
+      "name": "@carpet/plumbing-willis",
+      "dependencies": {
+        "@astrojs/sitemap": "^3.7.4",
+        "@carpet/leads": "workspace:*",
+        "@carpet/seo": "workspace:*",
+        "@carpet/ui": "workspace:*",
+        "astro": "^7.4.11",
+      },
+      "devDependencies": {
+        "@astrojs/check": "^0.9.12",
+        "@cloudflare/workers-types": "^5.20261112.1",
+        "@lhci/cli": "0.16.1",
+        "typescript": "5",
+        "wrangler": "^4.160.1",
+      },
+    },
+    "apps/plumbing-woodlands": {
+      "name": "@carpet/plumbing-woodlands",
       "dependencies": {
         "@astrojs/sitemap": "^3.7.4",
         "@carpet/leads": "workspace:*",
@@ -234,11 +421,33 @@
 
     "@carpet/conroe": ["@carpet/conroe@workspace:apps/conroe"],
 
+    "@carpet/electric-conroe": ["@carpet/electric-conroe@workspace:apps/electric-conroe"],
+
+    "@carpet/electric-spring": ["@carpet/electric-spring@workspace:apps/electric-spring"],
+
+    "@carpet/electric-woodlands": ["@carpet/electric-woodlands@workspace:apps/electric-woodlands"],
+
+    "@carpet/garage-conroe": ["@carpet/garage-conroe@workspace:apps/garage-conroe"],
+
+    "@carpet/hvac-conroe": ["@carpet/hvac-conroe@workspace:apps/hvac-conroe"],
+
     "@carpet/leads": ["@carpet/leads@workspace:apps/leads"],
 
     "@carpet/magnolia": ["@carpet/magnolia@workspace:apps/magnolia"],
 
     "@carpet/montgomery": ["@carpet/montgomery@workspace:apps/montgomery"],
+
+    "@carpet/plumbing-conroe": ["@carpet/plumbing-conroe@workspace:apps/plumbing-conroe"],
+
+    "@carpet/plumbing-magnolia": ["@carpet/plumbing-magnolia@workspace:apps/plumbing-magnolia"],
+
+    "@carpet/plumbing-montgomery": ["@carpet/plumbing-montgomery@workspace:apps/plumbing-montgomery"],
+
+    "@carpet/plumbing-spring": ["@carpet/plumbing-spring@workspace:apps/plumbing-spring"],
+
+    "@carpet/plumbing-willis": ["@carpet/plumbing-willis@workspace:apps/plumbing-willis"],
+
+    "@carpet/plumbing-woodlands": ["@carpet/plumbing-woodlands@workspace:apps/plumbing-woodlands"],
 
     "@carpet/seo": ["@carpet/seo@workspace:packages/seo"],
 

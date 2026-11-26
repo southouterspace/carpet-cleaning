@@ -1,0 +1,16 @@
+/*
+ * Conroe garage door look: graphite and olive-lime, tight 3px corners,
+ * sectional-panel lines in the hero, cards with a graphite top edge.
+ * Selectors start with :root to beat base styles.
+ */
+:root {
+  --ink: #17191c;
+  --ink-soft: #4a4f55;
+  --bg-soft: #f2f3f1;
+  --line: #dcdfdb;
+  --radius: 3px;
+  --max: 68rem;
+}
+:root h1 { font-weight: 850; letter-spacing: -.02em; }
+:root h2 { font-weight: 800; }
+:root #services .card { border-top: 5px solid #2a2e33; }

@@ -1,0 +1,57 @@
+---
+/**
+ * Woodlands electrician hero: charcoal band with a thick green top border,
+ * left-aligned text and a numbered "what to send" list on wide screens.
+ * Call button only when the phoneCalls flag is on.
+ */
+import { callNumber, formatPhone, type SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+  heading: string
+  lead: string
+  /** What to include in a request (home page). */
+  send?: string[]
+}
+const { site, heading, lead, send = [] } = Astro.props
+const phone = callNumber(site)
+---
+
+<section class="xh">
+  <div class:list={["wrap", { xh__in: send.length }]}>
+    <div>
+      <p class="xh__eye">The Woodlands · Shenandoah · Oak Ridge North</p>
+      <h1>{heading}</h1>
+      <p class="xh__lead">{lead}</p>
+      <div class="xh__cta">
+        {phone && <a class="xh__btn" href={`tel:${phone}`}>Call {formatPhone(phone)}</a>}
+        {site.flags.quoteForm && <a class:list={["xh__btn", { "xh__btn--line": phone }]} href="#quote">Request an electrician</a>}
+      </div>
+    </div>
+    {send.length > 0 && (
+      <div class="xh__send">
+        <p class="xh__sh">Send us</p>
+        <ol>{send.map((s) => <li>{s}</li>)}</ol>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .xh { background: #1c2321; color: #fff; border-top: 8px solid var(--accent); padding: 2.75rem 0 3rem; }
+  .xh h1 { color: #fff; }
+  .xh__eye { text-transform: uppercase; letter-spacing: .14em; font-size: .8rem; color: #9fd8cb; font-weight: 700; }
+  .xh__lead { font-size: 1.12rem; color: #d5e2df; max-width: 38rem; }
+  .xh__cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.25rem; }
+  .xh__btn { display: inline-flex; align-items: center; min-height: 48px; padding: .7rem 1.4rem; background: #2fd1a8; color: #06231c; border: 2px solid #2fd1a8; font-weight: 800; text-decoration: none; }
+  .xh__btn:hover, .xh__btn:focus-visible { background: #7be6c8; }
+  .xh__btn--line { background: transparent; color: #fff; border-color: #fff; }
+  .xh__btn--line:hover, .xh__btn--line:focus-visible { background: rgba(255,255,255,.1); }
+  .xh :focus-visible { outline-color: #2fd1a8; }
+  .xh__in { display: grid; gap: 2rem; }
+  .xh__send { border-left: 2px solid #3a4744; padding-left: 1.5rem; }
+  .xh__sh { font-weight: 800; text-transform: uppercase; letter-spacing: .1em; font-size: .85rem; color: #9fd8cb; }
+  .xh__send ol { margin: 0; padding-left: 1.2rem; }
+  .xh__send li { margin: .45rem 0; }
+  @media (min-width: 54rem) { .xh__in { grid-template-columns: 1.5fr 1fr; align-items: center; } .xh { padding: 4rem 0; } }
+</style>

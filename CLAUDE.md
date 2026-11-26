@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Monorepo of rank-and-rent carpet cleaning city sites. Read README.md first.
+Monorepo of rank-and-rent local service sites (carpet cleaning, plumbing, electrical, AC, garage doors), one app per trade and town. Read README.md first.
 
 - Package manager is Bun (workspaces + Turborepo). Don't use npm, pnpm or `npx` for project tools; use `bunx` or the package's own `node_modules/.bin`.
 - Stack is Cloudflare only: Astro static builds on Workers static assets, D1, Email Service, Turnstile. Ask before adding another service.

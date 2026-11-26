@@ -1,0 +1,50 @@
+---
+/**
+ * Willis plumbing hero: white background with a big green number panel
+ * ("3 things to send") beside the heading on wide screens. Call only with
+ * phoneCalls on.
+ */
+import { callNumber, formatPhone, type SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+  heading: string
+  lead: string
+  /** Show the "what to send" panel (home page). */
+  panel?: boolean
+}
+const { site, heading, lead, panel = false } = Astro.props
+const phone = callNumber(site)
+---
+
+<section class="vh">
+  <div class:list={["wrap", { vh__in: panel }]}>
+    <div>
+      <h1>{heading}</h1>
+      <p class="vh__lead">{lead}</p>
+      <div class="vh__cta">
+        {phone && <a class="btn" href={`tel:${phone}`}>Call {formatPhone(phone)}</a>}
+        {site.flags.quoteForm && <a class:list={["btn", { "btn--ghost": phone }]} href="#quote">Get a plumber</a>}
+      </div>
+    </div>
+    {panel && (
+      <ol class="vh__panel">
+        <li><strong>What's wrong</strong> leak, clog, no hot water</li>
+        <li><strong>Where</strong> which room or fixture</li>
+        <li><strong>A photo</strong> if you can</li>
+      </ol>
+    )}
+  </div>
+</section>
+
+<style>
+  .vh { padding: 2.75rem 0 2.25rem; border-bottom: 6px solid var(--accent); }
+  .vh__lead { font-size: 1.15rem; color: var(--ink-soft); max-width: 40rem; }
+  .vh__cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.25rem; }
+  .vh__in { display: grid; gap: 2rem; align-items: center; }
+  .vh__panel { list-style: none; counter-reset: v; margin: 0; padding: 1.5rem; background: var(--accent-dark); color: #fff; border-radius: var(--radius); }
+  .vh__panel li { counter-increment: v; display: grid; grid-template-columns: 2.5rem 1fr; column-gap: .75rem; padding: .6rem 0; color: #dcebdc; }
+  .vh__panel li::before { content: counter(v); grid-row: span 2; font-size: 2rem; font-weight: 900; color: #fff; line-height: 1; }
+  .vh__panel strong { color: #fff; }
+  @media (min-width: 52rem) { .vh__in { grid-template-columns: 1.5fr 1fr; } .vh { padding: 4rem 0 3rem; } }
+</style>

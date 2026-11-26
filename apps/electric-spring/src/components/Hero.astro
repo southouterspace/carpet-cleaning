@@ -1,0 +1,53 @@
+---
+/**
+ * Spring electric hero: black band with a gold heading rule and, on the
+ * home page, two big entry blocks: "Something's wrong" and "Adding
+ * something". Call button only when the phoneCalls flag is on.
+ */
+import { callNumber, formatPhone, type SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+  heading: string
+  lead: string
+  /** Show the repair / upgrade entry blocks (home page). */
+  paths?: boolean
+}
+const { site, heading, lead, paths = false } = Astro.props
+const phone = callNumber(site)
+---
+
+<section class="gh">
+  <div class="wrap">
+    <h1>{heading}</h1>
+    <p class="gh__lead">{lead}</p>
+    <div class="gh__cta">
+      {phone && <a class="gh__btn" href={`tel:${phone}`}>Call {formatPhone(phone)}</a>}
+      {site.flags.quoteForm && <a class:list={["gh__btn", { "gh__btn--line": phone }]} href="#quote">Book an electrician</a>}
+    </div>
+    {paths && (
+      <div class="gh__paths">
+        <a href="/services/electrical-repairs"><strong>Something's wrong</strong><span>Dead outlets, tripping breakers, flicker, buzzing</span></a>
+        <a href="/services/panel-replacement"><strong>Adding something</strong><span>Panels, EV charging, generators, surge protection</span></a>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .gh { background: #141414; color: #fff; padding: 3rem 0; }
+  .gh h1 { color: #fff; border-bottom: 5px solid #f2c230; display: inline-block; padding-bottom: .3rem; }
+  .gh__lead { font-size: 1.12rem; color: #ddd8cc; max-width: 40rem; margin-top: 1rem; }
+  .gh__cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.25rem; }
+  .gh__btn { display: inline-flex; align-items: center; min-height: 48px; padding: .7rem 1.4rem; background: #f2c230; color: #141414; border: 2px solid #f2c230; border-radius: 6px; font-weight: 800; text-decoration: none; }
+  .gh__btn:hover, .gh__btn:focus-visible { background: #f7d76b; }
+  .gh__btn--line { background: transparent; color: #fff; border-color: #fff; }
+  .gh__btn--line:hover, .gh__btn--line:focus-visible { background: rgba(255,255,255,.1); }
+  .gh :focus-visible { outline-color: #f2c230; }
+  .gh__paths { display: grid; gap: 1rem; margin-top: 2rem; }
+  .gh__paths a { display: grid; gap: .25rem; padding: 1.25rem 1.5rem; border: 2px solid #3a3a3a; border-radius: 6px; color: #fff; text-decoration: none; }
+  .gh__paths a:hover { border-color: #f2c230; }
+  .gh__paths strong { font-size: 1.25rem; }
+  .gh__paths span { color: #cfc9bb; }
+  @media (min-width: 46rem) { .gh__paths { grid-template-columns: 1fr 1fr; } .gh { padding: 4rem 0; } }
+</style>

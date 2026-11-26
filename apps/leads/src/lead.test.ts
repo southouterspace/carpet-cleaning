@@ -59,7 +59,7 @@ describe("parseLead", () => {
       lead: { rooms: "3", stairs: "1", pets: true, timing: "week", contact: "call" },
     })
     const odd = parseLead(form({ ...good, rooms: "99", timing: "<script>" }))
-    expect(odd).toMatchObject({ ok: true, lead: { rooms: null, timing: null, pets: false } })
+    expect(odd).toMatchObject({ ok: true, lead: { rooms: null, timing: null, property: null, built: null, pets: false } })
   })
 
   test("checks email and needs one when email is the contact choice", () => {
@@ -87,7 +87,7 @@ test("lead email escapes HTML", () => {
       rooms: null,
       stairs: null,
       pets: false,
-      timing: null,
+      timing: null, property: null, built: null,
       contact: null,
       email: null,
       turnstileToken: null,
@@ -111,7 +111,7 @@ test("confirmation names the service and how they'll be reached, without HTML", 
       rooms: "3",
       stairs: "none",
       pets: true,
-      timing: "asap",
+      timing: "asap", property: null, built: null,
       contact: "text",
       email: "pat@example.com",
       turnstileToken: null,
@@ -149,10 +149,38 @@ describe("pickPhotos", () => {
 test("lead email links each photo", () => {
   const mail = leadEmail(
     { site: "conroe", name: "Pat", phone: "+19365550100", zip: null, service: null, message: null, page: null,
-      rooms: null, stairs: null, pets: false, timing: null, contact: null, email: null, turnstileToken: null },
+      rooms: null, stairs: null, pets: false, timing: null, property: null, built: null, contact: null, email: null, turnstileToken: null },
     "Conroe TX Carpet Cleaners",
     ["https://x.test/api/photo/a/1", "https://x.test/api/photo/a/2"]
   )
   expect(mail.text).toContain("https://x.test/api/photo/a/2")
   expect(mail.html).toContain('<a href="https://x.test/api/photo/a/1">Photo 1</a>')
+})
+
+describe("repair trades", () => {
+  const good = { site: "plumbing-conroe", name: "Pat", phone: "936.555.0100" }
+  test("keeps property, year built and emergency timing", () => {
+    const r = parseLead(form({ ...good, timing: "emergency", property: "landlord", built: "pre1980" }))
+    expect(r).toMatchObject({ ok: true, lead: { timing: "emergency", property: "landlord", built: "pre1980" } })
+    expect(parseLead(form({ ...good, property: "castle", built: "1850" }))).toMatchObject({
+      ok: true,
+      lead: { property: null, built: null },
+    })
+  })
+  test("flags emergencies in the lead email", () => {
+    const r = parseLead(form({ ...good, timing: "emergency", property: "house" }))
+    if (!r.ok) throw new Error("expected ok")
+    const mail = leadEmail(r.lead, "Conroe Plumber")
+    expect(mail.subject.startsWith("URGENT ")).toBe(true)
+    expect(mail.text).toContain("Property: House they own")
+    expect(mail.text).toContain("emergency")
+  })
+  test("confirmation names the trade's pro", () => {
+    const r = parseLead(form({ ...good, contact: "call", service: "water-heater-repair" }))
+    if (!r.ok) throw new Error("expected ok")
+    const mail = confirmationEmail(r.lead, "Conroe Plumber", "plumbing")
+    expect(mail.text).toContain("A local plumber will call you")
+    expect(mail.text).toContain("water heater repair request")
+    expect(confirmationEmail(r.lead, "X", "unknown").text).toContain("carpet cleaner")
+  })
 })

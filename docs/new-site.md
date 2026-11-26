@@ -1,4 +1,10 @@
-# Adding a city site
+# Adding a site
+
+Carpet sites copy `apps/conroe`. Sites for another trade copy the closest trade site instead (`apps/plumbing-conroe`, `apps/electric-conroe`) and name the app `<trade>-<town>` (`plumbing-willis`), with the Worker, package and D1 site id named the same. Set `trade` in `site.config.ts`; that switches the business type, the quote form's fields and the shared wording. Repair trades are phone-first: with `phoneCalls` on they lead with the call button and show a call strip above the header, and the form always offers an "Emergency" choice that shows the trade's safety steps. When you add the D1 row, set its `trade` too.
+
+For other trades, don't state license numbers, response times, 24/7 service, warranties or prices until the renter confirms them. General, checkable facts (Texas licenses plumbers through TSBPE and electricians through TDLR) are fine.
+
+## Carpet steps
 
 1. Copy the reference site: `cp -r apps/conroe apps/<town>` and remove `dist`, `.astro` and `node_modules` from the copy.
 2. In `apps/<town>/package.json`, rename the package to `@carpet/<town>`.

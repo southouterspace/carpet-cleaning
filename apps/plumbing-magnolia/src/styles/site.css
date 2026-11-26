@@ -1,0 +1,16 @@
+/*
+ * Magnolia plumbing look: deep teal on white with pale teal bands, 22px
+ * hero card and 12px corners, small-caps section labels and dashed rules.
+ * Selectors start with :root to beat base styles.
+ */
+:root {
+  --ink: #132022;
+  --ink-soft: #44585a;
+  --bg-soft: #f0f7f7;
+  --line: #d3e5e5;
+  --radius: 12px;
+  --max: 66rem;
+}
+:root h1 { font-weight: 800; }
+:root h2 { font-weight: 750; font-variant: small-caps; letter-spacing: .03em; font-size: clamp(1.6rem, 3.2vw, 2.1rem); }
+:root #services .card { border-style: dashed; }

@@ -1,0 +1,18 @@
+/*
+ * Conroe AC look: violet and indigo, cool gray page tints, 12px corners,
+ * centered section headings and a two-column service grid. Selectors start
+ * with :root to beat base styles.
+ */
+:root {
+  --ink: #1a1724;
+  --ink-soft: #4a4658;
+  --bg-soft: #f3f1f8;
+  --line: #e0dcea;
+  --radius: 12px;
+  --max: 68rem;
+}
+:root h1 { font-weight: 800; letter-spacing: -.02em; }
+:root h2 { font-weight: 750; }
+:root #services h2, :root #faq h2 { text-align: center; }
+:root #services .grid { grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); }
+:root #services .card { box-shadow: 0 1px 0 var(--line), 0 6px 18px rgba(59, 37, 96, .06); border-color: transparent; }

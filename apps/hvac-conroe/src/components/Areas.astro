@@ -1,0 +1,23 @@
+---
+/** Neighborhood links in a single centered row, then towns and ZIPs. */
+import type { SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+}
+const { site } = Astro.props
+---
+
+<section class="section" id="areas" aria-labelledby="areas-h">
+  <div class="wrap aa">
+    <h2 id="areas-h">AC service around Conroe</h2>
+    <ul>{(site.areas ?? []).map((a) => <li><a href={`/areas/${a.slug}`}>{a.name}</a></li>)}</ul>
+    <p class="muted">Also {site.serviceArea.towns.filter((t) => t !== site.city).join(", ")} · ZIP codes {site.serviceArea.zips.join(", ")}</p>
+  </div>
+</section>
+
+<style>
+  .aa { text-align: center; }
+  .aa ul { list-style: none; padding: 0; margin: 1rem 0; display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem 1.5rem; }
+  .aa a { display: inline-block; padding: .5rem 0; font-weight: 700; }
+</style>

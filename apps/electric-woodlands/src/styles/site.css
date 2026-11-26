@@ -1,0 +1,20 @@
+/*
+ * Woodlands electrician look: charcoal and deep green with a mint signal
+ * color, square corners, cards with a heavy top rule and uppercase eyebrows.
+ * Selectors start with :root to beat base styles.
+ */
+:root {
+  --ink: #151b19;
+  --ink-soft: #46524f;
+  --bg-soft: #eff4f2;
+  --line: #d6e0dc;
+  --radius: 0;
+  --max: 70rem;
+}
+:root h1 { font-weight: 850; letter-spacing: -.025em; }
+:root h2 { font-weight: 800; letter-spacing: -.01em; }
+:root #services .card { border: 0; border-top: 4px solid var(--ink); background: var(--bg-soft); }
+:root .hdr.hdr { background: #1c2321; border-bottom-color: #1c2321; }
+:root .hdr .hdr__brand { color: #fff; }
+:root .hdr .hdr__nav a { color: #d5e2df; }
+:root .hdr .hdr__nav a:hover { color: #fff; }

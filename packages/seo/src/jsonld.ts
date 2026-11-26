@@ -1,4 +1,5 @@
 import { visibleSections } from "./sections"
+import { tradeOf } from "./trades"
 import type { Area, Faq, Guide, Section, Service, SiteConfig } from "./types"
 
 const phoneOf = (site: SiteConfig) =>
@@ -9,13 +10,13 @@ type JsonLd = Record<string, unknown>
 const businessId = (site: SiteConfig) => `${site.url}/#business`
 
 /**
- * The business node. Uses the generic LocalBusiness subtype for cleaners and
- * only includes an address when a renter with a real location is set, so the
+ * The business node. Uses the trade's LocalBusiness subtype (Plumber,
+ * Electrician, HVACBusiness, or HomeAndConstructionBusiness) and only includes an address when a renter with a real location is set, so the
  * site never claims a place it doesn't have.
  */
 export function localBusiness(site: SiteConfig): JsonLd {
   const node: JsonLd = {
-    "@type": "HomeAndConstructionBusiness",
+    "@type": tradeOf(site).schemaType,
     "@id": businessId(site),
     name: site.operator?.legalName ?? site.name,
     alternateName: site.operator ? site.name : undefined,
@@ -37,7 +38,7 @@ export function localBusiness(site: SiteConfig): JsonLd {
     knowsAbout: site.services.map((s) => s.name),
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: `Cleaning services in ${site.city}, ${site.region}`,
+      name: `${tradeOf(site).service} services in ${site.city}, ${site.region}`,
       itemListElement: site.services.map((s) => ({
         "@type": "Offer",
         itemOffered: { "@id": `${site.url}/services/${s.slug}#service` },
@@ -94,19 +95,20 @@ export function place(site: SiteConfig, area: Area): JsonLd {
     : { "@type": "Place", name: `${area.name}, ${site.city}, ${site.region}`, containedInPlace: city }
 }
 
-/** The cleaning service as offered in one neighborhood or nearby town. */
+/** The site's service as offered in one neighborhood or nearby town. */
 export function areaService(site: SiteConfig, area: Area): JsonLd {
+  const trade = tradeOf(site).service
   return {
     "@type": "Service",
     "@id": `${site.url}/areas/${area.slug}#service`,
-    name: `Carpet cleaning in ${area.name}`,
-    serviceType: "Carpet cleaning",
+    name: `${trade} in ${area.name}`,
+    serviceType: trade,
     description: area.summary,
     provider: { "@id": businessId(site) },
     areaServed: place(site, area),
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "Cleaning services",
+      name: `${trade} services`,
       itemListElement: site.services.map((s) => ({
         "@type": "Offer",
         itemOffered: { "@type": "Service", name: s.name, url: `${site.url}/services/${s.slug}` },
@@ -129,7 +131,7 @@ export function article(site: SiteConfig, guide: Guide): JsonLd {
     inLanguage: "en-US",
     author: { "@id": businessId(site) },
     publisher: { "@id": businessId(site) },
-    about: { "@type": "Thing", name: "Carpet cleaning" },
+    about: { "@type": "Thing", name: tradeOf(site).service },
     contentLocation: { "@type": "City", name: `${site.city}, ${site.region}` },
   }
 }

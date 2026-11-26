@@ -4,13 +4,13 @@
  * visitor (or an AI answer tool) can lift them without reading the page.
  * Towns and ZIPs come from the service area; the rest from `site.facts`.
  */
-import { formatDate, visibleFacts, type SiteConfig } from "@carpet/seo"
+import { formatDate, tradeOf, visibleFacts, type SiteConfig } from "@carpet/seo"
 
 interface Props {
   site: SiteConfig
   heading?: string
 }
-const { site, heading = `Carpet cleaning in ${site.city} at a glance` } = Astro.props
+const { site, heading = `${tradeOf(site).service} in ${site.city} at a glance` } = Astro.props
 const rows = [
   { label: "Areas served", value: `${site.serviceArea.towns.join(", ")}, ${site.region}` },
   ...(site.serviceArea.zips.length ? [{ label: "ZIP codes", value: site.serviceArea.zips.join(", ") }] : []),

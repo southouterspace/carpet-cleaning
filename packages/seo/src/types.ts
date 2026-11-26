@@ -1,4 +1,5 @@
 import type { FlagName, Flags } from "./flags"
+import type { Trade } from "./trades"
 
 /**
  * Everything a city site knows about itself. Each app has one `site.config.ts`
@@ -8,6 +9,11 @@ import type { FlagName, Flags } from "./flags"
 export interface SiteConfig {
   /** Stable id used by the lead Worker to route leads (e.g. "conroe"). */
   id: string
+  /**
+   * The kind of business: decides the schema.org type, quote-form fields and
+   * how the pro is named in shared copy. Leave out for carpet cleaning.
+   */
+  trade?: Trade
   /** Brand name shown on the site and in structured data. */
   name: string
   /** Canonical origin, no trailing slash: "https://conroetxcarpetcleaners.com". */
@@ -128,7 +134,7 @@ export interface Area {
   faqs?: Faq[]
 }
 
-/** A help article, e.g. what carpet cleaning costs locally. */
+/** A help article, e.g. what a job costs locally and why. */
 export interface Guide {
   slug: string
   title: string

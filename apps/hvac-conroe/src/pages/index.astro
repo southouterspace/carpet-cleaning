@@ -1,0 +1,36 @@
+---
+import { breadcrumbs, faqPage, pageGraph } from "@carpet/seo"
+import Facts from "@carpet/ui/Facts.astro"
+import Services from "@carpet/ui/Services.astro"
+import Faq from "@carpet/ui/Faq.astro"
+import QuoteForm from "@carpet/ui/QuoteForm.astro"
+import Page from "../components/Page.astro"
+import Hero from "../components/Hero.astro"
+import Checks from "../components/Checks.astro"
+import Areas from "../components/Areas.astro"
+import { site } from "../site.config"
+
+const title = `AC Repair Conroe, TX | Air Conditioning & Heating | ${site.name}`
+const description = `AC repair and replacement in Conroe, TX: warm air, frozen lines, no power, tune-ups, heat pumps, furnaces and attic ducts. Tell us what your system is doing; a local tech replies.`
+const jsonld = pageGraph(
+  site,
+  { path: "/", title, description },
+  faqPage(site.faqs),
+  breadcrumbs(site, [{ name: "Home", path: "/" }])
+)
+---
+
+<Page site={site} title={title} description={description} path="/" jsonld={jsonld}>
+  <Hero
+    site={site}
+    heading="AC repair in Conroe, TX"
+    lead="Blowing warm, frozen up, leaking or not turning on at all. Tell us what your system is doing and a local AC technician gets back to you about a time and a price."
+    signs={["Blowing warm", "Ice on the lines", "Water by the air handler", "Won't turn on", "Upstairs too hot"]}
+  />
+  <Services site={site} heading="Cooling and heating services" />
+  <Checks />
+  <QuoteForm site={site} />
+  <Facts site={site} heading="Conroe AC at a glance" />
+  <Faq faqs={site.faqs} heading="Conroe AC questions" />
+  <Areas site={site} />
+</Page>

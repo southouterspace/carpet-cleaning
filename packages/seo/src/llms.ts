@@ -3,7 +3,7 @@ import type { Section, SiteConfig } from "./types"
 
 /**
  * Builds /llms.txt: a plain summary AI agents can read to answer
- * "who cleans carpets in <city>" and to find the right page or phone number.
+ * "who does <trade> in <city>" and to find the right page or phone number.
  * Format follows https://llmstxt.org (H1, blockquote summary, link sections).
  */
 export function buildLlmsTxt(site: SiteConfig): string {

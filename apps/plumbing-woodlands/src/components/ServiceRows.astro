@@ -1,0 +1,29 @@
+---
+/** Services as alternating rows with the summary beside the name, instead of a card grid. */
+import type { SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+  heading: string
+}
+const { site, heading } = Astro.props
+---
+
+<section class="section" id="services" aria-labelledby="services-h">
+  <div class="wrap">
+    <h2 id="services-h">{heading}</h2>
+    <ul class="sr">
+      {site.services.map((s) => (
+        <li><a href={`/services/${s.slug}`}>{s.name}</a><p>{s.summary}</p></li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .sr { list-style: none; padding: 0; margin: 1rem 0 0; }
+  .sr li { display: grid; gap: .25rem; padding: 1rem 0; border-bottom: 1px solid var(--line); }
+  .sr a { font-family: Georgia, "Times New Roman", serif; font-size: 1.2rem; font-weight: 700; display: inline-block; padding: .2rem 0; }
+  .sr p { margin: 0; color: var(--ink-soft); }
+  @media (min-width: 48rem) { .sr li { grid-template-columns: 18rem 1fr; align-items: baseline; gap: 2rem; } }
+</style>

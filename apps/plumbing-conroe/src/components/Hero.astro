@@ -1,0 +1,65 @@
+---
+/**
+ * Conroe plumbing hero: deep blue band, heading left and a "water off
+ * first" card on the right on wide screens. Call buttons show only when the
+ * phoneCalls flag is on.
+ */
+import { callNumber, formatPhone, type SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+  heading: string
+  lead: string
+  /** Show the shut-off card (home page only). */
+  shutoff?: boolean
+}
+const { site, heading, lead, shutoff = false } = Astro.props
+const phone = callNumber(site)
+---
+
+<section class="ph">
+  <div class:list={["wrap", { ph__in: shutoff }]}>
+    <div>
+      <h1>{heading}</h1>
+      <p class="ph__lead">{lead}</p>
+      <div class="ph__cta">
+        {phone && <a class="ph__btn" href={`tel:${phone}`}>Call {formatPhone(phone)}</a>}
+        {site.flags.quoteForm && (
+          <a class:list={["ph__btn", { "ph__btn--line": phone }]} href="#quote">Request a plumber</a>
+        )}
+      </div>
+    </div>
+    {shutoff && (
+      <aside class="ph__card" aria-labelledby="ph-off">
+        <h2 id="ph-off">Water where it shouldn't be?</h2>
+        <ol>
+          <li>Shut off the main valve (street box, meter or where the line enters the house)</li>
+          <li>Turn the water heater off or to Pilot</li>
+          <li>Open the lowest faucet to drain the lines</li>
+          <li>Send a request marked Emergency, with a photo</li>
+        </ol>
+      </aside>
+    )}
+  </div>
+</section>
+
+<style>
+  .ph { background: var(--accent-dark); color: #fff; padding: 2.75rem 0 3rem; }
+  .ph h1 { color: #fff; max-width: 40rem; }
+  .ph__lead { font-size: 1.15rem; max-width: 38rem; color: #d6e6f5; }
+  .ph__cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+  .ph__btn {
+    display: inline-flex; align-items: center; min-height: 48px; padding: .7rem 1.4rem; border-radius: 4px;
+    background: #ffc93c; color: #1d1500; border: 2px solid #ffc93c; font-weight: 800; font-size: 1.05rem; text-decoration: none;
+  }
+  .ph__btn:hover, .ph__btn:focus-visible { background: #ffe08a; }
+  .ph__btn--line { background: transparent; color: #fff; border-color: #fff; }
+  .ph__btn--line:hover, .ph__btn--line:focus-visible { background: rgba(255,255,255,.12); }
+  .ph :focus-visible { outline-color: #ffc93c; }
+  .ph__in { display: grid; gap: 2rem; align-items: start; }
+  .ph__card { background: #fff; color: var(--ink); border-radius: 4px; padding: 1.25rem 1.5rem; border-top: 6px solid #ffc93c; }
+  .ph__card h2 { font-size: 1.2rem; }
+  .ph__card ol { margin: 0; padding-left: 1.25rem; }
+  .ph__card li { margin: .35rem 0; }
+  @media (min-width: 54rem) { .ph__in { grid-template-columns: 1.3fr 1fr; } .ph { padding: 4rem 0; } }
+</style>

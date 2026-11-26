@@ -1,0 +1,35 @@
+---
+import { breadcrumbs, faqPage, pageGraph } from "@carpet/seo"
+import Facts from "@carpet/ui/Facts.astro"
+import Services from "@carpet/ui/Services.astro"
+import Faq from "@carpet/ui/Faq.astro"
+import QuoteForm from "@carpet/ui/QuoteForm.astro"
+import Page from "../components/Page.astro"
+import Hero from "../components/Hero.astro"
+import Symptoms from "../components/Symptoms.astro"
+import Areas from "../components/Areas.astro"
+import { site } from "../site.config"
+
+const title = `Garage Door Repair Conroe, TX | Springs, Openers, Cables | ${site.name}`
+const description = `Garage door repair in Conroe, TX: broken springs, doors off track, snapped cables, openers that won't work, tune-ups and new doors. Tell us what the door is doing; a local tech replies.`
+const jsonld = pageGraph(
+  site,
+  { path: "/", title, description },
+  faqPage(site.faqs),
+  breadcrumbs(site, [{ name: "Home", path: "/" }])
+)
+---
+
+<Page site={site} title={title} description={description} path="/" jsonld={jsonld}>
+  <Hero
+    site={site}
+    heading="Garage door repair in Conroe, TX"
+    lead="A spring that snapped this morning, a door hanging off its track, or an opener that just hums. Tell us what the door is doing and a local garage door technician gets back to you."
+  />
+  <Symptoms />
+  <QuoteForm site={site} />
+  <Services site={site} heading="Garage door services" />
+  <Facts site={site} heading="Conroe garage doors at a glance" />
+  <Areas site={site} />
+  <Faq faqs={site.faqs} heading="Garage door questions" />
+</Page>

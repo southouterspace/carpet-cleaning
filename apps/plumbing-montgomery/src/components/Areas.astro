@@ -1,0 +1,22 @@
+---
+/** Lake communities and the town, as a simple two-column link list. */
+import type { SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+}
+const { site } = Astro.props
+---
+
+<section class="section section--soft" id="areas" aria-labelledby="areas-h">
+  <div class="wrap">
+    <h2 id="areas-h">Montgomery and the west side of Lake Conroe</h2>
+    <ul class="ml">{(site.areas ?? []).map((a) => <li><a href={`/areas/${a.slug}`}>{a.name}</a></li>)}</ul>
+    <p class="muted">Also {site.serviceArea.towns.filter((t) => t !== site.city).join(", ")}. ZIP codes {site.serviceArea.zips.join(" and ")}.</p>
+  </div>
+</section>
+
+<style>
+  .ml { list-style: none; padding: 0; margin: 1rem 0; columns: 2 14rem; }
+  .ml a { display: inline-block; padding: .5rem 0; font-weight: 700; }
+</style>
