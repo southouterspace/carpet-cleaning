@@ -1,5 +1,6 @@
-import { resolveFlags, withAnswers, type SiteConfig } from "@carpet/seo"
+import { resolveFlags, type SiteConfig, withAnswers, withAreaDetail } from "@carpet/seo"
 import { answers } from "./answers"
+import { areaDetail } from "./local"
 import { areas, guides, withMoreContent } from "./content"
 
 /**
@@ -126,6 +127,7 @@ export const site: SiteConfig = {
     },
     {
       slug: "tile-and-grout-cleaning",
+      updated: "2026-11-26",
       name: "Tile and grout cleaning",
       summary: "Brings grout lines in kitchens, baths, mudrooms and entryways back to their real color.",
       body: [
@@ -133,7 +135,7 @@ export const site: SiteConfig = {
       ],
     },
   ]), answers.services),
-  areas: withAnswers(areas, answers.areas),
+  areas: withAnswers(withAreaDetail(areas, areaDetail, "2026-11-26"), answers.areas),
   guides: withAnswers(guides, answers.guides),
   faqs: [
     {

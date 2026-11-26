@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test"
+import { metaDescription, metaTitle, withAreaDetail } from "./meta"
 import {
   allFaqs,
   areaService,
@@ -208,5 +209,43 @@ describe("AI answer readiness", () => {
     const txt = buildLlmsTxt(withFacts)
     expect(txt).toContain("- Drying time: 4 to 8 hours")
     expect(txt).not.toContain("$88")
+  })
+})
+
+describe("meta tags", () => {
+  test("keeps the brand when the title fits, drops it when it would be cut off", () => {
+    expect(metaTitle("Carpet Cleaning Conroe TX | Conroe TX Carpet Cleaners", "Conroe TX Carpet Cleaners")).toBe(
+      "Carpet Cleaning Conroe TX | Conroe TX Carpet Cleaners"
+    )
+    expect(
+      metaTitle("Rug cleaning cost in The Woodlands by size and fiber | Woodlands Carpet Cleaning", "Woodlands Carpet Cleaning")
+    ).toBe("Rug cleaning cost in The Woodlands by size and fiber")
+  })
+  test("tops up a short description with whole answer sentences, up to 158 characters", () => {
+    const d = metaDescription(
+      "Cleaning for wool and synthetic rugs.",
+      "Rugs are priced by size and fiber. Wool needs a gentler rinse than synthetic rugs do. A third sentence that would run far past the limit and so must be left off entirely."
+    )
+    expect(d).toBe("Cleaning for wool and synthetic rugs. Rugs are priced by size and fiber. Wool needs a gentler rinse than synthetic rugs do.")
+    expect(d.length).toBeLessThanOrEqual(158)
+  })
+  test("uses the answer's opening when it makes a longer snippet than the summary", () => {
+    const answer =
+      "Most Conroe carpet needs a deep clean every 12 to 18 months, or every 6 to 12 with pets or kids. A proper cleaning is pre-treatment plus a hot water rinse."
+    expect(metaDescription("Deep cleaning for wall-to-wall carpet in bedrooms, living rooms, stairs and hallways.", answer)).toBe(
+      "Most Conroe carpet needs a deep clean every 12 to 18 months, or every 6 to 12 with pets or kids. A proper cleaning is pre-treatment plus a hot water rinse."
+    )
+  })
+  test("leaves a full-length description alone", () => {
+    const long = "x".repeat(130)
+    expect(metaDescription(long, "Another sentence.")).toBe(long)
+  })
+  test("appends area detail without dropping what the area already has", () => {
+    const [a] = withAreaDetail(
+      [{ slug: "a", name: "A", kind: "neighborhood", summary: "", intro: [], sections: [{ heading: "One", paragraphs: [] }] }],
+      { a: { sections: [{ heading: "Two", paragraphs: [] }], faqs: [{ q: "Q", a: "A" }] } }
+    )
+    expect(a!.sections!.map((s) => s.heading)).toEqual(["One", "Two"])
+    expect(a!.faqs).toHaveLength(1)
   })
 })
