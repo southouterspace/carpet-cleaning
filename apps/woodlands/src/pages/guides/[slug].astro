@@ -1,6 +1,6 @@
 ---
 import type { GetStaticPaths } from "astro"
-import { answerOf, article, breadcrumbs, faqPage, howTos, pageGraph, updatedOf } from "@carpet/seo"
+import { answerOf, article, breadcrumbs, faqPage, howTos, metaDescription, pageGraph, updatedOf } from "@carpet/seo"
 import Prose from "@carpet/ui/Prose.astro"
 import Faq from "@carpet/ui/Faq.astro"
 import QuoteForm from "@carpet/ui/QuoteForm.astro"
@@ -17,7 +17,7 @@ const answer = answerOf(site, g)
 const updated = updatedOf(site, g)
 const jsonld = pageGraph(
   site,
-  { path, title: g.title, description: g.summary, updated, answer },
+  { path, title: g.title, description: metaDescription(g.summary, answer), updated, answer },
   howTos(site, path, g.sections),
   article(site, g),
   faqPage(g.faqs ?? []),
@@ -29,7 +29,7 @@ const jsonld = pageGraph(
 const updatedText = new Date(`${g.updated}T12:00:00Z`).toLocaleDateString("en-US", { month: "long", year: "numeric", timeZone: "UTC" })
 ---
 
-<Page site={site} title={`${g.title} | ${site.name}`} description={g.summary} path={path} jsonld={jsonld}>
+<Page site={site} title={`${g.title} | ${site.name}`} description={metaDescription(g.summary, answer)} path={path} jsonld={jsonld}>
   <nav class="wrap crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Guides</span></nav>
   <Hero site={site} kicker={`Homeowner guide · ${updatedText}`} heading={g.title} lead={answer ?? g.summary} card />
   <section class="section">

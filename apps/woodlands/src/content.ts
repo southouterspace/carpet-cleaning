@@ -131,12 +131,26 @@ export const serviceSections: Record<string, Section[]> = {
         "Kitchens, mudrooms and the back door to the pool or yard get the dirtiest. Bathroom floors and shower grout come next. Light-colored grout shows the biggest before-and-after change, and sealing it afterward keeps it that way longer.",
       ],
     },
+    {
+      heading: "Tile, stone or plank",
+      paragraphs: [
+        "Porcelain and ceramic tile handle a hot, high-pressure rinse without trouble. Travertine, marble and slate are softer and react to acid, so they get a pH-neutral cleaner and less pressure. Wood-look porcelain plank, now common in kitchens and living rooms across the villages, cleans like any porcelain tile but has longer grout runs that hold more dirt.",
+        "If you're not sure which you have, a photo of the floor and a close-up of one tile is usually enough to tell.",
+      ],
+    },
+    {
+      heading: "Should grout be sealed?",
+      paragraphs: [
+        "Sealing doesn't make grout stain-proof, but it slows down how fast spills and mop water soak in. It's most worth it on light grout in kitchens, entries and bathrooms. Dark grout in a low-traffic room can skip it.",
+      ],
+    },
   ],
 }
 
 export const moreServices: Service[] = [
   {
     slug: "mattress-cleaning",
+    updated: "2026-11-26",
     name: "Mattress cleaning",
     summary: "Low-moisture mattress cleaning for sweat stains, dust and odor, dry enough to sleep on the same night.",
     body: [
@@ -148,6 +162,13 @@ export const moreServices: Service[] = [
         heading: "What to expect",
         paragraphs: [
           "Fresh stains and odors respond best. Old yellowing may lighten but usually won't disappear completely. If you send a photo, you'll know what's realistic before you book.",
+        ],
+      },
+      {
+        heading: "Memory foam and pillow tops",
+        paragraphs: [
+          "Foam mattresses soak up water fast and dry slowly, which is why they're cleaned with very little moisture and strong suction. Pillow tops get the same care, with extra attention to the seams where dust collects.",
+          "After cleaning, leave the mattress uncovered with a fan on it for an hour or two, then put a washable protector on before the sheets.",
         ],
       },
     ],

@@ -23,6 +23,8 @@ jobs:
       - run: bun run check
       - run: bun run test
       - run: bun run build
+      # No page may share too much text with another page, on any site.
+      - run: bun run uniqueness
       # Every site must keep 100 in Performance, Accessibility, Best Practices and SEO.
       - run: bun run lighthouse
 
