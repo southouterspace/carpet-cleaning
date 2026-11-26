@@ -1,4 +1,5 @@
-import { resolveFlags, type SiteConfig } from "@carpet/seo"
+import { resolveFlags, type SiteConfig, withAreaDetail } from "@carpet/seo"
+import { areaDetail } from "./local"
 import { areas, guides, withMoreContent } from "./content"
 
 /**
@@ -99,6 +100,24 @@ export const site: SiteConfig = {
       body: [
         "Many newer Conroe homes have the panel in the garage, which keeps an EV install short. Older homes may need a longer run or a panel upgrade first.",
       ],
+      sections: [
+        {
+          heading: "Plug-in outlet or hardwired charger",
+          paragraphs: [
+            "A NEMA 14-50 outlet lets you plug in the cord that came with the car, and it's handy if you might take the charger with you when you move. A hardwired wall charger can charge a little faster, has no plug to wear out, and is often what utility rebates ask for.",
+            "Either way, the circuit has to be sized for continuous load: a charger that pulls 40 amps needs a 50-amp breaker and wire to match. Cheap outlets can overheat under hours of charging, so ask for an industrial-grade one.",
+          ],
+        },
+        {
+          heading: "What to send with your request",
+          paragraphs: [],
+          list: [
+            "A photo of the open panel and its label",
+            "Where the car parks, and roughly how far that is from the panel",
+            "The charger model, if you've already bought one",
+          ],
+        },
+      ],
     },
     {
       slug: "lighting-ceiling-fans",
@@ -109,9 +128,29 @@ export const site: SiteConfig = {
       body: [
         "Lighting jobs are good to bundle: list every fixture, fan and switch in one request so it's one visit.",
       ],
+      sections: [
+        {
+          heading: "Fans for Texas summers",
+          paragraphs: [
+            "A ceiling fan doesn't cool a room, it cools the people in it, so it helps most in bedrooms and living rooms where someone is sitting still. Set it to spin counterclockwise in summer so it pushes air down.",
+            "Size matters: a 44-inch fan suits a small bedroom, while a large living room with a tall ceiling needs 52 inches or more and a downrod long enough to keep the blades about eight feet off the floor.",
+          ],
+        },
+        {
+          heading: "Common lighting upgrades",
+          paragraphs: [],
+          list: [
+            "Swapping old recessed cans for thin LED wafer lights",
+            "Under-cabinet lights wired to a wall switch, not plugged in",
+            "Motion lights over the garage and back door",
+            "Three-way switches at both ends of a hallway or stairs",
+          ],
+          link: { href: "/services/electrical-repair", text: "Electrical repair" },
+        },
+      ],
     },
   ]),
-  areas,
+  areas: withAreaDetail(areas, areaDetail, "2026-11-26"),
   guides,
   faqs: [
     { q: "How do I get an electrician in Conroe today?", a: "Send the form with \"Today\" or \"Emergency\" picked and a short description: what happened, which rooms, and whether a breaker tripped. If you see sparks or smell burning, turn that circuit off first if it's safe." },

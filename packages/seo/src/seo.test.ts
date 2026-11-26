@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test"
 import { metaDescription, metaTitle, withAreaDetail } from "./meta"
+import type { Area } from "./types"
 import {
   allFaqs,
   areaService,
@@ -263,7 +264,7 @@ describe("meta tags", () => {
     expect(metaDescription(long, "Another sentence.")).toBe(long)
   })
   test("appends area detail without dropping what the area already has", () => {
-    const [a] = withAreaDetail(
+    const [a] = withAreaDetail<Area>(
       [{ slug: "a", name: "A", kind: "neighborhood", summary: "", intro: [], sections: [{ heading: "One", paragraphs: [] }] }],
       { a: { sections: [{ heading: "Two", paragraphs: [] }], faqs: [{ q: "Q", a: "A" }] } }
     )

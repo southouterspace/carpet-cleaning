@@ -1,4 +1,4 @@
-import type { Area, Faq, Section } from "./types"
+import type { Faq, Section } from "./types"
 
 /** Google shows about 60 characters of a title on most screens. */
 export const TITLE_MAX = 60
@@ -48,10 +48,15 @@ export function metaDescription(summary: string, answer?: string): string {
 export type AreaDetail = Record<string, { sections?: Section[]; faqs?: Faq[] }>
 
 /**
- * Appends each area's extra sections and FAQs (see local.ts in each app).
- * `updated` marks the pages that got detail as reviewed on that date.
+ * Appends each page's extra sections and FAQs (see local.ts in each app).
+ * Works for areas, services and guides alike, matched by slug. `updated`
+ * marks the pages that got detail as reviewed on that date.
  */
-export function withAreaDetail(areas: Area[], detail: AreaDetail, updated?: string): Area[] {
+export function withAreaDetail<T extends { slug: string; updated?: string; sections?: Section[]; faqs?: Faq[] }>(
+  areas: T[],
+  detail: AreaDetail,
+  updated?: string
+): T[] {
   return areas.map((a) => {
     const d = detail[a.slug]
     if (!d) return a

@@ -1,4 +1,5 @@
-import { resolveFlags, type SiteConfig } from "@carpet/seo"
+import { resolveFlags, type SiteConfig, withAreaDetail } from "@carpet/seo"
+import { areaDetail } from "./local"
 import { areas, guides, withMoreContent } from "./content"
 
 /**
@@ -120,6 +121,15 @@ export const site: SiteConfig = {
         "Older Conroe neighborhoods with big trees see roots in clay and cast iron sewer lines. Newer homes have PVC, but settling soil can still pull joints apart.",
         "A cable machine clears the line so it drains again. A camera then shows why it backed up, so you're paying to fix the cause and not just the symptom.",
       ],
+      sections: [
+        {
+          heading: "Whose pipe is it?",
+          paragraphs: [
+            "On a city sewer, the homeowner usually owns the line from the house out to the property line or the city's cleanout, and the city owns the rest. If the camera finds the problem past that point, call the City of Conroe's public works line before paying for a dig.",
+            "Homes outside city limits may be on a septic system instead, which is a different job. If you're not sure which you have, look for a septic lid in the yard or check your water bill for a sewer charge.",
+          ],
+        },
+      ],
     },
     {
       slug: "fixture-repair",
@@ -133,7 +143,7 @@ export const site: SiteConfig = {
       ],
     },
   ]),
-  areas,
+  areas: withAreaDetail(areas, areaDetail, "2026-11-26"),
   guides,
   faqs: [
     { q: "How do I get a plumber in Conroe today?", a: "Send the form with \"Today\" or \"Emergency\" picked, a short description and a photo if you can. Requests marked Emergency are flagged as urgent. If water is still running, shut off the main valve first." },

@@ -27,6 +27,26 @@ export const moreServices: Service[] = [
     body: [
       "Summer storms around Lake Conroe bring a lot of lightning, and power often flickers on and off as it's restored, which is hard on electronics, AC boards and appliances.",
     ],
+    sections: [
+      {
+        heading: "What a surge protector can and can't do",
+        paragraphs: [
+          "Most damaging surges are small and frequent, not one dramatic strike. They come from the grid switching, from storms miles away, and even from the AC compressor and other big motors inside the house turning on and off. Over time they wear out the circuit boards in TVs, routers, ovens and the AC itself.",
+          "A whole-home device at the panel clamps those spikes for every circuit. It has a rated lifespan, and most have a light that shows whether it's still working, so check it after a big storm.",
+        ],
+      },
+      {
+        heading: "Good places to add plug-in protection",
+        paragraphs: [],
+        list: [
+          "The TV, game console and sound bar",
+          "The modem, router and any home office equipment",
+          "A garage fridge or freezer",
+          "Smart thermostats and security system hubs",
+        ],
+        link: { href: "/services/panel-upgrades", text: "Panel upgrades" },
+      },
+    ],
   },
 ]
 

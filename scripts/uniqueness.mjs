@@ -34,11 +34,7 @@ const DRAFT_SITES = new Set([
   "magnolia",
   "tomball",
   "spring",
-  // Trade sites waiting on domains (PR #13). Fill in local detail before each launches.
-  "plumbing-conroe",
-  "electric-conroe",
-  "plumbing-woodlands",
-  "plumbing-spring",
+  // Trade sites in waves 2 and 3. Fill in local detail (src/local.ts) before each launches.
   "hvac-conroe",
   "electric-woodlands",
   "electric-spring",

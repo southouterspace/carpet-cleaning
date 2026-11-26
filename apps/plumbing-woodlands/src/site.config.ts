@@ -1,4 +1,5 @@
-import { resolveFlags, type SiteConfig } from "@carpet/seo"
+import { resolveFlags, type SiteConfig, withAreaDetail } from "@carpet/seo"
+import { areaDetail, guideDetail, serviceDetail } from "./local"
 import { areas, guides, withMoreContent } from "./content"
 
 /**
@@ -40,7 +41,7 @@ export const site: SiteConfig = {
   turnstileSiteKey: "0x4AAAAAAF9mIQ55cQuaXFQr",
   flags: resolveFlags({ photoUpload: true }, process.env),
   theme: { accent: "#55601a", accentDark: "#384010" },
-  services: withMoreContent([
+  services: withAreaDetail(withMoreContent([
     {
       slug: "slab-leak-repair",
       name: "Slab leak detection and repair",
@@ -100,9 +101,9 @@ export const site: SiteConfig = {
         "Attic plumbing is common here, which means leaks show up as ceiling stains or drips. The faster the water is off, the less drywall and insulation get ruined.",
       ],
     },
-  ]),
-  areas,
-  guides,
+  ]), serviceDetail),
+  areas: withAreaDetail(areas, areaDetail, "2026-11-26"),
+  guides: withAreaDetail(guides, guideDetail),
   faqs: [
     { q: "How do I get a plumber in The Woodlands today?", a: "Send the form with \"Today\" or \"Emergency\" picked, a short description and a photo if you can. If water is still running, turn off the main valve first." },
     { q: "Do I have polybutylene pipe?", a: "If your home was built from the late 1970s to the mid-1990s, check under sinks and at the water heater for gray plastic pipe. Markings like PB2110 confirm it. Many homes in the older villages have been repiped already; many haven't." },

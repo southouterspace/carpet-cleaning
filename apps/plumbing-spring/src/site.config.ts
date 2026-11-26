@@ -1,4 +1,5 @@
-import { resolveFlags, type SiteConfig } from "@carpet/seo"
+import { resolveFlags, type SiteConfig, withAreaDetail } from "@carpet/seo"
+import { areaDetail, serviceDetail } from "./local"
 import { areas, guides, withMoreContent } from "./content"
 
 /**
@@ -40,7 +41,7 @@ export const site: SiteConfig = {
   turnstileSiteKey: "0x4AAAAAAF9mIQ55cQuaXFQr",
   flags: resolveFlags({ photoUpload: true }, process.env),
   theme: { accent: "#a3243d", accentDark: "#6e1729" },
-  services: withMoreContent([
+  services: withAreaDetail(withMoreContent([
     {
       slug: "sewer-backups",
       name: "Sewer backups and main line repair",
@@ -96,8 +97,8 @@ export const site: SiteConfig = {
         "Most damage comes from the minutes before the water is off. Know where your main valve is and make sure the lid isn't buried under mulch or sod.",
       ],
     },
-  ]),
-  areas,
+  ]), serviceDetail),
+  areas: withAreaDetail(areas, areaDetail, "2026-11-26"),
   guides,
   faqs: [
     { q: "How do I get a plumber in Spring today?", a: "Send the form with \"Today\" or \"Emergency\" picked, what's happening and a photo if you can. If water is running, shut off the main valve first. If sewage is coming up, stop using water." },

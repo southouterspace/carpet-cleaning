@@ -32,6 +32,26 @@ export const moreServices: Service[] = [
       "Many Conroe homes built from the late 1970s to the mid-1990s were plumbed with polybutylene, a gray plastic pipe known for failing at fittings. Older homes may have galvanized steel that rusts shut from the inside.",
       "A repipe replaces the supply lines, usually with PEX, room by room. Drywall patches are part of the job, so ask what's included.",
     ],
+    sections: [
+      {
+        heading: "How to tell what pipe you have",
+        paragraphs: [
+          "Look where the water line comes into the water heater, and under the kitchen and bathroom sinks. Gray or black plastic stamped PB2110 is polybutylene. Dull gray metal with threaded joints is galvanized steel. Red, blue or white flexible tubing is PEX, and shiny or green-tinged metal is copper.",
+          "One stretch of pipe isn't the whole story. Many houses were partly repiped after a leak, so a plumber checks a few spots before calling it.",
+        ],
+      },
+      {
+        heading: "Questions to ask before you hire",
+        paragraphs: [],
+        list: [
+          "Will the job be permitted, and who schedules the inspection?",
+          "Does the price include drywall patching and texture, or just the pipe?",
+          "How many days will the water be off, and for how long each day?",
+          "Will the water heater connections and shut-off valves be replaced too?",
+        ],
+        link: { href: "/guides/slab-leak-signs", text: "Signs of a slab leak" },
+      },
+    ],
   },
 ]
 
