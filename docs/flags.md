@@ -51,3 +51,7 @@ Environment variables win over site overrides, which win over defaults. Accepted
 ## Lead Worker flags (runtime)
 
 The lead Worker reads plain `vars` from `apps/leads/wrangler.jsonc`, which change on the next deploy without a rebuild of any site. Leaving `NOTIFY_FROM` empty, for example, turns lead and confirmation emails off while still saving leads.
+
+## Scheduling app (`apps/schedule`)
+
+The renter scheduling app ships dark. It has no `deploy` script, so `bun run deploy` skips it, `workers_dev` is off and it has no route, and its D1 database id in `wrangler.jsonc` is a placeholder. Nothing on the city sites links to it or posts to it yet. Turning it on is a deliberate step, listed in `apps/schedule/README.md`. When the city sites start offering "Pick a time", that will be a new site flag here, off by default.

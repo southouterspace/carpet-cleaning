@@ -1,0 +1,33 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  // The cleaner's scheduling app: a Today screen, a week view and the API
+  // behind them. It ships dark: there is no "deploy" script, no route and
+  // workers.dev is off, so `bun run deploy` skips it until we turn it on
+  // (see docs/flags.md, "Scheduling app").
+  "name": "carpet-cleaning-schedule",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-11-01",
+  "workers_dev": false,
+  "assets": {
+    "directory": "public",
+    "binding": "ASSETS",
+    // The API runs in the Worker; everything else is a static file.
+    "run_worker_first": ["/api/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "carpet-cleaning-schedule",
+      // Placeholder until the database is created with
+      // `wrangler d1 create carpet-cleaning-schedule`. Local dev doesn't need it.
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "vars": {
+    // Every job and window is in this zone. All our cities are in Central Time.
+    "TIME_ZONE": "America/Chicago"
+  },
+  // Secret: wrangler secret put SESSION_SECRET (signs sign-in cookies).
+  "observability": { "enabled": true }
+}

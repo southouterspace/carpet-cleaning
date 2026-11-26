@@ -16,6 +16,7 @@ apps/
   tomball/       Tomball site: tomballtxcarpetcleaning.com
   spring/        Spring site: springtxcarpetcleaners.com
   leads/         Shared lead Worker: validates, stores in D1, emails the renter
+  schedule/      Cleaner scheduling app (Worker + D1). Not deployed yet; see its README
 packages/
   seo/           SiteConfig type, JSON-LD builders, llms.txt and robots.txt
   ui/            Shared Astro components: layout, hero, services, quote form, FAQ
