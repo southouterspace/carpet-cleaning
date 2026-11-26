@@ -61,6 +61,64 @@ export const serviceSections: Record<string, Section[]> = {
       link: { href: "/guides/questions-to-ask-a-carpet-cleaner", text: "Questions to ask any carpet cleaner" },
     },
   ],
+  "rug-cleaning": [
+    {
+      heading: "Rugs on lake-house floors",
+      paragraphs: [
+        "Around Willis, rugs often sit on tile or vinyl plank near a back door to the lake or the yard. Sand and dried mud sift down through the pile to the backing, where a vacuum can't reach, and the rug starts to feel stiff and look flat.",
+        "Flipping a rug over and vacuuming the back once a season shakes a lot of that grit loose. A full cleaning once a year rinses out the rest.",
+      ],
+    },
+    {
+      heading: "Tell the cleaner",
+      paragraphs: [],
+      list: [
+        "The rug's size, measured edge to edge without fringe",
+        "What the label says it's made of, or a photo if there's no label",
+        "Any pet accidents, and roughly where",
+        "Whether it has fringe, which needs hand cleaning",
+      ],
+      link: { href: "/guides/carpet-cleaning-cost-willis", text: "How cleaning is priced in Willis" },
+    },
+  ],
+  "tile-grout-cleaning": [
+    {
+      heading: "Why grout turns dark",
+      paragraphs: [
+        "Most grout is cement-based and full of tiny pores. Every mopping leaves a little dirty water behind in those pores, and over a few years light grout turns gray or brown, starting in the kitchen walkway and in front of the sink.",
+        "Scrubbing with bleach can lighten the color for a while, but it doesn't pull out the soil, and it can wear down the grout over time. A hot rinse with strong suction lifts the dirt out instead of moving it around.",
+      ],
+    },
+    {
+      heading: "After the cleaning",
+      paragraphs: [],
+      list: [
+        "Let the grout dry for a day before sealing it",
+        "Mop with plain warm water or a neutral cleaner, not vinegar",
+        "Change mop water halfway through a large floor",
+        "Reseal every year or two in kitchens and entries",
+      ],
+    },
+  ],
+  "mattress-cleaning": [
+    {
+      heading: "When it's worth doing",
+      paragraphs: [],
+      list: [
+        "A child's bed after a bedwetting phase",
+        "A guest bed before company comes for the holidays",
+        "A mattress the dog sleeps on",
+        "A used or hand-me-down mattress before it goes in a room",
+        "Allergy season, if dust makes it hard to sleep",
+      ],
+    },
+    {
+      heading: "What it won't fix",
+      paragraphs: [
+        "Cleaning won't flatten a sag or fix broken springs, and old yellow sweat stains may only lighten. Use a waterproof cover afterward to keep the next spill out of the foam.",
+      ],
+    },
+  ],
   "upholstery-cleaning": [
     {
       heading: "Leather and microfiber",
@@ -96,6 +154,7 @@ export const moreServices: Service[] = [
   },
   {
     slug: "mattress-cleaning",
+    updated: "2026-11-26",
     name: "Mattress cleaning",
     summary: "Low-moisture mattress cleaning for sweat stains, dust and odors, dry by bedtime.",
     body: [

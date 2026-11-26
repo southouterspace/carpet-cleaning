@@ -52,6 +52,7 @@ bun run build        # build every site
 bun run check        # astro check + tsc
 bun run test         # unit tests
 bun run lighthouse   # Lighthouse CI, fails below 100 in any category
+bun run uniqueness   # fails when pages copy each other (run after build)
 ```
 
 Run one site and the lead Worker together, with a local D1:

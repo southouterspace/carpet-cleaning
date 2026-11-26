@@ -13,7 +13,8 @@
     "check": "turbo run check",
     "test": "turbo run test",
     "lighthouse": "turbo run lighthouse --concurrency=1",
-    "deploy": "turbo run deploy"
+    "deploy": "turbo run deploy",
+    "uniqueness": "bun scripts/uniqueness.mjs"
   },
   "devDependencies": {
     "turbo": "2.11.11"

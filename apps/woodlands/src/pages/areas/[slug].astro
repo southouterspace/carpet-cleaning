@@ -1,6 +1,6 @@
 ---
 import type { GetStaticPaths } from "astro"
-import { answerOf, areaService, breadcrumbs, faqPage, howTos, pageGraph, updatedOf } from "@carpet/seo"
+import { answerOf, areaService, breadcrumbs, faqPage, howTos, metaDescription, pageGraph, updatedOf } from "@carpet/seo"
 import Updated from "@carpet/ui/Updated.astro"
 import Prose from "@carpet/ui/Prose.astro"
 import Faq from "@carpet/ui/Faq.astro"
@@ -24,7 +24,7 @@ const answer = answerOf(site, a)
 const updated = updatedOf(site, a)
 const jsonld = pageGraph(
   site,
-  { path, title: title, description: a.summary, updated, answer },
+  { path, title: title, description: metaDescription(a.summary, answer), updated, answer },
   howTos(site, path, a.sections),
   areaService(site, a),
   faqPage(a.faqs ?? []),
@@ -39,7 +39,7 @@ const villages = (site.areas ?? []).filter((o) => o.kind === "neighborhood" && o
 const towns = (site.areas ?? []).filter((o) => o.kind === "town" && o.slug !== a.slug)
 ---
 
-<Page site={site} title={title} description={a.summary} path={path} jsonld={jsonld}>
+<Page site={site} title={title} description={metaDescription(a.summary, answer)} path={path} jsonld={jsonld}>
   <nav class="wrap crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/#areas">{village ? "Villages" : "Nearby towns"}</a> / <span>{a.name}</span></nav>
   <Hero site={site} kicker={village ? "Village of The Woodlands" : "Near The Woodlands"} heading={heading} lead={answer ?? a.summary} card />
   <section class="section">

@@ -1,6 +1,6 @@
 ---
 import type { GetStaticPaths } from "astro"
-import { answerOf, areaService, breadcrumbs, faqPage, howTos, pageGraph, updatedOf } from "@carpet/seo"
+import { answerOf, areaService, breadcrumbs, faqPage, howTos, metaDescription, pageGraph, updatedOf } from "@carpet/seo"
 import Updated from "@carpet/ui/Updated.astro"
 import Prose from "@carpet/ui/Prose.astro"
 import Faq from "@carpet/ui/Faq.astro"
@@ -19,7 +19,7 @@ const answer = answerOf(site, a)
 const updated = updatedOf(site, a)
 const jsonld = pageGraph(
   site,
-  { path, title: title, description: a.summary, updated, answer },
+  { path, title: title, description: metaDescription(a.summary, answer), updated, answer },
   howTos(site, path, a.sections),
   areaService(site, a),
   faqPage(a.faqs ?? []),
@@ -32,7 +32,7 @@ const picks = new Set(a.highlight ?? [])
 const others = (site.areas ?? []).filter((o) => o.slug !== a.slug)
 ---
 
-<Page site={site} title={title} description={a.summary} path={path} jsonld={jsonld}>
+<Page site={site} title={title} description={metaDescription(a.summary, answer)} path={path} jsonld={jsonld}>
   <Hero site={site} heading={`Carpet cleaning in ${a.name}`} lead={answer ?? a.summary} />
   <nav class="wrap crumbs" aria-label="Breadcrumb"><a href="/">Home</a> › <a href="/#areas">Where we work</a> › <span>{a.name}</span></nav>
   <section class="section">

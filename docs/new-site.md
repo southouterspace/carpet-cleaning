@@ -15,7 +15,8 @@ For other trades, don't state license numbers, response times, 24/7 service, war
 7. Add the site to D1 with a new migration in `apps/leads/migrations`:
    `INSERT INTO sites (id, domain, name) VALUES ('<town>', '<domain or workers.dev hostname>', '<name>');`
    Also add that hostname to the `carpet-cleaning` Turnstile widget.
-8. `bun install`, `bun run build`, `bun run lighthouse`, then deploy the site.
+8. `bun install`, `bun run build`, `bun run uniqueness`, `bun run lighthouse`, then deploy the site.
+9. Before launch, take the site off `DRAFT_SITES` in `scripts/uniqueness.mjs` and fix every page it reports as thin.
 
 ## Service, area and guide pages
 
@@ -24,6 +25,8 @@ Each site keeps its longer copy in `src/content.ts`: extra `sections` for each s
 - Write area pages only for places this site should own. Don't add a page for a town that has, or will get, its own site (Montgomery on the Conroe site, Magnolia, Willis and so on), so the sites don't compete with each other.
 - An area's `name` should match its entry in `serviceArea.neighborhoods` (or `towns`) so the home page links to it.
 - Keep facts about a neighborhood general and checkable: rough age of homes, type of housing, where it is. No invented landmarks, prices or statistics.
+- Each area's local detail (a section about the homes and floors there, local questions, a link to the most related page) goes in `src/local.ts`, merged in by `withAreaDetail`. Note the source of each fact in a comment.
+- Every indexable page needs enough text of its own. `bun run uniqueness` (also in CI) fails when a page shares more than 25% of its text with a page on another site, more than 55% with a page on the same site, or has less than 45% (or fewer than 120 five-word phrases) of its own. `bun run uniqueness --report` lists every page.
 - A section with `requires: "<flag>"` only shows when that flag is on.
 
 ## Rules for content

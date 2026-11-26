@@ -4,7 +4,7 @@
  * header, footer and the mobile click-to-call bar. Ships zero JavaScript
  * unless a page includes the quote form.
  */
-import type { SiteConfig } from "@carpet/seo"
+import { metaTitle, type SiteConfig } from "@carpet/seo"
 import "../styles/base.css"
 import Header from "./Header.astro"
 import Footer from "./Footer.astro"
@@ -23,6 +23,7 @@ interface Props {
 }
 
 const { site, title, description, path, jsonld, noindex = false } = Astro.props
+const fullTitle = metaTitle(title, site.name)
 const canonical = `${site.url}${path === "/" ? "/" : path}`
 const themeCss = `:root{--accent:${site.theme.accent};--accent-dark:${site.theme.accentDark}}`
 ---
@@ -32,7 +33,7 @@ const themeCss = `:root{--accent:${site.theme.accent};--accent-dark:${site.theme
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
+    <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex" />}
@@ -42,7 +43,7 @@ const themeCss = `:root{--accent:${site.theme.accent};--accent-dark:${site.theme
     <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />
-    <meta property="og:title" content={title} />
+    <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content="en_US" />

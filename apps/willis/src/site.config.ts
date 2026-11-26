@@ -1,5 +1,6 @@
-import { resolveFlags, withAnswers, type SiteConfig } from "@carpet/seo"
+import { resolveFlags, type SiteConfig, withAnswers, withAreaDetail } from "@carpet/seo"
 import { answers } from "./answers"
+import { areaDetail } from "./local"
 import { areas, guides, withMoreContent } from "./content"
 
 /**
@@ -89,6 +90,7 @@ export const site: SiteConfig = {
     },
     {
       slug: "rug-cleaning",
+      updated: "2026-11-26",
       name: "Rug cleaning",
       summary: "Area rug cleaning for wool, synthetic, cotton and natural-fiber rugs.",
       body: [
@@ -97,6 +99,7 @@ export const site: SiteConfig = {
     },
     {
       slug: "tile-grout-cleaning",
+      updated: "2026-11-26",
       name: "Tile and grout cleaning",
       summary: "Deep cleaning that brings grout lines in kitchens, baths and entries back toward their original color.",
       body: [
@@ -104,7 +107,7 @@ export const site: SiteConfig = {
       ],
     },
   ]), answers.services),
-  areas: withAnswers(areas, answers.areas),
+  areas: withAnswers(withAreaDetail(areas, areaDetail, "2026-11-26"), answers.areas),
   guides: withAnswers(guides, answers.guides),
   faqs: [
     {
