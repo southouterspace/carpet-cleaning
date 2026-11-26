@@ -1,0 +1,16 @@
+/*
+ * Montgomery plumbing look: lake slate-blue with a warm sand second color,
+ * 10px corners, a scalloped hero edge and cards with a soft sand tint.
+ * Selectors start with :root to beat base styles.
+ */
+:root {
+  --ink: #15202a;
+  --ink-soft: #485662;
+  --bg-soft: #f4f1ea;
+  --line: #e2dccf;
+  --radius: 10px;
+  --max: 68rem;
+}
+:root h1 { font-weight: 800; letter-spacing: -.015em; }
+:root h2 { font-weight: 780; }
+:root #services .card { background: #fbfaf6; border-color: var(--line); }

@@ -1,0 +1,33 @@
+---
+/** Service area as a two-column list: neighborhoods with pages on the left, towns and ZIPs on the right. */
+import type { SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+}
+const { site } = Astro.props
+---
+
+<section class="section" id="areas" aria-labelledby="areas-h">
+  <div class="wrap ea">
+    <div>
+      <h2 id="areas-h">Conroe neighborhoods</h2>
+      <ul class="ea__list">
+        {(site.areas ?? []).map((a) => <li><a href={`/areas/${a.slug}`}>{a.name}</a></li>)}
+      </ul>
+    </div>
+    <div>
+      <h2>Also serving</h2>
+      <p>{site.serviceArea.towns.filter((t) => t !== site.city).join(", ")}</p>
+      <p class="muted">ZIP codes {site.serviceArea.zips.join(", ")}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ea { display: grid; gap: 1.5rem; }
+  .ea__list { list-style: none; padding: 0; margin: 0; }
+  .ea__list a { display: block; padding: .6rem 0; border-bottom: 1px solid var(--line); font-weight: 700; text-decoration: none; }
+  .ea__list a::after { content: " →"; }
+  @media (min-width: 48rem) { .ea { grid-template-columns: 1fr 1fr; } }
+</style>

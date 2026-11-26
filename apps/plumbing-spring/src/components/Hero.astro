@@ -1,0 +1,52 @@
+---
+/**
+ * Spring plumbing hero: white page, crimson rule on the left, and on the
+ * home page a grid of "what's happening?" tiles that link to the matching
+ * service. Call button only when the phoneCalls flag is on.
+ */
+import { callNumber, formatPhone, type SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+  heading: string
+  lead: string
+  /** Problem tiles: what the visitor sees, and the page that covers it. */
+  problems?: { text: string; href: string }[]
+}
+const { site, heading, lead, problems = [] } = Astro.props
+const phone = callNumber(site)
+---
+
+<section class="sh">
+  <div class="wrap">
+    <div class="sh__head">
+      <h1>{heading}</h1>
+      <p class="sh__lead">{lead}</p>
+      <div class="sh__cta">
+        {phone && <a class="btn" href={`tel:${phone}`}>Call {formatPhone(phone)}</a>}
+        {site.flags.quoteForm && <a class:list={["btn", { "btn--ghost": phone }]} href="#quote">Send the details</a>}
+      </div>
+    </div>
+    {problems.length > 0 && (
+      <div>
+        <p class="sh__ask">What's happening?</p>
+        <ul class="sh__grid">
+          {problems.map((p) => <li><a href={p.href}>{p.text}</a></li>)}
+        </ul>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .sh { padding: 2.5rem 0 2rem; }
+  .sh__head { border-left: 8px solid var(--accent); padding-left: 1.25rem; margin-bottom: 1.75rem; }
+  .sh__lead { font-size: 1.15rem; color: var(--ink-soft); max-width: 40rem; }
+  .sh__cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.25rem; }
+  .sh__ask { font-weight: 800; text-transform: uppercase; letter-spacing: .08em; font-size: .85rem; color: var(--accent-dark); margin-bottom: .5rem; }
+  .sh__grid { list-style: none; padding: 0; margin: 0; display: grid; gap: .6rem; grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); }
+  .sh__grid a { display: flex; align-items: center; min-height: 3.5rem; padding: .75rem 1rem; border: 2px solid var(--line); border-radius: var(--radius); background: #fff; color: var(--ink); font-weight: 700; text-decoration: none; }
+  .sh__grid a::after { content: "›"; margin-left: auto; padding-left: .5rem; color: var(--accent); font-size: 1.4rem; line-height: 1; }
+  .sh__grid a:hover { border-color: var(--accent); }
+  @media (min-width: 52rem) { .sh { padding: 3.5rem 0 2.5rem; } }
+</style>

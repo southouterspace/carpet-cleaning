@@ -1,0 +1,65 @@
+---
+/**
+ * Woodlands plumbing hero: moss-green panel with rounded corners inset on
+ * a cream page, serif heading, and an optional village-by-age list beside
+ * it. Call button only when the phoneCalls flag is on.
+ */
+import { callNumber, formatPhone, type SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+  heading: string
+  lead: string
+  /** Village name and rough build years, shown beside the heading on the home page. */
+  villages?: { name: string; built: string; href?: string }[]
+}
+const { site, heading, lead, villages = [] } = Astro.props
+const phone = callNumber(site)
+---
+
+<section class="wh">
+  <div class="wrap">
+    <div class:list={["wh__panel", { "wh__panel--split": villages.length }]}>
+      <div>
+        <h1>{heading}</h1>
+        <p class="wh__lead">{lead}</p>
+        <div class="wh__cta">
+          {site.flags.quoteForm && <a class="wh__btn" href="#quote">Describe the problem</a>}
+          {phone && <a class="wh__btn wh__btn--alt" href={`tel:${phone}`}>Call {formatPhone(phone)}</a>}
+        </div>
+      </div>
+      {villages.length > 0 && (
+        <div class="wh__v">
+          <p class="wh__vh">When was your village built?</p>
+          <ul>
+            {villages.map((v) => (
+              <li>{v.href ? <a href={v.href}>{v.name}</a> : <span>{v.name}</span>}<span class="wh__yr">{v.built}</span></li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .wh { padding: 1.5rem 0 1rem; }
+  .wh__panel { background: var(--accent-dark); color: #fff; border-radius: 18px; padding: 2.25rem 1.5rem; }
+  .wh__panel h1 { color: #fff; }
+  .wh__lead { font-size: 1.15rem; color: #eef0dc; max-width: 38rem; }
+  .wh__cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.25rem; }
+  .wh__btn { display: inline-flex; align-items: center; min-height: 48px; padding: .7rem 1.4rem; border-radius: 999px; background: #f4f1e4; color: var(--accent-dark); font-weight: 750; text-decoration: none; border: 2px solid #f4f1e4; }
+  .wh__btn:hover, .wh__btn:focus-visible { background: #fff; }
+  .wh__btn--alt { background: transparent; color: #fff; }
+  .wh__btn--alt:hover, .wh__btn--alt:focus-visible { background: rgba(255,255,255,.12); }
+  .wh :focus-visible { outline-color: #f4f1e4; }
+  .wh__v { background: rgba(255,255,255,.08); border-radius: 12px; padding: 1.25rem; }
+  .wh__vh { font-weight: 700; margin-bottom: .5rem; }
+  .wh__v ul { list-style: none; padding: 0; margin: 0; }
+  .wh__v li { display: flex; justify-content: space-between; gap: 1rem; border-bottom: 1px solid rgba(255,255,255,.18); }
+  .wh__v li > :first-child { padding: .55rem 0; }
+  .wh__v a { color: #fff; font-weight: 650; display: inline-block; }
+  .wh__yr { color: #e2e5c8; padding: .55rem 0; }
+  .wh__panel--split { display: grid; gap: 1.75rem; }
+  @media (min-width: 54rem) { .wh__panel { padding: 3.25rem 3rem; } .wh__panel--split { grid-template-columns: 1.4fr 1fr; align-items: center; } }
+</style>

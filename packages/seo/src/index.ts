@@ -18,6 +18,15 @@ export {
 export { answerOf, formatDate, updatedOf, visibleFacts, visibleSections, withAnswers } from "./sections"
 export { DESCRIPTION_MAX, TITLE_MAX, metaDescription, metaTitle, withAreaDetail, type AreaDetail } from "./meta"
 export { AI_CRAWLERS, buildLlmsFullTxt, buildLlmsTxt, buildRobotsTxt } from "./llms"
+export {
+  BUILT_CHOICES,
+  PROPERTY_CHOICES,
+  TRADES,
+  tradeOf,
+  type QuoteField,
+  type Trade,
+  type TradeInfo,
+} from "./trades"
 export { FLAG_DEFAULTS, flagEnvName, resolveFlags, type FlagName, type Flags } from "./flags"
 
 /** The number to show and call, or undefined when calls are off or no number is set. */

@@ -1,0 +1,52 @@
+---
+/**
+ * Magnolia plumbing hero: pale teal page band with a white rounded card,
+ * small-caps heading label and, on the home page, a "city water or well?"
+ * toggle row linking to the right service. Call only with phoneCalls on.
+ */
+import { callNumber, formatPhone, type SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+  heading: string
+  lead: string
+  /** Show the water-source links (home page). */
+  sources?: boolean
+}
+const { site, heading, lead, sources = false } = Astro.props
+const phone = callNumber(site)
+---
+
+<section class="mh">
+  <div class="wrap">
+    <div class="mh__card">
+      <p class="mh__label">Magnolia · Pinehurst · Stagecoach</p>
+      <h1>{heading}</h1>
+      <p class="mh__lead">{lead}</p>
+      <div class="mh__cta">
+        {phone && <a class="btn" href={`tel:${phone}`}>Call {formatPhone(phone)}</a>}
+        {site.flags.quoteForm && <a class:list={["btn", { "btn--ghost": phone }]} href="#quote">Request a plumber</a>}
+      </div>
+      {sources && (
+        <p class="mh__src">
+          <span>Your water comes from:</span>
+          <a href="/services/leak-repair">City or utility district</a>
+          <a href="/services/well-pressure-tanks">A private well</a>
+        </p>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .mh { background: #e3f1f1; padding: 2rem 0; }
+  .mh__card { background: #fff; border-radius: 22px; padding: 2rem 1.5rem; box-shadow: 0 2px 0 #c7e2e2; }
+  .mh__label { font-variant: small-caps; letter-spacing: .1em; font-weight: 700; color: var(--accent-dark); font-size: 1.05rem; }
+  .mh__lead { font-size: 1.12rem; color: var(--ink-soft); max-width: 40rem; }
+  .mh__cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.25rem; }
+  .mh__src { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; margin: 1.5rem 0 0; padding-top: 1.25rem; border-top: 1px dashed var(--line); }
+  .mh__src span { font-weight: 700; }
+  .mh__src a { display: inline-block; padding: .5rem 1rem; border-radius: 999px; background: #e3f1f1; font-weight: 700; text-decoration: none; }
+  .mh__src a:hover { background: #c7e2e2; }
+  @media (min-width: 52rem) { .mh { padding: 3rem 0; } .mh__card { padding: 3rem; } }
+</style>

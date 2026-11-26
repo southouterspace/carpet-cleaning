@@ -1,0 +1,32 @@
+---
+/** How urgent is it? Three columns that tell people what to do now. General safety guidance only. */
+const cols = [
+  { tag: "Get out, call 911", items: ["Smoke or flames from an outlet, panel or fixture", "A downed power line", "Someone shocked or burned"] },
+  { tag: "Same day", items: ["A breaker that trips again right after resetting", "Burning smell, buzzing or a warm outlet or switch", "Half the house without power", "Water near the panel or wiring"] },
+  { tag: "Can be scheduled", items: ["Dead outlet after checking GFCIs", "New fans, lights or circuits", "EV charger, generator inlet or panel upgrade"] },
+]
+---
+
+<section class="section" aria-labelledby="tr-h">
+  <div class="wrap">
+    <h2 id="tr-h">How urgent is it?</h2>
+    <div class="tr">
+      {cols.map((c, i) => (
+        <div class:list={["tr__col", `tr__col--${i}`]}>
+          <h3>{c.tag}</h3>
+          <ul>{c.items.map((t) => <li>{t}</li>)}</ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .tr { display: grid; gap: 1rem; margin-top: 1rem; }
+  .tr__col { border: 1px solid var(--line); border-top: 6px solid var(--ink-soft); padding: 1.25rem; background: #fff; }
+  .tr__col--0 { border-top-color: #b42318; }
+  .tr__col--1 { border-top-color: var(--accent); }
+  .tr__col ul { margin: 0; padding-left: 1.2rem; }
+  .tr__col li { margin: .3rem 0; }
+  @media (min-width: 48rem) { .tr { grid-template-columns: repeat(3, 1fr); } }
+</style>

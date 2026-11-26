@@ -1,0 +1,18 @@
+/*
+ * Woodlands plumbing look: cream page, moss and pine ink, Georgia serif
+ * headings, generous 14px corners and pill buttons. Selectors start with
+ * :root to beat base styles.
+ */
+:root {
+  --ink: #1d2113;
+  --ink-soft: #4c5140;
+  --bg: #fdfcf7;
+  --bg-soft: #f3f1e6;
+  --line: #e1dfcf;
+  --radius: 14px;
+  --max: 66rem;
+}
+:root h1, :root h2, :root h3 { font-family: Georgia, "Times New Roman", serif; font-weight: 700; letter-spacing: 0; }
+:root .btn { border-radius: 999px; }
+:root .hdr { background: var(--bg); }
+:root #services .card { background: #fff; }

@@ -1,0 +1,43 @@
+---
+/**
+ * Montgomery plumbing hero: slate-blue band with a scalloped "shoreline"
+ * bottom edge, heading and lead centered-left. Call only with phoneCalls on.
+ */
+import { callNumber, formatPhone, type SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+  heading: string
+  lead: string
+}
+const { site, heading, lead } = Astro.props
+const phone = callNumber(site)
+---
+
+<section class="lk">
+  <div class="wrap">
+    <h1>{heading}</h1>
+    <p class="lk__lead">{lead}</p>
+    <div class="lk__cta">
+      {site.flags.quoteForm && <a class="lk__btn" href="#quote">Request a plumber</a>}
+      {phone && <a class="lk__btn lk__btn--line" href={`tel:${phone}`}>Call {formatPhone(phone)}</a>}
+    </div>
+  </div>
+</section>
+
+<style>
+  .lk {
+    background: var(--accent-dark); color: #fff; padding: 3rem 0 4rem; position: relative;
+    --scallop: radial-gradient(circle at 50% 100%, #fff 12px, transparent 13px);
+  }
+  .lk::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 14px; background: var(--scallop) 0 0 / 30px 14px repeat-x; }
+  .lk h1 { color: #fff; max-width: 44rem; }
+  .lk__lead { font-size: 1.15rem; color: #dbe6ee; max-width: 40rem; }
+  .lk__cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.25rem; }
+  .lk__btn { display: inline-flex; align-items: center; min-height: 48px; padding: .7rem 1.4rem; border-radius: 10px; background: #ffffff; color: var(--accent-dark); border: 2px solid #fff; font-weight: 800; text-decoration: none; }
+  .lk__btn:hover, .lk__btn:focus-visible { background: #dbe6ee; }
+  .lk__btn--line { background: transparent; color: #fff; }
+  .lk__btn--line:hover, .lk__btn--line:focus-visible { background: rgba(255,255,255,.12); }
+  .lk :focus-visible { outline-color: #fff; }
+  @media (min-width: 52rem) { .lk { padding: 4.5rem 0 5.5rem; } }
+</style>

@@ -1,0 +1,46 @@
+---
+/**
+ * Conroe AC hero: centered text on a violet-to-indigo band, with short
+ * symptom pills under the buttons. Call button only when the phoneCalls
+ * flag is on.
+ */
+import { callNumber, formatPhone, type SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+  heading: string
+  lead: string
+  /** Symptom words shown as pills (home page). */
+  signs?: string[]
+}
+const { site, heading, lead, signs = [] } = Astro.props
+const phone = callNumber(site)
+---
+
+<section class="ah">
+  <div class="wrap ah__in">
+    <h1>{heading}</h1>
+    <p class="ah__lead">{lead}</p>
+    <div class="ah__cta">
+      {phone && <a class="ah__btn" href={`tel:${phone}`}>Call {formatPhone(phone)}</a>}
+      {site.flags.quoteForm && <a class:list={["ah__btn", { "ah__btn--line": phone }]} href="#quote">Get AC help</a>}
+    </div>
+    {signs.length > 0 && <ul class="ah__signs">{signs.map((s) => <li>{s}</li>)}</ul>}
+  </div>
+</section>
+
+<style>
+  .ah { background: linear-gradient(135deg, var(--accent-dark), #1f2a5c); color: #fff; padding: 3.25rem 0; text-align: center; }
+  .ah__in { max-width: 48rem; }
+  .ah h1 { color: #fff; }
+  .ah__lead { font-size: 1.15rem; color: #e4def0; }
+  .ah__cta { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; margin-top: 1.5rem; }
+  .ah__btn { display: inline-flex; align-items: center; min-height: 48px; padding: .7rem 1.5rem; border-radius: 12px; background: #fff; color: var(--accent-dark); border: 2px solid #fff; font-weight: 800; text-decoration: none; }
+  .ah__btn:hover, .ah__btn:focus-visible { background: #ece6f6; }
+  .ah__btn--line { background: transparent; color: #fff; }
+  .ah__btn--line:hover, .ah__btn--line:focus-visible { background: rgba(255,255,255,.12); }
+  .ah :focus-visible { outline-color: #fff; }
+  .ah__signs { list-style: none; padding: 0; margin: 1.75rem 0 0; display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; }
+  .ah__signs li { border: 1px solid rgba(255,255,255,.4); border-radius: 999px; padding: .35rem .9rem; font-size: .95rem; }
+  @media (min-width: 52rem) { .ah { padding: 5rem 0 4.5rem; } }
+</style>

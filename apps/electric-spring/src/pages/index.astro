@@ -1,0 +1,34 @@
+---
+import { breadcrumbs, faqPage, pageGraph } from "@carpet/seo"
+import Facts from "@carpet/ui/Facts.astro"
+import Services from "@carpet/ui/Services.astro"
+import Faq from "@carpet/ui/Faq.astro"
+import QuoteForm from "@carpet/ui/QuoteForm.astro"
+import Page from "../components/Page.astro"
+import Hero from "../components/Hero.astro"
+import Areas from "../components/Areas.astro"
+import { site } from "../site.config"
+
+const title = `Electrician in Spring, TX | Repairs, Panels, Generators | ${site.name}`
+const description = `Electrical repairs and upgrades in Spring, TX: outlets, breakers, panel replacement, surge protection, generator hookups, EV charging and lighting. Describe the job; a local electrician replies.`
+const jsonld = pageGraph(
+  site,
+  { path: "/", title, description },
+  faqPage(site.faqs),
+  breadcrumbs(site, [{ name: "Home", path: "/" }])
+)
+---
+
+<Page site={site} title={title} description={description} path="/" jsonld={jsonld}>
+  <Hero
+    site={site}
+    paths
+    heading="Electrician in Spring, TX"
+    lead="Repairs when something stops working, and upgrades when you're adding something big. Tell us which, and a local electrician gets back to you about a time and a price."
+  />
+  <Services site={site} heading="Electrical services in Spring" />
+  <Areas site={site} />
+  <QuoteForm site={site} />
+  <Facts site={site} heading="Spring electrical work at a glance" />
+  <Faq faqs={site.faqs} heading="Spring electrician questions" />
+</Page>

@@ -1,0 +1,36 @@
+---
+import { breadcrumbs, faqPage, pageGraph } from "@carpet/seo"
+import Facts from "@carpet/ui/Facts.astro"
+import Services from "@carpet/ui/Services.astro"
+import Faq from "@carpet/ui/Faq.astro"
+import QuoteForm from "@carpet/ui/QuoteForm.astro"
+import Page from "../components/Page.astro"
+import Hero from "../components/Hero.astro"
+import PipeAge from "../components/PipeAge.astro"
+import Areas from "../components/Areas.astro"
+import { site } from "../site.config"
+
+const title = `Plumber in Conroe, TX | Leaks, Water Heaters, Drains | ${site.name}`
+const description = `Plumbing repair in Conroe, TX: burst pipes, water heaters, clogged drains, slab leaks, sewer lines and gas lines. Tell us what's wrong and a local plumber gets back to you.`
+const jsonld = pageGraph(
+  site,
+  { path: "/", title, description },
+  faqPage(site.faqs),
+  breadcrumbs(site, [{ name: "Home", path: "/" }])
+)
+---
+
+<Page site={site} title={title} description={description} path="/" jsonld={jsonld}>
+  <Hero
+    site={site}
+    shutoff
+    heading="Plumber in Conroe, TX"
+    lead="Leaks, water heaters, clogs, slab leaks and sewer lines, in older homes near downtown and new builds off I-45. Tell us what's going on and a local plumber gets back to you with a time and a price."
+  />
+  <Services site={site} heading="Plumbing repairs" />
+  <QuoteForm site={site} />
+  <PipeAge />
+  <Facts site={site} heading="Conroe plumbing at a glance" />
+  <Areas site={site} />
+  <Faq faqs={site.faqs} heading="Questions about plumbers in Conroe" />
+</Page>

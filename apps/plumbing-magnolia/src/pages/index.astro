@@ -1,0 +1,36 @@
+---
+import { breadcrumbs, faqPage, pageGraph } from "@carpet/seo"
+import Facts from "@carpet/ui/Facts.astro"
+import Services from "@carpet/ui/Services.astro"
+import Faq from "@carpet/ui/Faq.astro"
+import QuoteForm from "@carpet/ui/QuoteForm.astro"
+import Page from "../components/Page.astro"
+import Hero from "../components/Hero.astro"
+import WaterSource from "../components/WaterSource.astro"
+import Areas from "../components/Areas.astro"
+import { site } from "../site.config"
+
+const title = `Plumber in Magnolia, TX | Wells, Septic, Water Heaters | ${site.name}`
+const description = `Plumbing in Magnolia, TX for city, MUD and well homes: water heaters, leaks, drains on septic, pressure tanks, softeners and iron filters. Tell us what's wrong; a local plumber replies.`
+const jsonld = pageGraph(
+  site,
+  { path: "/", title, description },
+  faqPage(site.faqs),
+  breadcrumbs(site, [{ name: "Home", path: "/" }])
+)
+---
+
+<Page site={site} title={title} description={description} path="/" jsonld={jsonld}>
+  <Hero
+    site={site}
+    sources
+    heading="Plumber in Magnolia, TX"
+    lead="New builds on district water and acreage on a well and septic need different fixes. Tell us what's happening and a local plumber gets back to you about a time and a price."
+  />
+  <Services site={site} heading="Plumbing services" />
+  <WaterSource />
+  <QuoteForm site={site} />
+  <Areas site={site} />
+  <Faq faqs={site.faqs} heading="Magnolia plumbing questions" />
+  <Facts site={site} heading="Magnolia plumbing at a glance" />
+</Page>

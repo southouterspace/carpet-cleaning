@@ -5,7 +5,7 @@
  * loaded only after the visitor first touches the form, so it never costs
  * page-load performance.
  */
-import { callNumber, formatPhone, type SiteConfig } from "@carpet/seo"
+import { BUILT_CHOICES, PROPERTY_CHOICES, callNumber, formatPhone, tradeOf, type SiteConfig } from "@carpet/seo"
 
 interface Props {
   site: SiteConfig
@@ -15,16 +15,32 @@ interface Props {
 const { site, service } = Astro.props
 const phone = callNumber(site)
 const photos = site.flags.photoUpload
+const trade = tradeOf(site)
+const has = (f: (typeof trade.fields)[number]) => trade.fields.includes(f)
+const isCarpet = (site.trade ?? "carpet") === "carpet"
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
 ---
 
 {site.flags.quoteForm && (
 <section class="section section--soft" id="quote" aria-labelledby="quote-h">
   <div class="wrap quote">
     <div>
-      <h2 id="quote-h">Get a free quote</h2>
-      <p>Tell us about the job and a local carpet cleaner will call or text you with a price before any work starts.</p>
-      <p class="muted">The more detail you give (rooms, stairs, pets), the more accurate the quote.</p>
-      {phone && <p>Prefer to talk now? Call <a href={`tel:${phone}`}>{formatPhone(phone)}</a>.</p>}
+      <h2 id="quote-h">{isCarpet ? "Get a free quote" : "Tell us what's wrong"}</h2>
+      {isCarpet ? (
+        <>
+          <p>Tell us about the job and {trade.pro} will call or text you with a price before any work starts.</p>
+          <p class="muted">The more detail you give (rooms, stairs, pets), the more accurate the quote.</p>
+        </>
+      ) : (
+        <>
+          <p>Tell us what's going on and {trade.pro} will call or text you back to set up a time and a price. Nothing is booked until you say yes.</p>
+          <p class="muted">A clear description (what, where, since when) helps them bring the right parts.</p>
+        </>
+      )}
+      {phone && (trade.phoneFirst
+        ? <p class="qf__now">Need someone now? Call <a href={`tel:${phone}`}>{formatPhone(phone)}</a>.</p>
+        : <p>Prefer to talk now? Call <a href={`tel:${phone}`}>{formatPhone(phone)}</a>.</p>)}
+      {trade.safety && <p class="qf__safety" hidden><strong>While you wait:</strong> {trade.safety}</p>}
     </div>
     <form
       class="qf"
@@ -64,26 +80,41 @@ const photos = site.flags.photoUpload
           <option value="other">Something else</option>
         </select>
       </label>
-      <label>Rooms
-        <select name="rooms">
-          <option value="">Not sure</option>
-          <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-          <option value="6+">6 or more</option>
-        </select>
-      </label>
-      <label>Stairs
-        <select name="stairs">
-          <option value="none">No stairs</option>
-          <option value="1">1 staircase</option>
-          <option value="2+">2 or more</option>
-        </select>
-      </label>
+      {has("rooms") && (
+        <label>Rooms
+          <select name="rooms">
+            <option value="">Not sure</option>
+            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+            <option value="6+">6 or more</option>
+          </select>
+        </label>
+      )}
+      {has("stairs") && (
+        <label>Stairs
+          <select name="stairs">
+            <option value="none">No stairs</option>
+            <option value="1">1 staircase</option>
+            <option value="2+">2 or more</option>
+          </select>
+        </label>
+      )}
+      {has("property") && (
+        <label>Property
+          <select name="property">
+            {PROPERTY_CHOICES.map((c) => <option value={c.value}>{c.label}</option>)}
+          </select>
+        </label>
+      )}
+      {has("built") && (
+        <label>Year built
+          <select name="built">
+            {BUILT_CHOICES.map((c) => <option value={c.value}>{c.label}</option>)}
+          </select>
+        </label>
+      )}
       <label>When
-        <select name="timing">
-          <option value="asap">As soon as possible</option>
-          <option value="week">Within a week</option>
-          <option value="month">Within a month</option>
-          <option value="pricing">Just comparing prices</option>
+        <select name="timing" class="qf__timing">
+          {trade.timing.map((t) => <option value={t.value}>{t.label}</option>)}
         </select>
       </label>
       <label>Best way to reach you
@@ -96,12 +127,12 @@ const photos = site.flags.photoUpload
       <label class="qf__wide">Email <span class="muted qf__opt">(optional)</span>
         <input name="email" type="email" autocomplete="email" maxlength="120" />
       </label>
-      <label class="qf__check qf__wide"><input type="checkbox" name="pets" value="yes" /> Pet stains or odor</label>
-      <label class="qf__wide">Anything else <span class="muted">(stains, furniture, gate code)</span>
-        <textarea name="message" rows="3" maxlength="1000"></textarea>
+      {has("pets") && <label class="qf__check qf__wide"><input type="checkbox" name="pets" value="yes" /> {trade.petsLabel}</label>}
+      <label class="qf__wide">{isCarpet ? "Anything else" : "What's going on"} <span class="muted">({trade.messageHint})</span>
+        <textarea name="message" rows={isCarpet ? 3 : 4} maxlength="1000"></textarea>
       </label>
       {photos && (
-        <label class="qf__wide">Photos <span class="muted">(optional, up to 5: stains, rooms, rugs)</span>
+        <label class="qf__wide">Photos <span class="muted">({isCarpet ? "optional, up to 5: stains, rooms, rugs" : "optional, up to 5: the problem, labels, model plates"})</span>
           <input class="qf__photos" name="photos" type="file" accept="image/*" multiple />
           <span class="muted qf__photo-note" aria-live="polite"></span>
         </label>
@@ -115,7 +146,8 @@ const photos = site.flags.photoUpload
     <div class="qf-done" tabindex="-1" hidden>
       <p class="qf-done__icon" aria-hidden="true">✓</p>
       <h3>Request sent</h3>
-      <p>Thanks, <span class="qf-done__name"></span>. A local carpet cleaner will <span class="qf-done__how">text</span> you shortly with a price. Nothing is booked until you say yes.</p>
+      <p>Thanks, <span class="qf-done__name"></span>. {cap(trade.pro)} will <span class="qf-done__how">text</span> you {isCarpet ? "shortly with a price" : "back about a time and a price"}. Nothing is booked until you say yes.</p>
+      {trade.safety && <p class="qf-done__safety" hidden><strong>While you wait:</strong> {trade.safety}</p>}
       <p class="muted">Didn't mean to send it, or need to change something? Just reply when they reach out.</p>
     </div>
   </div>
@@ -219,6 +251,16 @@ const photos = site.flags.photoUpload
       if (phone.value) formatPhone()
       contact.addEventListener("change", syncEmail)
       syncEmail()
+      // Urgent jobs: show the safety steps next to the form and after sending.
+      const timing = form.elements.timing
+      const safety = form.parentElement.querySelectorAll(".qf__safety, .qf-done__safety")
+      const syncSafety = () => safety.forEach((el) => { el.hidden = timing.value !== "emergency" })
+      if (safety.length) { timing.addEventListener("change", syncSafety); syncSafety() }
+      // A link to /?urgent#quote preselects the emergency choice.
+      if (/[?&]urgent\b/.test(location.search) && [...timing.options].some((o) => o.value === "emergency")) {
+        timing.value = "emergency"
+        syncSafety()
+      }
       form.addEventListener("focusin", loadTurnstile, { once: true })
       form.addEventListener("submit", async (e) => {
         e.preventDefault()
@@ -327,5 +369,9 @@ const photos = site.flags.photoUpload
   .qf .qf__photos { padding: .5rem; background: var(--bg-soft); }
   .qf__photo-note { font-weight: 400; font-size: .9rem; }
   .qf__photo-note:empty { display: none; }
+  .qf__now { font-size: 1.15rem; font-weight: 700; }
+  .qf__safety, .qf-done__safety { padding: .75rem 1rem; border-radius: 8px; background: #fff7e0; border: 1px solid #e8c766; color: #3d2f00; }
+  .qf-done__safety { text-align: left; }
+  .qf__safety[hidden], .qf-done__safety[hidden] { display: none; }
 </style>
 

@@ -1,6 +1,6 @@
 ---
 /**
- * Page shell for every city site: head tags, inlined base CSS, JSON-LD,
+ * Page shell for every site: head tags, inlined base CSS, JSON-LD,
  * header, footer and the mobile click-to-call bar. Ships zero JavaScript
  * unless a page includes the quote form.
  */
@@ -9,6 +9,7 @@ import "../styles/base.css"
 import Header from "./Header.astro"
 import Footer from "./Footer.astro"
 import CallBar from "./CallBar.astro"
+import UrgentStrip from "./UrgentStrip.astro"
 
 interface Props {
   site: SiteConfig
@@ -53,6 +54,7 @@ const themeCss = `:root{--accent:${site.theme.accent};--accent-dark:${site.theme
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
+    <UrgentStrip site={site} />
     <Header site={site} />
     <main id="main">
       <slot />

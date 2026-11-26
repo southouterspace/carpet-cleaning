@@ -1,0 +1,40 @@
+---
+/**
+ * Conroe electric hero: light warm background, oversized heading with an
+ * orange underline bar, buttons stacked under it. Call button only when the
+ * phoneCalls flag is on.
+ */
+import { callNumber, formatPhone, type SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+  heading: string
+  lead: string
+  /** Small label above the heading. */
+  kicker?: string
+}
+const { site, heading, lead, kicker } = Astro.props
+const phone = callNumber(site)
+---
+
+<section class="eh">
+  <div class="wrap">
+    {kicker && <p class="eh__kick">{kicker}</p>}
+    <h1>{heading}</h1>
+    <p class="eh__lead">{lead}</p>
+    <div class="eh__cta">
+      {phone && <a class="btn" href={`tel:${phone}`}>Call {formatPhone(phone)}</a>}
+      {site.flags.quoteForm && <a class:list={["btn", { "btn--ghost": phone }]} href="#quote">Ask for an electrician</a>}
+    </div>
+  </div>
+</section>
+
+<style>
+  .eh { background: #fbf7f2; padding: 3rem 0 2.5rem; border-bottom: 1px solid var(--line); }
+  .eh__kick { text-transform: uppercase; letter-spacing: .12em; font-size: .85rem; font-weight: 800; color: var(--accent); margin-bottom: .5rem; }
+  .eh h1 { max-width: 46rem; }
+  .eh h1::after { content: ""; display: block; width: 4.5rem; height: 6px; background: var(--accent); margin-top: .9rem; }
+  .eh__lead { font-size: 1.15rem; max-width: 40rem; color: var(--ink-soft); }
+  .eh__cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.25rem; }
+  @media (min-width: 52rem) { .eh { padding: 4.5rem 0 3.5rem; } .eh h1 { font-size: 3.2rem; } }
+</style>

@@ -1,0 +1,18 @@
+/*
+ * Conroe electric look: warm off-white, charcoal ink and burnt orange,
+ * sharp corners, compact uppercase card titles. Selectors start with :root
+ * to beat base styles.
+ */
+:root {
+  --ink: #1b1b1b;
+  --ink-soft: #4b4744;
+  --bg-soft: #f7f1ea;
+  --line: #e6ddd2;
+  --radius: 2px;
+  --max: 68rem;
+}
+:root h1 { font-weight: 900; letter-spacing: -.03em; }
+:root h2 { font-weight: 850; letter-spacing: -.01em; }
+:root #services .card h3 { text-transform: uppercase; letter-spacing: .04em; font-size: 1rem; }
+:root #services .card { background: #fffdfa; }
+:root .hdr__brand { letter-spacing: .02em; text-transform: uppercase; }

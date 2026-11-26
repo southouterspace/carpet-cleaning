@@ -1,0 +1,81 @@
+---
+import type { GetStaticPaths } from "astro"
+import { answerOf, metaDescription, areaService, tradeOf, breadcrumbs, faqPage, howTos, pageGraph, updatedOf } from "@carpet/seo"
+import Updated from "@carpet/ui/Updated.astro"
+import Prose from "@carpet/ui/Prose.astro"
+import Faq from "@carpet/ui/Faq.astro"
+import QuoteForm from "@carpet/ui/QuoteForm.astro"
+import Page from "../../components/Page.astro"
+import Hero from "../../components/Hero.astro"
+import { site } from "../../site.config"
+
+export const getStaticPaths = (() =>
+  (site.areas ?? []).map((a) => ({ params: { slug: a.slug }, props: { a } }))) satisfies GetStaticPaths
+
+const { a } = Astro.props
+const path = `/areas/${a.slug}`
+const title = `Electrician in ${a.name}, Spring TX | ${site.name}`
+const answer = answerOf(site, a)
+const updated = updatedOf(site, a)
+const jsonld = pageGraph(
+  site,
+  { path, title: title, description: metaDescription(a.summary, answer), updated, answer },
+  howTos(site, path, a.sections),
+  areaService(site, a),
+  faqPage(a.faqs ?? []),
+  breadcrumbs(site, [
+    { name: "Home", path: "/" },
+    { name: a.name, path },
+  ])
+)
+const picks = new Set(a.highlight ?? [])
+const others = (site.areas ?? []).filter((o) => o.slug !== a.slug)
+---
+
+<Page site={site} title={title} description={metaDescription(a.summary, answer)} path={path} jsonld={jsonld}>
+  <Hero site={site} heading={`${tradeOf(site).service} in ${a.name}`} lead={answer ?? a.summary} />
+  <nav class="wrap crumbs" aria-label="Breadcrumb"><a href="/">Home</a> › <a href="/#areas">Service area</a> › <span>{a.name}</span></nav>
+  <section class="section">
+    <div class="wrap">
+      <h2>About {a.name}</h2>
+      <Updated date={updated} />
+      <Prose site={site} paragraphs={a.intro} sections={a.sections} level={3} />
+    </div>
+  </section>
+  <QuoteForm site={site} />
+  <section class="section" aria-labelledby="svc-h">
+    <div class="wrap">
+      <h2 id="svc-h">What we fix in {a.name}</h2>
+      <table class="st">
+        <tbody>
+          {site.services.map((s) => (
+            <tr>
+              <th scope="row"><a href={`/services/${s.slug}`}>{s.name}</a>{picks.has(s.slug) && <span class="st__tag">Popular here</span>}</th>
+              <td>{s.summary}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <Faq faqs={a.faqs ?? []} heading={`${a.name} questions`} />
+  <section class="section section--soft" aria-labelledby="oth-h">
+    <div class="wrap">
+      <h2 id="oth-h">Other {site.city} areas</h2>
+      <ul class="oth">{others.map((o) => <li><a href={`/areas/${o.slug}`}>{o.name}</a></li>)}</ul>
+    </div>
+  </section>
+</Page>
+
+<style>
+  .crumbs { padding-top: 1rem; font-size: .9rem; color: var(--ink-soft); }
+  .st { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+  .st th, .st td { text-align: left; vertical-align: top; padding: .75rem .5rem; border-bottom: 1px solid var(--line); }
+  .st th { width: 38%; font-weight: 650; }
+  .st th a { display: inline-block; padding: .15rem 0; }
+  .st td { color: var(--ink-soft); }
+  .st__tag { display: block; font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--accent-dark); margin-top: .2rem; }
+  .oth { list-style: none; padding: 0; margin: 1rem 0 0; display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; }
+  .oth a { display: inline-block; padding: .4rem 0; font-weight: 600; }
+  @media (max-width: 36rem) { .st th, .st td { display: block; width: auto; border: 0; padding: .25rem 0; } .st tr { display: block; padding: .6rem 0; border-bottom: 1px solid var(--line); } }
+</style>

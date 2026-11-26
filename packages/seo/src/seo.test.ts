@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test"
 import { metaDescription, metaTitle, withAreaDetail } from "./meta"
+import type { Area } from "./types"
 import {
   allFaqs,
   areaService,
@@ -212,6 +213,28 @@ describe("AI answer readiness", () => {
   })
 })
 
+describe("trades", () => {
+  const plumber: SiteConfig = { ...site, trade: "plumbing", name: "Test Plumber" }
+  test("carpet sites keep the generic business type", () => {
+    expect(localBusiness(site)["@type"]).toBe("HomeAndConstructionBusiness")
+  })
+  test("plumbing sites use Plumber and name plumbing in area services", () => {
+    expect(localBusiness(plumber)["@type"]).toBe("Plumber")
+    const area = { slug: "a", name: "Old Town", kind: "neighborhood" as const, summary: "s", intro: [] }
+    expect(areaService(plumber, area)).toMatchObject({ name: "Plumbing in Old Town", serviceType: "Plumbing" })
+  })
+  test("every trade's timing choices are known to the lead Worker", async () => {
+    const { TRADES } = await import("./trades")
+    const { CHOICES } = await import("../../../apps/leads/src/lead")
+    for (const t of Object.values(TRADES)) {
+      for (const opt of t.timing) expect(Object.keys(CHOICES.timing)).toContain(opt.value)
+    }
+    const { PROPERTY_CHOICES, BUILT_CHOICES } = await import("./trades")
+    for (const c of PROPERTY_CHOICES) expect(Object.keys(CHOICES.property)).toContain(c.value)
+    for (const c of BUILT_CHOICES.filter((c) => c.value)) expect(Object.keys(CHOICES.built)).toContain(c.value)
+  })
+})
+
 describe("meta tags", () => {
   test("keeps the brand when the title fits, drops it when it would be cut off", () => {
     expect(metaTitle("Carpet Cleaning Conroe TX | Conroe TX Carpet Cleaners", "Conroe TX Carpet Cleaners")).toBe(
@@ -241,7 +264,7 @@ describe("meta tags", () => {
     expect(metaDescription(long, "Another sentence.")).toBe(long)
   })
   test("appends area detail without dropping what the area already has", () => {
-    const [a] = withAreaDetail(
+    const [a] = withAreaDetail<Area>(
       [{ slug: "a", name: "A", kind: "neighborhood", summary: "", intro: [], sections: [{ heading: "One", paragraphs: [] }] }],
       { a: { sections: [{ heading: "Two", paragraphs: [] }], faqs: [{ q: "Q", a: "A" }] } }
     )

@@ -1,0 +1,44 @@
+---
+import { breadcrumbs, faqPage, pageGraph } from "@carpet/seo"
+import Facts from "@carpet/ui/Facts.astro"
+import Services from "@carpet/ui/Services.astro"
+import Faq from "@carpet/ui/Faq.astro"
+import QuoteForm from "@carpet/ui/QuoteForm.astro"
+import Page from "../components/Page.astro"
+import Hero from "../components/Hero.astro"
+import StormNote from "../components/StormNote.astro"
+import Areas from "../components/Areas.astro"
+import { site } from "../site.config"
+
+const title = `Plumber in Spring, TX | Sewer Backups, Water Heaters, Leaks | ${site.name}`
+const description = `Plumbing repair in Spring, TX: sewer backups in heavy rain, water heaters, leaks and slab leaks, clogged drains and frozen pipes. Tell us what's happening; a local plumber replies.`
+const jsonld = pageGraph(
+  site,
+  { path: "/", title, description },
+  faqPage(site.faqs),
+  breadcrumbs(site, [{ name: "Home", path: "/" }])
+)
+const problems = [
+  { text: "Sewage coming up a drain", href: "/services/sewer-backups" },
+  { text: "No hot water", href: "/services/water-heater-service" },
+  { text: "Water bill jumped", href: "/services/leak-repair" },
+  { text: "Sink or tub won't drain", href: "/services/drain-cleaning" },
+  { text: "Pipe burst", href: "/services/emergency-plumbing" },
+  { text: "Toilet keeps running", href: "/services/fixtures" },
+]
+---
+
+<Page site={site} title={title} description={description} path="/" jsonld={jsonld}>
+  <Hero
+    site={site}
+    heading="Plumber in Spring, TX"
+    lead="From storm-season sewer backups to a water heater that quit this morning. Tell us what's happening and a local plumber gets back to you about a time and a price."
+    problems={problems}
+  />
+  <QuoteForm site={site} />
+  <Services site={site} heading="Plumbing services in Spring" />
+  <StormNote />
+  <Areas site={site} />
+  <Facts site={site} heading="Spring plumbing at a glance" />
+  <Faq faqs={site.faqs} heading="Spring plumbing questions" />
+</Page>

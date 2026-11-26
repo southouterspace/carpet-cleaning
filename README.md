@@ -1,6 +1,8 @@
-# Carpet cleaning city sites
+# Local service sites (rank-and-rent)
 
-A monorepo of standalone carpet cleaning websites, one per town, built to rank in local search, read cleanly to AI agents, and turn visits into calls and quote requests. Each site is rented to a local cleaner (rank-and-rent).
+A monorepo of standalone local service websites, one per trade and town, built to rank in local search, read cleanly to AI agents, and turn visits into calls and quote requests. Each site is rented to a local business (rank-and-rent).
+
+It started with carpet cleaning, which is why the repo, package scope (`@carpet/*`) and lead Worker (`carpet-cleaning-leads`) carry that name. Renaming them would touch every import and the live Workers for no visitor-facing gain, so they stay. Sites now cover five trades, set by `trade` in each `site.config.ts`: `carpet` (the default), `plumbing`, `electrical`, `hvac` and `garage-door`. The trade picks the schema.org business type, the quote-form fields, how the pro is named in shared copy and whether the site is phone-first (`packages/seo/src/trades.ts`).
 
 Everything runs on Cloudflare: each site is a static Astro build served by Workers static assets, and one shared Worker takes quote requests and stores them in D1.
 
@@ -15,6 +17,17 @@ apps/
   willis/        Willis site: williscarpetcleaning.com
   tomball/       Tomball site: tomballtxcarpetcleaning.com
   spring/        Spring site: springtxcarpetcleaners.com
+  plumbing-conroe/     Conroe plumber: conroetxplumber.com
+  electric-conroe/     Conroe electrician: conroetxelectric.com
+  plumbing-woodlands/  The Woodlands plumber: woodlandstxplumber.com
+  plumbing-spring/     Spring plumber: springtexasplumber.com
+  hvac-conroe/         Conroe AC repair: conroetxac.com
+  electric-woodlands/  The Woodlands electrician: woodlandstxelectrician.com
+  electric-spring/     Spring electrician: springtxelectric.com
+  plumbing-magnolia/   Magnolia plumber: magnoliatxplumbing.com
+  plumbing-montgomery/ Montgomery plumber: montgomerytxplumber.com
+  plumbing-willis/     Willis plumber: willisplumber.com
+  garage-conroe/       Conroe garage door repair: conroetxgaragedoor.com
   leads/         Shared lead Worker: validates, stores in D1, emails the renter
   schedule/      Cleaner scheduling app (Worker + D1). Not deployed yet; see its README
 packages/
@@ -26,7 +39,7 @@ Each site's content lives in one file, `apps/<site>/src/site.config.ts`. Pages, 
 
 ## How a lead flows
 
-1. A visitor submits the quote form: contact details plus rooms, stairs, pets and timing, so a cleaner can price the job before calling back. Sites are form-only for now; the phone number shows only when a site turns on the `phoneCalls` flag (docs/flags.md), for when a renter's forwarding number rings them directly.
+1. A visitor submits the quote form: contact details plus the trade's details (rooms, stairs and pets for carpet; property, year built and urgency for repair trades), so the pro can price or plan the job before calling back. Picking "Emergency" flags the lead email as URGENT and shows the trade's safety steps. Sites are form-only for now; the phone number shows only when a site turns on the `phoneCalls` flag (docs/flags.md), for when a renter's forwarding number rings them directly.
 2. The form posts same-origin to `/api/lead`. The site's tiny edge Worker (`apps/<site>/worker.ts`) hands `/api/*` to the `carpet-cleaning-leads` Worker through a service binding; every other request is served straight from static assets.
 3. `carpet-cleaning-leads` checks the honeypot and Turnstile, saves the lead in D1, and emails the renter and you through Cloudflare Email Service.
 4. Without JavaScript the form still works: the Worker redirects to `/thanks`.

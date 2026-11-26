@@ -17,10 +17,12 @@ interface SiteRow {
   domain: string
   name: string
   renter_email: string | null
+  /** carpet | plumbing | electrical | hvac | garage-door */
+  trade: string | null
 }
 
 /**
- * Lead intake for every city site. Reached only through each site's service
+ * Lead intake for every site (carpet, plumbing, electrical, AC, garage door). Reached only through each site's service
  * binding at POST /api/lead, so requests arrive same-origin from the site.
  */
 export default {
@@ -58,7 +60,7 @@ export default {
     if (!picked.ok) return reply(400, { ok: false, error: picked.error })
 
     const site = await env.DB.prepare(
-      "SELECT id, domain, name, renter_email FROM sites WHERE id = ? AND active = 1"
+      "SELECT id, domain, name, renter_email, trade FROM sites WHERE id = ? AND active = 1"
     )
       .bind(lead.site)
       .first<SiteRow>()
@@ -91,8 +93,8 @@ export default {
     }
     await env.DB.prepare(
       `INSERT INTO leads (id, site_id, name, phone, email, contact, zip, service,
-         rooms, stairs, pets, timing, message, page, user_agent, country, photos)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+         rooms, stairs, pets, timing, property, built, message, page, user_agent, country, photos)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     )
       .bind(
         id,
@@ -107,6 +109,8 @@ export default {
         lead.stairs,
         lead.pets ? 1 : 0,
         lead.timing,
+        lead.property,
+        lead.built,
         lead.message,
         lead.page,
         request.headers.get("User-Agent")?.slice(0, 300) ?? null,
@@ -170,7 +174,7 @@ async function notify(env: Env, site: SiteRow, lead: Lead, id: string, photoUrls
   }
   // Tell the customer we got it, so they aren't left wondering.
   if (lead.email) {
-    const mail = confirmationEmail(lead, site.name)
+    const mail = confirmationEmail(lead, site.name, site.trade)
     try {
       await env.EMAIL.send({ to: lead.email, from, subject: mail.subject, text: mail.text, html: mail.html })
     } catch (err) {

@@ -1,0 +1,25 @@
+---
+/** Village pages as a numbered list beside the rest of the service area. */
+import type { SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+}
+const { site } = Astro.props
+---
+
+<section class="section" id="areas" aria-labelledby="areas-h">
+  <div class="wrap">
+    <h2 id="areas-h">Villages we write about</h2>
+    <ol class="va">
+      {(site.areas ?? []).map((a) => <li><a href={`/areas/${a.slug}`}>{a.name}</a> <span class="muted">{a.summary}</span></li>)}
+    </ol>
+    <p>We also cover the rest of The Woodlands and {site.serviceArea.towns.filter((t) => t !== site.city).join(", ")}. ZIP codes {site.serviceArea.zips.join(", ")}.</p>
+  </div>
+</section>
+
+<style>
+  .va { padding-left: 1.4rem; margin: 1rem 0 1.25rem; }
+  .va li { margin: .6rem 0; }
+  .va a { font-weight: 800; display: inline-block; padding: .2rem 0; }
+</style>

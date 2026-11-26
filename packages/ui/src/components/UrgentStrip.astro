@@ -1,0 +1,32 @@
+---
+/**
+ * Thin call strip above the header for phone-first trades (plumbing,
+ * electrical, AC, garage doors). Renders only when the phoneCalls flag is on
+ * and a number is set, so a form-only site ships nothing here. It never
+ * claims 24/7 service; that's the renter's promise to make in site copy.
+ */
+import { callNumber, formatPhone, tradeOf, type SiteConfig } from "@carpet/seo"
+
+interface Props {
+  site: SiteConfig
+}
+const { site } = Astro.props
+const phone = callNumber(site)
+const trade = tradeOf(site)
+---
+
+{phone && trade.phoneFirst && (
+  <div class="urgent">
+    <p class="wrap urgent__in">
+      <span>{trade.service} problem that can't wait?</span>
+      <a href={`tel:${phone}`}>Call {formatPhone(phone)}</a>
+    </p>
+  </div>
+)}
+
+<style>
+  .urgent { background: var(--accent-dark); color: #fff; }
+  .urgent__in { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .25rem 1rem; margin: 0; min-height: 2.75rem; font-weight: 600; text-align: center; }
+  .urgent a { color: #fff; font-weight: 800; display: inline-block; padding: .55rem 0; }
+  .urgent a:focus-visible { outline-color: #fff; }
+</style>

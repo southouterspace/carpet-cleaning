@@ -1,0 +1,17 @@
+/*
+ * Conroe plumbing look: deep water blue and safety yellow, square 4px corners,
+ * heavy headings, cards with a left rule. Selectors start with :root to
+ * beat base styles.
+ */
+:root {
+  --ink: #0d1824;
+  --ink-soft: #3f5157;
+  --bg-soft: #eef3f9;
+  --line: #d3dfec;
+  --radius: 4px;
+  --max: 72rem;
+}
+:root h1 { font-weight: 850; letter-spacing: -.02em; }
+:root h2 { font-weight: 800; }
+:root #services .card { border-left: 5px solid var(--accent); }
+:root .hdr { border-bottom: 3px solid #ffc93c; }

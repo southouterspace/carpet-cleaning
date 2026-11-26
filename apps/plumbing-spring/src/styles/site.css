@@ -1,0 +1,18 @@
+/*
+ * Spring plumbing look: white page with crimson accents, slate ink,
+ * 8px corners, a gray header band and services as bordered rows.
+ * Selectors start with :root to beat base styles.
+ */
+:root {
+  --ink: #1e1a1d;
+  --ink-soft: #4f474c;
+  --bg-soft: #f6f2f3;
+  --line: #e7dde0;
+  --radius: 8px;
+  --max: 70rem;
+}
+:root h1 { font-weight: 800; letter-spacing: -.015em; }
+:root h2 { font-weight: 800; }
+:root .hdr { background: var(--bg-soft); }
+:root #services .grid { grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); }
+:root #services .card { border-width: 0 0 0 4px; border-color: var(--accent); border-radius: 0; background: var(--bg-soft); }
