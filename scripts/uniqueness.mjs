@@ -17,7 +17,7 @@
  * Usage: bun scripts/uniqueness.mjs [--report] [site ...]
  * --report also lists every page with its share and count of own text.
  */
-import { readdirSync, readFileSync, statSync } from "node:fs"
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs"
 import { join, relative } from "node:path"
 
 const CROSS_MAX = 0.25
@@ -84,7 +84,11 @@ function jaccard(a, b) {
 }
 
 const sites = readdirSync(join(root, "apps")).filter(
-  (s) => s !== "leads" && (!only.length || only.includes(s)) && statSync(join(root, "apps", s)).isDirectory()
+  (s) =>
+    (!only.length || only.includes(s)) &&
+    statSync(join(root, "apps", s)).isDirectory() &&
+    // Only Astro sites; Workers such as leads and schedule have no pages to compare.
+    existsSync(join(root, "apps", s, "astro.config.mjs"))
 )
 
 const pages = []
