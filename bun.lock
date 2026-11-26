@@ -68,6 +68,15 @@
         "wrangler": "^4.160.1",
       },
     },
+    "apps/schedule": {
+      "name": "@carpet/schedule",
+      "devDependencies": {
+        "@cloudflare/workers-types": "^5.20261112.1",
+        "@types/bun": "^1.4.4",
+        "typescript": "5",
+        "wrangler": "^4.160.1",
+      },
+    },
     "apps/spring": {
       "name": "@carpet/spring",
       "dependencies": {
@@ -239,6 +248,8 @@
     "@carpet/magnolia": ["@carpet/magnolia@workspace:apps/magnolia"],
 
     "@carpet/montgomery": ["@carpet/montgomery@workspace:apps/montgomery"],
+
+    "@carpet/schedule": ["@carpet/schedule@workspace:apps/schedule"],
 
     "@carpet/seo": ["@carpet/seo@workspace:packages/seo"],
 

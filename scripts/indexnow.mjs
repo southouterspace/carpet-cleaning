@@ -18,7 +18,7 @@ import { join } from "node:path"
 const root = new URL("..", import.meta.url).pathname
 const only = process.argv.slice(2)
 const sites = readdirSync(join(root, "apps")).filter(
-  (a) => a !== "leads" && (only.length === 0 || only.includes(a)),
+  (a) => a !== "leads" && a !== "schedule" && (only.length === 0 || only.includes(a)),
 )
 
 for (const app of sites) {
